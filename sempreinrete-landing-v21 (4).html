@@ -1,0 +1,1628 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sempre in Rete — Il tuo negozio Wind Tre a Vasto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://www.youtube.com/iframe_api"></script>
+<style>
+:root {
+  --orange: #E8541E;
+  --orange-dark: #C43D0A;
+  --dark: #1A1A1A;
+  --dark-2: #2D2D2D;
+  --mid: #5A5A5A;
+  --light: #F5F3F0;
+  --white: #FFFFFF;
+  --border: #E8E4DF;
+  --font-display: 'Barlow Condensed', sans-serif;
+  --font-body: 'Barlow', sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);color:var(--dark);background:var(--white);overflow-x:hidden}
+
+/* URGENCY BANNER */
+.urgency-banner{background:var(--dark);color:var(--white);text-align:center;padding:10px 20px;font-family:var(--font-body);font-weight:600;font-size:.88rem;letter-spacing:.02em;position:relative;z-index:100}
+.urgency-banner span{color:var(--orange);font-weight:800}
+
+/* NAVBAR */
+.navbar{position:fixed;top:0;left:0;right:0;z-index:999;background:var(--white);border-bottom:2px solid var(--border);padding:0 5%;display:flex;align-items:center;justify-content:space-between;height:68px;transition:transform .35s ease,box-shadow .35s ease}
+.navbar.hidden{transform:translateY(-100%)}
+.navbar.scrolled{box-shadow:0 4px 20px rgba(0,0,0,.08)}
+.nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.nav-logo img{height:42px;width:auto}
+.nav-logo-badge{background:var(--orange);color:white;font-size:.58rem;font-weight:800;padding:3px 8px;border-radius:3px;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+.nav-cta{background:var(--orange);color:white;text-decoration:none;font-weight:700;font-size:.88rem;padding:11px 22px;border-radius:6px;letter-spacing:.03em;text-transform:uppercase;transition:background .2s,transform .2s;display:flex;align-items:center;gap:8px;white-space:nowrap}
+.nav-cta:hover{background:var(--orange-dark);transform:translateY(-1px)}
+
+/* HERO */
+.hero{padding-top:68px;min-height:100vh;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;background:var(--dark)}
+.hero-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1?w=1600&q=80');background-size:cover;background-position:center;opacity:.15;filter:saturate(.3) blur(1px)}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(26,26,26,.97) 0%,rgba(26,26,26,.85) 50%,rgba(232,84,30,.12) 100%)}
+.hero-inner{position:relative;z-index:2;max-width:1200px;margin:0 auto;padding:80px 5% 60px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(232,84,30,.15);border:1px solid var(--orange);color:var(--orange);font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;border-radius:4px;margin-bottom:24px}
+.hero-tag::before{content:'';width:7px;height:7px;background:var(--orange);border-radius:50%;animation:pulse-dot 1.5s ease-in-out infinite;flex-shrink:0}
+@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+.hero-h1{font-family:var(--font-display);font-weight:900;font-size:clamp(3rem,5vw,4.8rem);line-height:.95;color:var(--white);text-transform:uppercase;letter-spacing:-.01em;margin-bottom:24px}
+.hero-h1 em{font-style:normal;color:var(--orange)}
+.hero-sub{font-size:1.05rem;line-height:1.65;color:rgba(255,255,255,.72);margin-bottom:40px;max-width:480px}
+.hero-sub strong{color:rgba(255,255,255,.95)}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:50px}
+.btn-primary{display:inline-flex;align-items:center;gap:10px;background:var(--orange);color:white;text-decoration:none;font-weight:700;font-size:1rem;padding:16px 28px;border-radius:7px;transition:background .2s,transform .2s,box-shadow .2s;box-shadow:0 4px 20px rgba(232,84,30,.4)}
+.btn-primary:hover{background:var(--orange-dark);transform:translateY(-2px);box-shadow:0 8px 30px rgba(232,84,30,.5)}
+.btn-secondary{display:inline-flex;align-items:center;gap:8px;background:transparent;color:white;text-decoration:none;font-weight:600;font-size:1rem;padding:16px 22px;border-radius:7px;border:1.5px solid rgba(255,255,255,.25);transition:border-color .2s,background .2s}
+.btn-secondary:hover{border-color:rgba(255,255,255,.6);background:rgba(255,255,255,.06)}
+.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.1);border-radius:10px;overflow:hidden}
+.stat-item{background:rgba(255,255,255,.04);padding:22px 18px;text-align:center}
+.stat-num{font-family:var(--font-display);font-weight:900;font-size:2.2rem;color:var(--orange);line-height:1;display:block;margin-bottom:6px}
+.stat-label{font-size:.78rem;color:rgba(255,255,255,.55);font-weight:500;line-height:1.3}
+.hero-right{position:relative}
+.hero-img-card{border-radius:14px;overflow:hidden;position:relative;aspect-ratio:4/5;box-shadow:0 30px 80px rgba(0,0,0,.5)}
+.hero-img-card img{width:100%;height:100%;object-fit:cover;filter:saturate(.9)}
+.hero-img-badge{position:absolute;bottom:24px;left:24px;right:24px;background:rgba(26,26,26,.92);backdrop-filter:blur(12px);border:1px solid rgba(232,84,30,.4);border-radius:10px;padding:16px 20px;display:flex;align-items:center;gap:14px}
+.hero-img-badge-icon{width:42px;height:42px;background:var(--orange);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.hero-img-badge-text{font-size:.85rem;color:rgba(255,255,255,.9);line-height:1.4}
+.hero-img-badge-text strong{color:white;display:block;font-size:1rem}
+
+/* COUNTER */
+.counter-section{background:var(--orange);padding:48px 5%}
+.counter-inner{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:40px;text-align:center}
+.counter-num{font-family:var(--font-display);font-weight:900;font-size:clamp(2.5rem,4vw,3.8rem);color:white;line-height:1;display:block}
+.counter-label{font-size:.88rem;color:rgba(255,255,255,.8);font-weight:500;margin-top:6px;line-height:1.4}
+
+/* PROOF BAR */
+.proof-bar{background:var(--dark);padding:18px 0;overflow:hidden;position:relative}
+.proof-bar::before,.proof-bar::after{content:'';position:absolute;top:0;width:120px;height:100%;z-index:2}
+.proof-bar::before{left:0;background:linear-gradient(to right,var(--dark),transparent)}
+.proof-bar::after{right:0;background:linear-gradient(to left,var(--dark),transparent)}
+.proof-track{display:flex;gap:0;white-space:nowrap;animation:scroll-left 28s linear infinite;width:max-content}
+@keyframes scroll-left{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.proof-item{display:inline-flex;align-items:center;gap:12px;padding:0 36px;font-family:var(--font-display);font-weight:700;font-size:.9rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+.proof-item .dot{width:5px;height:5px;background:var(--orange);border-radius:50%;flex-shrink:0}
+
+/* SECTIONS */
+section{padding:100px 5%}
+.section-tag{display:inline-block;font-family:var(--font-body);font-weight:700;font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:var(--orange);margin-bottom:18px}
+.section-title{font-family:var(--font-display);font-weight:900;font-size:clamp(2rem,3.5vw,3.2rem);line-height:1.05;text-transform:uppercase;letter-spacing:-.01em;margin-bottom:20px}
+.section-sub{font-size:1.05rem;color:var(--mid);line-height:1.7;max-width:560px;margin-bottom:50px}
+.section-cta-wrap{text-align:center;margin-top:50px}
+
+/* PROBLEMA */
+#problema{background:var(--light)}
+.drama-box{max-width:1100px;margin:0 auto 60px;background:var(--dark);border-radius:14px;overflow:hidden;display:grid;grid-template-columns:1fr 1fr}
+.drama-col{padding:50px 48px}
+.drama-col.bad{background:var(--dark-2);border-right:2px solid var(--orange)}
+.drama-label{font-family:var(--font-display);font-weight:900;font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:8px}
+.drama-col.bad .drama-label{color:rgba(255,255,255,.4)}
+.drama-col.good .drama-label{color:var(--orange)}
+.drama-scenario{font-size:1.05rem;color:rgba(255,255,255,.75);line-height:1.7}
+.drama-scenario strong{color:white}
+.drama-highlight{margin-top:20px;font-family:var(--font-display);font-weight:900;font-size:2rem;line-height:1.1}
+.drama-col.bad .drama-highlight{color:rgba(255,255,255,.3)}
+.drama-col.good .drama-highlight{color:var(--orange)}
+.problem-cards{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.problem-card{background:var(--white);border-radius:12px;padding:36px 32px;border:1px solid var(--border);border-top:4px solid var(--orange)}
+.problem-card-num{font-family:var(--font-display);font-weight:900;font-size:3rem;color:rgba(232,84,30,.12);line-height:1;margin-bottom:16px}
+.problem-card h3{font-family:var(--font-display);font-weight:800;font-size:1.2rem;text-transform:uppercase;margin-bottom:12px}
+.problem-card p{font-size:.95rem;color:var(--mid);line-height:1.65}
+.problem-card .fact{margin-top:18px;padding:12px 16px;background:var(--light);border-radius:7px;font-size:.85rem;font-weight:700;color:var(--orange)}
+
+/* SOLUZIONE */
+#soluzione{background:var(--white)}
+.soluzione-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1.1fr 1fr;gap:60px;align-items:start}
+.soluzione-features{display:flex;flex-direction:column;gap:28px;margin-top:30px}
+.feature-row{display:flex;gap:20px;align-items:flex-start}
+.feature-num{font-family:var(--font-display);font-weight:900;font-size:2.5rem;color:var(--orange);line-height:1;flex-shrink:0;width:48px}
+.feature-content h4{font-family:var(--font-display);font-weight:800;font-size:1.05rem;text-transform:uppercase;margin-bottom:6px}
+.feature-content p{font-size:.92rem;color:var(--mid);line-height:1.6}
+.soluzione-img{border-radius:14px;overflow:hidden;margin-bottom:28px}
+.soluzione-img img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.value-card{background:var(--dark);border-radius:14px;padding:36px 32px;color:white}
+.value-card-title{font-family:var(--font-display);font-weight:900;font-size:1.4rem;text-transform:uppercase;margin-bottom:6px;color:var(--orange)}
+.value-card-sub{font-size:.88rem;color:rgba(255,255,255,.55);margin-bottom:24px}
+.value-card ul{list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:28px}
+.value-card ul li{display:flex;gap:10px;align-items:flex-start;font-size:.92rem;color:rgba(255,255,255,.82);line-height:1.45}
+.value-card ul li::before{content:'v';color:var(--orange);font-weight:800;flex-shrink:0;margin-top:1px}
+.value-card .btn-primary{width:100%;justify-content:center;margin-bottom:14px}
+.value-card .guarantee{font-size:.78rem;color:rgba(255,255,255,.4);text-align:center;line-height:1.5}
+
+/* QUIZ */
+#quiz{background:var(--dark);padding:100px 5%}
+.quiz-wrap{max-width:720px;margin:0 auto}
+#quiz .section-tag{color:var(--orange)}
+#quiz .section-title{color:white}
+#quiz .section-sub{color:rgba(255,255,255,.6)}
+.quiz-card{background:var(--dark-2);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:44px 48px;position:relative}
+.quiz-steps{display:none;animation:qfadein .3s ease}
+.quiz-steps.active{display:block}
+@keyframes qfadein{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.quiz-topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;gap:16px}
+.quiz-progress{display:flex;gap:6px;flex:1}
+.quiz-progress-dot{height:4px;flex:1;background:rgba(255,255,255,.1);border-radius:2px;transition:background .4s}
+.quiz-progress-dot.done{background:var(--orange)}
+.quiz-back-btn{background:none;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.5);font-family:var(--font-body);font-size:.8rem;font-weight:600;padding:7px 14px;border-radius:6px;cursor:pointer;transition:border-color .2s,color .2s;white-space:nowrap;display:flex;align-items:center;gap:6px}
+.quiz-back-btn:hover{border-color:rgba(255,255,255,.4);color:rgba(255,255,255,.85)}
+.quiz-back-btn.hidden{visibility:hidden;pointer-events:none}
+.quiz-step-label{font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);margin-bottom:12px;display:block}
+.quiz-question{font-family:var(--font-display);font-weight:800;font-size:1.55rem;text-transform:uppercase;margin-bottom:28px;color:white;line-height:1.1}
+.quiz-options{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.quiz-option{background:rgba(255,255,255,.04);border:2px solid rgba(255,255,255,.1);border-radius:12px;padding:18px 20px;cursor:pointer;transition:border-color .2s,background .2s,transform .15s;text-align:left;font-family:var(--font-body);font-size:.93rem;font-weight:600;color:rgba(255,255,255,.85);display:flex;align-items:center;gap:14px}
+.quiz-option:hover{border-color:var(--orange);background:rgba(232,84,30,.08);transform:translateY(-2px);color:white}
+.quiz-option.selected{border-color:var(--orange);background:rgba(232,84,30,.12);color:white}
+.quiz-option-icon{font-size:1.5rem;flex-shrink:0;line-height:1}
+.quiz-option small{color:rgba(255,255,255,.45);font-weight:400;font-size:.8rem;display:block;margin-top:3px}
+/* name step */
+.quiz-name-wrap{display:flex;flex-direction:column;gap:14px}
+.quiz-name-input{background:rgba(255,255,255,.06);border:2px solid rgba(255,255,255,.12);border-radius:10px;padding:16px 20px;font-family:var(--font-body);font-size:1.05rem;font-weight:600;color:white;width:100%;outline:none;transition:border-color .2s}
+.quiz-name-input::placeholder{color:rgba(255,255,255,.3);font-weight:400}
+.quiz-name-input:focus{border-color:var(--orange)}
+.quiz-name-continue{background:var(--orange);color:white;border:none;padding:16px 32px;border-radius:8px;font-family:var(--font-body);font-weight:700;font-size:1rem;cursor:pointer;transition:background .2s,transform .2s;display:inline-flex;align-items:center;gap:10px;align-self:flex-start}
+.quiz-name-continue:hover{background:var(--orange-dark);transform:translateY(-2px)}
+/* result */
+.quiz-result{display:none;animation:qfadein .4s ease}
+.quiz-result.active{display:block}
+.quiz-result-header{text-align:center;margin-bottom:36px}
+.quiz-result-emoji{font-size:2.8rem;margin-bottom:16px;display:block}
+.quiz-result-greeting{font-size:1.1rem;color:rgba(255,255,255,.7);margin-bottom:12px;line-height:1.5}
+.quiz-result-greeting strong{color:white}
+.quiz-result-offer-name{font-family:var(--font-display);font-weight:900;font-size:2.4rem;text-transform:uppercase;color:var(--orange);line-height:1;margin-bottom:10px}
+.quiz-result-desc{font-size:.95rem;color:rgba(255,255,255,.6);line-height:1.65;max-width:520px;margin:0 auto}
+.quiz-message-box{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:28px 32px;margin:30px 0}
+.quiz-message-box-label{font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.quiz-message-box-label::before{content:'';display:inline-block;width:6px;height:6px;background:var(--orange);border-radius:50%}
+.quiz-message-preview{background:rgba(255,255,255,.06);border-radius:10px;padding:20px 22px;font-size:.9rem;color:rgba(255,255,255,.8);line-height:1.7;font-family:var(--font-body);white-space:pre-wrap;word-break:break-word;border-left:3px solid var(--orange)}
+.quiz-wa-btn{display:flex;align-items:center;justify-content:center;gap:12px;background:#25D366;color:white;text-decoration:none;font-weight:700;font-size:1.08rem;padding:20px 36px;border-radius:10px;transition:background .2s,transform .2s,box-shadow .2s;box-shadow:0 6px 30px rgba(37,211,102,.3);width:100%;text-align:center;margin-bottom:14px}
+.quiz-wa-btn:hover{background:#1ea655;transform:translateY(-2px);box-shadow:0 10px 40px rgba(37,211,102,.45)}
+.quiz-wa-sub{font-size:.8rem;color:rgba(255,255,255,.35);text-align:center;line-height:1.5;margin-bottom:24px}
+.quiz-reset{background:none;border:none;color:rgba(255,255,255,.35);font-size:.82rem;cursor:pointer;text-decoration:underline;font-family:var(--font-body);display:block;margin:0 auto}
+.quiz-reset:hover{color:rgba(255,255,255,.65)}
+
+/* COME FUNZIONA */
+#come-funziona{background:var(--dark);padding:100px 5%}
+#come-funziona .section-title{color:white}
+#come-funziona .section-sub{color:rgba(255,255,255,.6)}
+.steps-wrap{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(255,255,255,.08);border-radius:14px;overflow:hidden}
+.step-item{background:var(--dark);padding:50px 40px;position:relative}
+.step-num{font-family:var(--font-display);font-weight:900;font-size:5rem;color:rgba(232,84,30,.15);line-height:1;position:absolute;top:28px;right:28px}
+.step-icon{font-size:2.2rem;margin-bottom:20px;display:block}
+.step-title{font-family:var(--font-display);font-weight:800;font-size:1.25rem;text-transform:uppercase;color:white;margin-bottom:12px}
+.step-desc{font-size:.93rem;color:rgba(255,255,255,.6);line-height:1.65}
+
+/* TESTIMONIANZE */
+#testimonianze{background:var(--light)}
+.testi-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.testi-card{background:var(--white);border-radius:12px;padding:36px 30px;border:1px solid var(--border);display:flex;flex-direction:column;gap:20px}
+.testi-stars{display:flex;gap:3px;color:#F59E0B;font-size:1rem}
+.testi-text{font-size:.98rem;color:var(--dark);line-height:1.7;flex:1;font-style:italic}
+.testi-author{display:flex;align-items:center;gap:14px;border-top:1px solid var(--border);padding-top:20px}
+.testi-avatar{width:46px;height:46px;border-radius:50%;background:var(--orange);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:900;font-size:1.2rem;color:white;flex-shrink:0}
+.testi-name{font-weight:700;font-size:.92rem;color:var(--dark);margin-bottom:3px}
+.testi-meta{font-size:.78rem;color:var(--mid)}
+
+/* FAQ */
+#faq{background:var(--white)}
+.faq-wrap{max-width:780px;margin:0 auto}
+.faq-item{border-bottom:1px solid var(--border)}
+.faq-q{width:100%;background:none;border:none;padding:26px 0;display:flex;justify-content:space-between;align-items:center;gap:20px;cursor:pointer;text-align:left;font-family:var(--font-body);font-weight:700;font-size:1.02rem;color:var(--dark);transition:color .2s}
+.faq-q:hover{color:var(--orange)}
+.faq-q.open{color:var(--orange)}
+.faq-icon{width:28px;height:28px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;transition:border-color .2s,transform .3s;color:var(--mid)}
+.faq-q.open .faq-icon{border-color:var(--orange);color:var(--orange);transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s ease;font-size:.97rem;color:var(--mid);line-height:1.7}
+.faq-a.open{max-height:300px;padding-bottom:26px}
+
+/* CTA FINALE */
+#contattaci{background:var(--dark);padding:100px 5%;text-align:center;position:relative;overflow:hidden}
+.cta-bg-img{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1400&q=80');background-size:cover;background-position:center;opacity:.08}
+.cta-inner{position:relative;z-index:2;max-width:700px;margin:0 auto}
+#contattaci .section-title{color:white;font-size:clamp(2.4rem,4vw,4rem);margin-bottom:20px}
+.cta-sub{font-size:1.08rem;color:rgba(255,255,255,.65);line-height:1.7;margin-bottom:50px}
+.cta-buttons{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-bottom:40px}
+.btn-wa{display:inline-flex;align-items:center;gap:12px;background:#25D366;color:white;text-decoration:none;font-weight:700;font-size:1.1rem;padding:20px 36px;border-radius:10px;transition:background .2s,transform .2s,box-shadow .2s;box-shadow:0 6px 30px rgba(37,211,102,.35)}
+.btn-wa:hover{background:#1ea655;transform:translateY(-3px);box-shadow:0 12px 40px rgba(37,211,102,.45)}
+.btn-call{display:inline-flex;align-items:center;gap:12px;background:var(--orange);color:white;text-decoration:none;font-weight:700;font-size:1.1rem;padding:20px 36px;border-radius:10px;transition:background .2s,transform .2s,box-shadow .2s;box-shadow:0 6px 30px rgba(232,84,30,.35)}
+.btn-call:hover{background:var(--orange-dark);transform:translateY(-3px);box-shadow:0 12px 40px rgba(232,84,30,.45)}
+.cta-reassure{display:flex;justify-content:center;flex-wrap:wrap;gap:8px 24px}
+.reassure-item{display:flex;align-items:center;gap:7px;font-size:.83rem;color:rgba(255,255,255,.5);font-weight:500}
+.reassure-item::before{content:'v';color:var(--orange)}
+
+/* SOCIAL STRIP */
+.social-strip{background:var(--dark-2);padding:32px 5%;border-top:1px solid rgba(255,255,255,.06)}
+.social-inner{max-width:800px;margin:0 auto;text-align:center}
+.social-label{font-size:.72rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:20px}
+.social-links{display:flex;justify-content:center;flex-wrap:wrap;gap:12px}
+.social-link{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.7);text-decoration:none;font-size:.82rem;font-weight:600;padding:9px 16px;border-radius:6px;transition:border-color .2s,color .2s,background .2s;letter-spacing:.02em}
+.social-link:hover{border-color:var(--orange);color:var(--orange);background:rgba(232,84,30,.08)}
+.social-link svg{flex-shrink:0}
+
+/* FOOTER */
+footer{background:#111;padding:56px 5% 32px;border-top:2px solid rgba(255,255,255,.06)}
+.footer-top{display:grid;grid-template-columns:1fr 1fr;gap:60px;margin-bottom:48px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.08)}
+.footer-brand-name{font-family:var(--font-display);font-weight:900;font-size:1.8rem;text-transform:uppercase;color:white;margin-bottom:8px}
+.footer-brand-name span{color:var(--orange)}
+.footer-payoff{font-size:.9rem;color:rgba(255,255,255,.45);line-height:1.5;max-width:320px;margin-bottom:16px}
+.footer-info h4{font-family:var(--font-display);font-weight:800;font-size:.85rem;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.35);margin-bottom:20px}
+.footer-info ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.footer-info ul li{display:flex;gap:10px;font-size:.88rem;color:rgba(255,255,255,.6);align-items:flex-start;line-height:1.4}
+.footer-info ul li strong{color:rgba(255,255,255,.4);font-weight:600;min-width:20px}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+.footer-copy{font-size:.78rem;color:rgba(255,255,255,.3)}
+.footer-links{display:flex;gap:20px}
+.footer-links a{font-size:.78rem;color:rgba(255,255,255,.3);text-decoration:none;transition:color .2s}
+.footer-links a:hover{color:var(--orange)}
+
+/* LUCE GAS */
+#lucegasSection{background:var(--dark);padding:100px 5%}
+.lucegasSection .section-title{color:white}
+.lucegasSection .section-sub{color:rgba(255,255,255,.6)}
+.lucegasSection .section-tag{color:#4ECDC4}
+.lg-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+.lg-left{}
+.lg-saving-box{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:36px 32px;margin-bottom:28px}
+.lg-saving-num{font-family:var(--font-display);font-weight:900;font-size:3.5rem;color:#4ECDC4;line-height:1;margin-bottom:8px}
+.lg-saving-label{font-size:.95rem;color:rgba(255,255,255,.65);line-height:1.5}
+.lg-benefits{display:flex;flex-direction:column;gap:16px}
+.lg-benefit{display:flex;gap:16px;align-items:flex-start}
+.lg-benefit-icon{width:40px;height:40px;border-radius:50%;background:rgba(78,205,196,.15);border:1px solid rgba(78,205,196,.3);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+.lg-benefit-content h4{font-family:var(--font-display);font-weight:800;font-size:1rem;text-transform:uppercase;color:white;margin-bottom:4px}
+.lg-benefit-content p{font-size:.88rem;color:rgba(255,255,255,.55);line-height:1.55}
+.lg-right{}
+.lg-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:32px;margin-bottom:20px}
+.lg-card-title{font-family:var(--font-display);font-weight:900;font-size:1.2rem;text-transform:uppercase;color:#4ECDC4;margin-bottom:18px;display:flex;align-items:center;gap:10px}
+.lg-card-title span{font-size:1.3rem}
+.lg-card ul{list-style:none;display:flex;flex-direction:column;gap:11px}
+.lg-card ul li{display:flex;gap:10px;font-size:.9rem;color:rgba(255,255,255,.75);line-height:1.45;align-items:flex-start}
+.lg-card ul li::before{content:'v';color:#4ECDC4;font-weight:800;flex-shrink:0;margin-top:1px}
+.lg-cta-btn{display:flex;align-items:center;justify-content:center;gap:10px;background:#4ECDC4;color:#0A3D3A;text-decoration:none;font-weight:700;font-size:1rem;padding:16px 28px;border-radius:8px;transition:background .2s,transform .2s;width:100%;margin-top:8px}
+.lg-cta-btn:hover{background:#38B2AA;transform:translateY(-2px)}
+.lg-note{font-size:.78rem;color:rgba(255,255,255,.35);text-align:center;margin-top:10px;line-height:1.5}
+@media(max-width:900px){.lg-inner{grid-template-columns:1fr}}
+
+/* FLOATING CTA */
+.floating-cta{position:fixed;bottom:28px;right:28px;z-index:9999;display:none}
+.floating-cta.visible{display:flex}
+.floating-btn{display:flex;align-items:center;gap:10px;background:var(--orange);color:white;text-decoration:none;font-weight:700;font-size:.92rem;padding:14px 20px;border-radius:50px;box-shadow:0 6px 30px rgba(232,84,30,.5);transition:transform .2s,box-shadow .2s;animation:float-in .4s ease}
+.floating-btn:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 12px 40px rgba(232,84,30,.6)}
+@keyframes float-in{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+
+@keyframes bounce-arrow{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+@keyframes va-spin{to{transform:rotate(360deg)}}
+@keyframes va-pop{0%{transform:scale(.5);opacity:0}70%{transform:scale(1.15)}100%{transform:scale(1);opacity:1}}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .65s ease,transform .65s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:.1s}
+.reveal-delay-2{transition-delay:.2s}
+.reveal-delay-3{transition-delay:.3s}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .hero-inner{grid-template-columns:1fr}
+  .hero-right{display:none}
+  .counter-inner{grid-template-columns:1fr 1fr;gap:20px}
+  .drama-box{grid-template-columns:1fr}
+  .drama-col.bad{border-right:none;border-bottom:2px solid var(--orange)}
+  .problem-cards,.testi-grid{grid-template-columns:1fr}
+  .soluzione-inner{grid-template-columns:1fr}
+  .steps-wrap{grid-template-columns:1fr}
+  .footer-top{grid-template-columns:1fr;gap:40px}
+  .quiz-options{grid-template-columns:1fr}
+  .quiz-card{padding:32px 24px}
+  .cta-buttons{flex-direction:column;align-items:center}
+}
+@media(max-width:480px){
+  section{padding:70px 5%}
+  .hero-inner{padding:60px 5% 50px}
+  .hero-stats{grid-template-columns:1fr}
+  .counter-inner{grid-template-columns:1fr}
+  .navbar{padding:0 4%}
+  .nav-logo img{height:32px}
+  .nav-cta{padding:9px 14px;font-size:.78rem}
+  .floating-btn span{display:none}
+  .floating-btn{padding:16px;border-radius:50%}
+  .footer-bottom{flex-direction:column;align-items:flex-start}
+}
+</style>
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z1BMC9R3SN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-Z1BMC9R3SN');
+  </script>
+</head>
+<body>
+
+<!-- URGENCY BANNER -->
+<div id="topBars" style="position:fixed;top:0;left:0;right:0;z-index:1000">
+<div class="urgency-banner">
+  Negozio fisico a Vasto &mdash; <span>Lun-Sab 9:30-13:00 &middot; 16:30-20:00</span> &mdash; Corso Mazzini 196
+</div>
+<div id="navBtnsBar" style="background:#1A1A1A;padding:14px 5%;display:flex;justify-content:center;gap:16px;flex-wrap:wrap;position:relative;z-index:998;border-bottom:2px solid #333">
+  <a href="#quiz" style="display:inline-flex;align-items:center;gap:9px;background:var(--orange);color:white;text-decoration:none;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.1rem;padding:13px 28px;border-radius:8px;letter-spacing:.05em;text-transform:uppercase;box-shadow:0 4px 16px rgba(232,84,30,.4)">
+    &#128242; Telefonia &amp; Fibra
+  </a>
+  <a href="#lucegasSection" style="display:inline-flex;align-items:center;gap:9px;background:#0A9E96;color:white;text-decoration:none;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.1rem;padding:13px 28px;border-radius:8px;letter-spacing:.05em;text-transform:uppercase;box-shadow:0 4px 16px rgba(10,158,150,.4)">
+    &#9889; Luce &amp; Gas
+  </a>
+</div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <a href="#" class="nav-logo">
+    <img src="https://i.imgur.com/MZmtQMf.jpeg" alt="SempreInRete" style="height:48px;width:auto;object-fit:contain">
+    <span class="nav-logo-badge">Wind Tre Partner</span>
+  </a>
+  <a href="#contattaci" class="nav-cta">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.557 4.125 1.529 5.858L.057 23.944l6.255-1.639A11.955 11.955 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
+    Contatta Andrea
+  </a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-inner" style="grid-template-columns:1fr;max-width:900px;text-align:center;margin:0 auto">
+    <div class="hero-left" style="max-width:100%">
+      <div class="hero-tag" style="margin:0 auto 24px">Partner ufficiale Wind Tre &middot; Vasto (CH)</div>
+      <h1 class="hero-h1" style="font-size:clamp(2.4rem,4.5vw,4rem)">Stanchi di pagare troppo <em>il telefono?</em></h1>
+      <p class="hero-sub" style="max-width:620px;margin:0 auto 30px">
+        Ogni giorno a Vasto, persone cambiano operatore con il call center e finiscono <strong>con problemi, costi nascosti e nessuno che risponde.</strong><br><br>
+        Da noi e&apos; diverso: vieni in negozio, parli con Andrea in persona, esci con l&apos;offerta giusta in 10 minuti.
+      </p>
+      <!-- GIGALIZZATI — super prominente -->
+      <div style="margin-bottom:36px;text-align:center">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(5rem,11vw,9.5rem);line-height:.88;text-transform:uppercase;letter-spacing:-.02em;color:var(--orange);text-shadow:0 0 80px rgba(232,84,30,.55),0 5px 0 rgba(150,35,0,.7);display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap">
+          <svg viewBox="0 0 24 24" fill="currentColor" style="width:clamp(50px,8vw,88px);height:clamp(50px,8vw,88px);flex-shrink:0;filter:drop-shadow(0 0 18px rgba(232,84,30,.9))"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          <span>GIGALIZZATI!</span>
+        </div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:clamp(.9rem,2vw,1.25rem);letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-top:10px">&#9889; Andrea ti porta al massimo della connessione</div>
+      </div>
+      <!-- Stats -->
+      <div class="hero-stats" style="max-width:560px;margin:0 auto 40px">
+        <div class="stat-item">
+          <span class="stat-num">+320</span>
+          <span class="stat-label">Clienti soddisfatti<br>nella zona di Vasto</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">10&apos;</span>
+          <span class="stat-label">Attivazione diretta<br>in negozio</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">8+</span>
+          <span class="stat-label">Anni come agente<br>Wind Tre</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIDEO ASK — video centrato, domande overlay in basso -->
+  <div style="position:relative;z-index:2;max-width:560px;margin:0 auto;padding:0 5% 80px">
+
+    <!-- HEADER -->
+    <div style="text-align:center;margin-bottom:24px">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(1.6rem,3vw,2.2rem);text-transform:uppercase;color:white;line-height:1.05;margin-bottom:8px">Trova l&rsquo;offerta giusta<br><span style="color:var(--orange)">in meno di 3 minuti</span></div>
+      <p style="font-size:.9rem;color:rgba(255,255,255,.55);line-height:1.6;margin-bottom:14px">Guarda il video e rispondi con un tap. Andrea ti contatta lui direttamente.</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
+        <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:5px 11px;font-size:.73rem;font-weight:600;color:rgba(255,255,255,.7)"><svg width="10" height="10" viewBox="0 0 24 24" fill="var(--orange)"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Rispondi con un tap</span>
+        <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:5px 11px;font-size:.73rem;font-weight:600;color:rgba(255,255,255,.7)"><svg width="10" height="10" viewBox="0 0 24 24" fill="var(--orange)"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Offerta personalizzata</span>
+        <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:5px 11px;font-size:.73rem;font-weight:600;color:rgba(255,255,255,.7)"><svg width="10" height="10" viewBox="0 0 24 24" fill="var(--orange)"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Nessun bot</span>
+      </div>
+    </div>
+
+    <!-- VIDEO con overlay domande -->
+    <div id="vaLayout" style="border:3px solid var(--orange);border-radius:20px;overflow:hidden;box-shadow:0 0 60px rgba(232,84,30,.35)">
+      <div id="vaPlayerArea" style="position:relative;background:#000;aspect-ratio:9/16;width:100%;overflow:hidden">
+
+        <!-- YOUTUBE TARGET -->
+        <div id="vaYTTarget" style="width:100%;height:100%;position:absolute;inset:0"></div>
+        <!-- Click blocker solo sull'area video, non sull'overlay domande -->
+        <div id="vaClickBlocker" style="position:absolute;top:0;left:0;right:0;bottom:45%;z-index:6;background:transparent;pointer-events:auto;cursor:pointer" onclick="vaTogglePlay()" title="Pausa / Riprendi"></div>
+
+        <!-- PAUSE BTN -->
+        <button id="vaPauseBtn" onclick="vaTogglePlay()" style="display:none;position:absolute;bottom:14px;left:14px;z-index:11;background:rgba(0,0,0,.75);border:1.5px solid rgba(255,255,255,.2);border-radius:50%;width:38px;height:38px;cursor:pointer;align-items:center;justify-content:center;transition:background .2s" onmouseover="this.style.background='rgba(232,84,30,.8)'" onmouseout="this.style.background='rgba(0,0,0,.75)'">
+          <svg id="vaPauseIcon" width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+        </button>
+
+        <!-- PAUSED OVERLAY -->
+        <div id="vaPausedOverlay" style="display:none;position:absolute;inset:0;z-index:9;background:rgba(0,0,0,.45);align-items:center;justify-content:center;pointer-events:none">
+          <div style="width:64px;height:64px;border-radius:50%;background:rgba(232,84,30,.9);display:flex;align-items:center;justify-content:center">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="white" style="margin-left:3px"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+        </div>
+
+        <!-- MUTE OVERLAY -->
+        <button id="vaMuteOverlay" onclick="vaUnmute()" style="display:none;position:absolute;inset:0;width:100%;height:100%;background:rgba(0,0,0,.55);border:none;cursor:pointer;z-index:8;flex-direction:column;align-items:center;justify-content:center;gap:10px">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="white" style="opacity:.9"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
+          <span style="color:white;font-size:.85rem;font-weight:700;font-family:var(--font-body)">Tocca per attivare il suono</span>
+        </button>
+
+        <!-- STEP LABEL -->
+        <div id="vaStepLabel" style="position:absolute;top:12px;right:12px;background:rgba(0,0,0,.7);color:rgba(255,255,255,.8);font-size:.65rem;font-weight:700;padding:4px 10px;border-radius:5px;letter-spacing:.1em;text-transform:uppercase;z-index:10;pointer-events:none"></div>
+        <button id="vaBackBtn" onclick="vaBack()" style="display:none;position:absolute;top:12px;left:12px;background:rgba(0,0,0,.8);border:none;color:white;font-size:.78rem;font-weight:600;padding:6px 12px;border-radius:5px;cursor:pointer;font-family:var(--font-body);z-index:10">&#8592; Indietro</button>
+
+        <!-- NEXT OVERLAY hint -->
+        <div id="vaNextOverlay" style="display:none;position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.8));z-index:5;align-items:flex-end;justify-content:center;padding:20px;pointer-events:none">
+          <div style="color:rgba(255,255,255,.8);font-size:.82rem;font-weight:600;font-family:var(--font-body);text-align:center;width:100%">Scegli una risposta &rarr;</div>
+        </div>
+
+        <!-- LOADER -->
+        <div id="vaLoader" style="position:absolute;inset:0;background:#0D0D0D;display:flex;align-items:center;justify-content:center;z-index:20">
+          <div style="width:36px;height:36px;border:3px solid rgba(255,255,255,.15);border-top-color:var(--orange);border-radius:50%;animation:va-spin 0.8s linear infinite"></div>
+        </div>
+
+        <!-- PLAY SCREEN -->
+        <div id="vaPlayScreen" style="display:none;position:absolute;inset:0;background:#0d0d0d;z-index:18;flex-direction:column;align-items:center;justify-content:center;gap:0;padding:32px 24px;text-align:center">
+          <div style="width:88px;height:88px;border-radius:50%;overflow:hidden;border:3px solid var(--orange);box-shadow:0 0 24px rgba(232,84,30,.4);margin-bottom:20px;flex-shrink:0">
+            <img src="https://i.imgur.com/e81fwRr.jpeg" alt="Andrea" style="width:100%;height:100%;object-fit:cover;object-position:top">
+          </div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.05rem;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);margin-bottom:6px">Ciao! Sono Andrea</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.5rem;text-transform:uppercase;color:white;line-height:1.1;margin-bottom:10px">Troviamo l&rsquo;offerta<br>giusta in 3 minuti</div>
+          <div style="font-size:.82rem;color:rgba(255,255,255,.5);line-height:1.5;margin-bottom:28px;max-width:220px">Guarda i miei video e rispondi con un tap.<br>Ti dico io cosa fa per te.</div>
+          <button id="vaPlayBtn" onclick="vaStartPlayer()" style="width:72px;height:72px;border-radius:50%;background:var(--orange);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 28px rgba(232,84,30,.55);transition:transform .2s,box-shadow .2s;margin-bottom:16px;flex-shrink:0" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="white" style="margin-left:4px"><path d="M8 5v14l11-7z"/></svg>
+          </button>
+          <div style="font-size:.75rem;color:rgba(255,255,255,.35);letter-spacing:.05em">Tocca per iniziare &bull; Audio attivo</div>
+        </div>
+
+        <!-- ══ OVERLAY UI — domande/form/result in basso SUL video ══ -->
+        <div id="vaUICol" style="position:absolute;bottom:0;left:0;right:0;z-index:12;background:linear-gradient(transparent,rgba(0,0,0,.93) 30%);padding:20px 16px 18px">
+
+      <!-- PANNELLO "DURANTE IL VIDEO" -->
+      <div id="vaWatchPanel" style="display:none;flex-direction:column;gap:0">
+        <div style="margin-bottom:16px">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.2rem;text-transform:uppercase;color:white;line-height:1.1;margin-bottom:4px">Cosa impari in questo video</div>
+          <div style="font-size:.82rem;color:rgba(255,255,255,.4);line-height:1.5">Andrea ti spiega cosa non ti dicono mai al telefono.</div>
+        </div>
+        <div id="vaKeyPoints" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:28px">
+          <div class="va-kp" style="display:flex;align-items:flex-start;gap:12px;opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:14px 16px">
+            <div style="width:28px;height:28px;border-radius:50%;background:rgba(232,84,30,.15);border:1.5px solid rgba(232,84,30,.35);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--orange)"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+            </div>
+            <div>
+              <div style="font-weight:700;font-size:.88rem;color:white;margin-bottom:3px">Perché stai pagando troppo</div>
+              <div style="font-size:.78rem;color:rgba(255,255,255,.4);line-height:1.4">I rincari nascosti che nessun operatore comunica.</div>
+            </div>
+          </div>
+          <div class="va-kp" style="display:flex;align-items:flex-start;gap:12px;opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:14px 16px">
+            <div style="width:28px;height:28px;border-radius:50%;background:rgba(232,84,30,.15);border:1.5px solid rgba(232,84,30,.35);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--orange)"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+            </div>
+            <div>
+              <div style="font-weight:700;font-size:.88rem;color:white;margin-bottom:3px">La portabilità non fa paura</div>
+              <div style="font-size:.78rem;color:rgba(255,255,255,.4);line-height:1.4">Come cambi senza restare senza linea.</div>
+            </div>
+          </div>
+          <div class="va-kp" style="display:flex;align-items:flex-start;gap:12px;opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:14px 16px">
+            <div style="width:28px;height:28px;border-radius:50%;background:rgba(232,84,30,.15);border:1.5px solid rgba(232,84,30,.35);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--orange)"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+            </div>
+            <div>
+              <div style="font-weight:700;font-size:.88rem;color:white;margin-bottom:3px">Tutto chiaro prima di firmare</div>
+              <div style="font-size:.78rem;color:rgba(255,255,255,.4);line-height:1.4">Zero sorprese in bolletta.</div>
+            </div>
+          </div>
+          <div class="va-kp" style="display:flex;align-items:flex-start;gap:12px;opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:14px 16px">
+            <div style="width:28px;height:28px;border-radius:50%;background:rgba(232,84,30,.15);border:1.5px solid rgba(232,84,30,.35);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--orange)"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+            </div>
+            <div>
+              <div style="font-weight:700;font-size:.88rem;color:white;margin-bottom:3px">Attivazione in 10 minuti</div>
+              <div style="font-size:.78rem;color:rgba(255,255,255,.4);line-height:1.4">SIM già attiva. Andrea gestisce tutto.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- WELCOME PANEL (contenuto spostato nell'header) -->
+      <div id="vaWelcomePanel" style="display:flex;flex-direction:column;gap:12px;">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.05rem;text-transform:uppercase;color:var(--orange);letter-spacing:.08em">Scegli la tua risposta &darr;</div>
+      </div>
+
+      <!-- BOTTONI RISPOSTA -->
+      <div id="vaBtns" style="display:none;flex-direction:column;gap:12px;"></div>
+
+      <!-- FORM -->
+      <div id="vaForm" style="display:none;flex-direction:column;gap:14px;">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.3rem;text-transform:uppercase;color:white;margin-bottom:4px">Prima di continuare&hellip;</div>
+        <div style="font-size:.88rem;color:rgba(255,255,255,.5);margin-bottom:8px">Cos&igrave; Andrea sa gi&agrave; chi &egrave; quando ti risponde.</div>
+        <input id="vaName" type="text" placeholder="Il tuo nome..." maxlength="40" autocomplete="given-name" oninput="vaCheckForm()"
+          style="background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.14);border-radius:9px;padding:14px 16px;color:white;font-size:.97rem;font-family:var(--font-body);outline:none;transition:border-color .2s"
+          onfocus="this.style.borderColor='var(--orange)'" onblur="this.style.borderColor='rgba(255,255,255,.14)'">
+        <input id="vaPhone" type="tel" placeholder="Il tuo numero di telefono..." maxlength="15" autocomplete="tel" oninput="vaCheckForm()"
+          style="background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.14);border-radius:9px;padding:14px 16px;color:white;font-size:.97rem;font-family:var(--font-body);outline:none;transition:border-color .2s"
+          onfocus="this.style.borderColor='var(--orange)'" onblur="this.style.borderColor='rgba(255,255,255,.14)'">
+        <button id="vaFormBtn" onclick="vaSubmitForm()" disabled
+          style="background:rgba(232,84,30,.25);color:rgba(255,255,255,.35);border:none;padding:16px;border-radius:9px;font-size:1rem;font-weight:700;font-family:var(--font-body);cursor:not-allowed;transition:all .2s">
+          Avanti &rarr;
+        </button>
+      </div>
+
+      <!-- RESULT -->
+      <div id="vaResult" style="display:none;text-align:center;">
+        <div style="font-size:2.2rem;margin-bottom:14px;animation:va-pop .5s ease">&#9889;</div>
+        <div id="vaResultGreeting" style="font-size:.98rem;color:rgba(255,255,255,.75);margin-bottom:8px;line-height:1.55"></div>
+        <div id="vaResultOffer" style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2rem;text-transform:uppercase;color:var(--orange);line-height:1;margin-bottom:8px"></div>
+        <div id="vaResultDesc" style="font-size:.88rem;color:rgba(255,255,255,.5);line-height:1.6;margin-bottom:24px"></div>
+        <div id="vaCrmStatus" style="display:flex;align-items:center;gap:8px;padding:10px 14px;background:rgba(255,255,255,.04);border-radius:8px;border:1px solid rgba(255,255,255,.07);margin-bottom:22px;justify-content:center">
+          <span id="vaCrmIcon" style="font-size:.9rem">&#128203;</span>
+          <span id="vaCrmText" style="font-size:.75rem;color:rgba(255,255,255,.4);line-height:1.4">Salvataggio dati in corso&hellip;</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.04);border-radius:12px;padding:13px 16px;margin-bottom:22px;border:1px solid rgba(255,255,255,.08);text-align:left">
+          <img src="https://i.imgur.com/e81fwRr.jpeg" alt="Andrea" style="width:44px;height:44px;border-radius:50%;object-fit:cover;object-position:top;border:2px solid var(--orange);flex-shrink:0">
+          <div>
+            <div style="font-weight:700;font-size:.88rem;color:white;margin-bottom:2px">Andrea ti contatter&agrave; presto &#128075;</div>
+            <div style="font-size:.76rem;color:rgba(255,255,255,.48)">Ha gi&agrave; le tue risposte &mdash; ti scrive su WhatsApp.</div>
+          </div>
+        </div>
+        <div style="font-size:1.3rem;color:var(--orange);animation:bounce-arrow 1.2s ease-in-out infinite;margin-bottom:12px">&#8595;</div>
+        <a id="vaWaBtn" href="#" target="_blank"
+          style="display:flex;align-items:center;justify-content:center;gap:10px;background:#25D366;color:white;text-decoration:none;font-weight:700;font-size:1rem;padding:17px;border-radius:10px;box-shadow:0 5px 20px rgba(37,211,102,.28);transition:background .2s,transform .2s;margin-bottom:8px"
+          onmouseover="this.style.background='#1ea655';this.style.transform='translateY(-2px)'"
+          onmouseout="this.style.background='#25D366';this.style.transform='translateY(0)'">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.557 4.125 1.529 5.858L.057 23.944l6.255-1.639A11.955 11.955 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
+          Scrivimi su WhatsApp
+        </a>
+        <a id="vaCallBtn" href="tel:+393931230333"
+          style="display:flex;align-items:center;justify-content:center;gap:10px;background:rgba(255,255,255,.07);color:white;text-decoration:none;font-weight:600;font-size:.9rem;padding:13px;border-radius:10px;border:1px solid rgba(255,255,255,.12);transition:background .2s;margin-bottom:16px"
+          onmouseover="this.style.background='rgba(255,255,255,.12)'"
+          onmouseout="this.style.background='rgba(255,255,255,.07)'">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+          Oppure chiama ora
+        </a>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.9rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(232,84,30,.5)">&#9889; Sei Gigalizzato.</div>
+        <button onclick="vaReset()" style="background:none;border:none;color:rgba(255,255,255,.2);font-size:.78rem;cursor:pointer;margin-top:12px;text-decoration:underline;font-family:var(--font-body)">&#8617; Ricomincia</button>
+      </div>
+
+    </div><!-- /vaUICol overlay -->
+
+      </div><!-- /vaPlayerArea -->
+    </div><!-- /vaLayout video border -->
+  </div><!-- /videoask wrapper -->
+</section>
+
+<!-- (quiz section moved into hero) -->
+
+<!-- COUNTER -->
+<div class="counter-section" id="counters">
+  <div class="counter-inner">
+    <div>
+      <span class="counter-num" data-target="328" data-type="int">0</span>
+      <div class="counter-label">Clienti soddisfatti quest&apos;anno</div>
+    </div>
+    <div>
+      <span class="counter-num" data-target="14200" data-type="euro">0</span>
+      <div class="counter-label">Risparmiati dai nostri clienti</div>
+    </div>
+    <div>
+      <span class="counter-num" data-target="48" data-type="rating">0</span>
+      <div class="counter-label">Valutazione media clienti</div>
+    </div>
+  </div>
+</div>
+
+<!-- PROOF BAR -->
+<div class="proof-bar">
+  <div class="proof-track">
+    <span class="proof-item"><span class="dot"></span> Attivazione in 10 minuti</span>
+    <span class="proof-item"><span class="dot"></span> Portabilita&apos; senza interruzioni</span>
+    <span class="proof-item"><span class="dot"></span> Consulenza gratuita</span>
+    <span class="proof-item"><span class="dot"></span> Partner ufficiale Wind Tre</span>
+    <span class="proof-item"><span class="dot"></span> Assistenza post-vendita</span>
+    <span class="proof-item"><span class="dot"></span> Nessun costo nascosto</span>
+    <span class="proof-item"><span class="dot"></span> Fibra e 5G a Vasto</span>
+    <span class="proof-item"><span class="dot"></span> Luce &amp; Gas inclusi</span>
+    <span class="proof-item"><span class="dot"></span> Attivazione in 10 minuti</span>
+    <span class="proof-item"><span class="dot"></span> Portabilita&apos; senza interruzioni</span>
+    <span class="proof-item"><span class="dot"></span> Consulenza gratuita</span>
+    <span class="proof-item"><span class="dot"></span> Partner ufficiale Wind Tre</span>
+    <span class="proof-item"><span class="dot"></span> Assistenza post-vendita</span>
+    <span class="proof-item"><span class="dot"></span> Nessun costo nascosto</span>
+    <span class="proof-item"><span class="dot"></span> Fibra e 5G a Vasto</span>
+    <span class="proof-item"><span class="dot"></span> Luce &amp; Gas inclusi</span>
+  </div>
+</div>
+
+<!-- PROBLEMA -->
+<section id="problema">
+  <div style="max-width:1100px;margin:0 auto">
+    <span class="section-tag reveal">Il problema</span>
+    <h2 class="section-title reveal">I call center ti costano<br>piu&apos; di quanto pensi</h2>
+    <p class="section-sub reveal">Non solo in euro, ma in tempo perso, problemi irrisolti e rinnovi automatici che non hai mai chiesto.</p>
+  </div>
+  <div class="drama-box reveal">
+    <div class="drama-col bad">
+      <div class="drama-label">&#10060; Con il call center</div>
+      <p class="drama-scenario">Aspetti 20 minuti in attesa, ti passano da un operatore all&apos;altro. Ti vendono un&apos;offerta che sembra conveniente, poi scopri <strong>costi nascosti in bolletta</strong>. Quando hai un problema, richiami, aspetti ancora, e ti dicono che &quot;non possono fare nulla&quot;.</p>
+      <div class="drama-highlight">Ore perse.<br>Soldi persi.</div>
+    </div>
+    <div class="drama-col good">
+      <div class="drama-label">&#10003; Con Andrea a Vasto</div>
+      <p class="drama-scenario">Entri in negozio, spieghi la tua situazione in 5 minuti. Andrea valuta la tua offerta attuale e attiva tutto <strong>direttamente davanti a te</strong>. Se hai un dubbio dopo, torni e lo risolvi in 10 minuti.</p>
+      <div class="drama-highlight">Problema risolto.<br>Subito.</div>
+    </div>
+  </div>
+  <div class="problem-cards">
+    <div class="problem-card reveal reveal-delay-1">
+      <div class="problem-card-num">01</div>
+      <h3>Stai pagando troppo<br>da anni</h3>
+      <p>Il tuo operatore ha aumentato le tariffe silenziosamente. Ti e&apos; arrivata una comunicazione che non hai letto, o peggio non ne hai ricevuta nessuna. Intanto paghi 10 euro in piu&apos; ogni mese senza saperlo.</p>
+      <div class="fact">&rarr; Il rincaro medio non comunicato e&apos; di 8-15 euro/mese</div>
+    </div>
+    <div class="problem-card reveal reveal-delay-2">
+      <div class="problem-card-num">02</div>
+      <h3>La portabilita&apos; ti spaventa<br>e resti fermo</h3>
+      <p>Hai sentito storie di chi e&apos; rimasto senza linea per giorni cambiando operatore. Allora rimandi, aspetti, e intanto continui a pagare un&apos;offerta che non ti soddisfa. La paura del disservizio ti blocca.</p>
+      <div class="fact">&rarr; La portabilita&apos; con Wind Tre avviene in poche ore, in automatico</div>
+    </div>
+    <div class="problem-card reveal reveal-delay-3">
+      <div class="problem-card-num">03</div>
+      <h3>Non sai mai cosa firmi<br>veramente</h3>
+      <p>Il contratto ha 12 pagine di condizioni. Il call center ti legge solo il prezzo promozionale. Poi scopri il costo a regime, i vincoli e i costi di recesso. Solo a quel punto capisci cosa hai firmato.</p>
+      <div class="fact">&rarr; Da noi ogni voce viene spiegata prima di firmare qualsiasi cosa</div>
+    </div>
+  </div>
+  <div class="section-cta-wrap reveal">
+    <a href="#quiz" class="btn-primary">&#9889; Trova la tua offerta giusta</a>
+  </div>
+</section>
+
+
+<!-- SOLUZIONE -->
+<section id="soluzione">
+  <div class="soluzione-inner">
+    <div>
+      <span class="section-tag reveal">La soluzione</span>
+      <h2 class="section-title reveal">Un negozio vero.<br>Una persona vera.</h2>
+      <p class="section-sub reveal">Sempre in Rete non e&apos; un sito dove clicchi e speri. E&apos; un negozio fisico a Vasto dove Andrea ti segue dall&apos;inizio alla fine.</p>
+      <div class="soluzione-features">
+        <div class="feature-row reveal">
+          <div class="feature-num">01</div>
+          <div class="feature-content">
+            <h4>Analisi gratuita della tua offerta attuale</h4>
+            <p>Porti la tua bolletta o ci dici cosa hai. Andrea controlla se stai pagando il giusto, senza impegno.</p>
+          </div>
+        </div>
+        <div class="feature-row reveal">
+          <div class="feature-num">02</div>
+          <div class="feature-content">
+            <h4>Portabilita&apos; senza rischi e senza interruzioni</h4>
+            <p>Il numero vecchio non lo perdi. La linea non si interrompe. La portabilita&apos; avviene in automatico.</p>
+          </div>
+        </div>
+        <div class="feature-row reveal">
+          <div class="feature-num">03</div>
+          <div class="feature-content">
+            <h4>Tutto chiaro prima di firmare</h4>
+            <p>Nessuna sorpresa in bolletta. Ogni voce viene spiegata prima. Se non ti convince, non firmi.</p>
+          </div>
+        </div>
+        <div class="feature-row reveal">
+          <div class="feature-num">04</div>
+          <div class="feature-content">
+            <h4>Assistenza anche dopo l&apos;attivazione</h4>
+            <p>Hai un problema con la SIM? Torni da noi o scrivi su WhatsApp. Non rimani mai da solo.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="soluzione-img reveal">
+        <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80" alt="Consulenza telefonica Vasto">
+      </div>
+      <div class="value-card reveal">
+        <div class="value-card-title">Cosa ottieni</div>
+        <div class="value-card-sub">Incluso nella consulenza in negozio</div>
+        <ul>
+          <li>Analisi offerta attuale &mdash; gratuita e senza impegno</li>
+          <li>Confronto offerte disponibili per il tuo profilo</li>
+          <li>Attivazione SIM in negozio in 10 minuti</li>
+          <li>Portabilita&apos; gestita completamente da noi</li>
+          <li>Spiegazione voce per voce del contratto</li>
+          <li>Supporto post-attivazione via WhatsApp o in negozio</li>
+          <li>Consulenza fibra, FWA, Luce &amp; Gas su richiesta</li>
+        </ul>
+        <a href="#quiz" class="btn-primary">&#9889; Inizia il tuo percorso &mdash; gratis</a>
+        <div class="guarantee">Nessun impegno. Nessun costo. Solo una chiacchierata.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COME FUNZIONA -->
+<section id="come-funziona">
+  <div style="max-width:1100px;margin:0 auto">
+    <span class="section-tag reveal">Come funziona</span>
+    <h2 class="section-title reveal" style="color:white">3 passi.<br>E sei a posto.</h2>
+    <p class="section-sub reveal">Niente attese infinite, niente moduli complicati. Dal primo contatto alla SIM attiva in meno di un&apos;ora.</p>
+  </div>
+  <div class="steps-wrap">
+    <div class="step-item reveal">
+      <div class="step-num">01</div>
+      <span class="step-icon">&#128172;</span>
+      <div class="step-title">Scrivimi su WhatsApp<br>o chiamami</div>
+      <p class="step-desc">Mandami un messaggio con la tua situazione attuale: quale operatore hai, quanto paghi, cosa ti serve. Ti rispondo personalmente in pochi minuti.</p>
+    </div>
+    <div class="step-item reveal reveal-delay-1">
+      <div class="step-num">02</div>
+      <span class="step-icon">&#127978;</span>
+      <div class="step-title">Vieni in negozio<br>con un documento</div>
+      <p class="step-desc">In Corso Mazzini 196 a Vasto. Nessun appuntamento obbligatorio. Bastano un documento d&apos;identita&apos; e 10 minuti del tuo tempo.</p>
+    </div>
+    <div class="step-item reveal reveal-delay-2">
+      <div class="step-num">03</div>
+      <span class="step-icon">&#9989;</span>
+      <div class="step-title">SIM attiva.<br>Sei a posto.</div>
+      <p class="step-desc">Esci dal negozio con la SIM gia&apos; attiva e il numero portato. Se hai dubbi dopo, mi scrivi su WhatsApp. Non sparisco dopo la vendita.</p>
+      <div style="margin-top:16px;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1rem;letter-spacing:.1em;text-transform:uppercase;color:var(--orange)">&#9889; Sei Gigalizzato.</div>
+    </div>
+  </div>
+  <div class="section-cta-wrap reveal">
+    <a href="#quiz" class="btn-primary">&#9889; Gigalizzati in 3 passi</a>
+  </div>
+</section>
+
+<!-- TESTIMONIANZE -->
+<section id="testimonianze">
+  <div style="max-width:1100px;margin:0 auto">
+    <span class="section-tag reveal">Cosa dicono di noi</span>
+    <h2 class="section-title reveal">Chi e&apos; venuto da noi<br>non torna indietro</h2>
+    <p class="section-sub reveal">Persone reali di Vasto e dintorni che hanno smesso di perdere tempo con i call center.</p>
+  </div>
+  <div class="testi-grid reveal">
+    <div class="testi-card">
+      <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p class="testi-text">"Pagavo 15 euro in piu&apos; al mese senza motivo. Andrea ha controllato la mia bolletta in 5 minuti, mi ha fatto passare a un&apos;offerta migliore e non ho perso il numero. Tutto in meno di un quarto d&apos;ora."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">M</div>
+        <div>
+          <div class="testi-name">Marco R.</div>
+          <div class="testi-meta">Vasto &middot; Padre di famiglia &middot; Cliente da 2 anni</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p class="testi-text">"Avevo una paura tremenda di restare senza linea durante la portabilita&apos;. Invece non me ne sono neanche accorta: il giorno dopo avevo gia&apos; Wind Tre attivo con il mio vecchio numero. Andrea mi ha tenuta aggiornata tutto il tempo."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">G</div>
+        <div>
+          <div class="testi-name">Giulia F.</div>
+          <div class="testi-meta">San Salvo &middot; Insegnante &middot; Cliente da 1 anno</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p class="testi-text">"Finalmente qualcuno che ti spiega le cose come stanno, senza tecnicismi. Ho attivato 3 SIM per tutta la famiglia. Ogni volta che ho un dubbio passo da lui. Ci vuole 10 minuti e si risolve tutto."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">R</div>
+        <div>
+          <div class="testi-name">Roberto C.</div>
+          <div class="testi-meta">Vasto Marina &middot; Artigiano &middot; Cliente da 3 anni</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section-cta-wrap reveal">
+    <a href="#quiz" class="btn-primary">&#9889; Voglio un&apos;offerta come la loro</a>
+  </div>
+</section>
+
+<!-- LUCE E GAS -->
+<section id="lucegasSection" style="background:var(--dark);padding:100px 5%">
+  <div class="lg-inner">
+    <div class="lg-left">
+      <span class="section-tag reveal" style="color:#4ECDC4">Luce &amp; Gas</span>
+      <h2 class="section-title reveal" style="color:white">Non solo telefono.<br>Risparmia anche<br>in bolletta.</h2>
+      <p class="section-sub reveal" style="color:rgba(255,255,255,.6);margin-bottom:36px">Molti clienti di Vasto non sanno che da noi puoi gestire anche luce e gas. Abbinandoli al telefono, il risparmio medio supera i 200 euro all&apos;anno.</p>
+
+      <div class="lg-saving-box reveal">
+        <div class="lg-saving-num">200€+</div>
+        <div class="lg-saving-label">risparmio medio annuo per chi abbina<br>luce &amp; gas al contratto telefonico</div>
+      </div>
+
+      <div class="lg-benefits reveal">
+        <div class="lg-benefit">
+          <div class="lg-benefit-icon">&#9889;</div>
+          <div class="lg-benefit-content">
+            <h4>Un solo interlocutore</h4>
+            <p>Telefono, fibra, luce e gas. Tutto gestito da Andrea in un unico posto. Niente call center separati per ogni fornitore.</p>
+          </div>
+        </div>
+        <div class="lg-benefit">
+          <div class="lg-benefit-icon">&#128200;</div>
+          <div class="lg-benefit-content">
+            <h4>Prezzo bloccato 24 mesi</h4>
+            <p>Le nostre offerte energia hanno il contributo fisso bloccato per 2 anni. Nessuna sorpresa in bolletta nel tempo.</p>
+          </div>
+        </div>
+        <div class="lg-benefit">
+          <div class="lg-benefit-icon">&#128203;</div>
+          <div class="lg-benefit-content">
+            <h4>Analisi gratuita della bolletta</h4>
+            <p>Porti la tua bolletta attuale in negozio. Andrea la analizza e ti dice esattamente quanto puoi risparmiare, senza impegno.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lg-right">
+      <div class="lg-card reveal">
+        <div class="lg-card-title"><span>&#9889;</span> Offerta Luce</div>
+        <ul>
+          <li>Prezzo indicizzato PUN &mdash; segue il mercato all&apos;ingrosso</li>
+          <li>Contributo fisso annuo bloccato 24 mesi</li>
+          <li>Condizioni riservate ai clienti Wind Tre</li>
+          <li>Attivazione in negozio con la bolletta attuale</li>
+          <li>Nessuna interruzione della fornitura durante il cambio</li>
+        </ul>
+      </div>
+
+      <div class="lg-card reveal">
+        <div class="lg-card-title"><span>&#128293;</span> Offerta Gas</div>
+        <ul>
+          <li>Prezzo indicizzato PSV &mdash; mercato all&apos;ingrosso</li>
+          <li>Contributo fisso annuo bloccato 24 mesi</li>
+          <li>Condizioni riservate ai clienti Wind Tre</li>
+          <li>Attivazione contestuale alla luce per massimo risparmio</li>
+          <li>Andrea ti spiega ogni voce prima di firmare qualsiasi cosa</li>
+        </ul>
+      </div>
+
+      <a href="https://wa.me/393931230333?text=Ciao%20Andrea%2C%20ho%20visto%20il%20sito%20e%20vorrei%20sapere%20quanto%20posso%20risparmiare%20su%20luce%20e%20gas!" class="lg-cta-btn reveal" target="_blank">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.557 4.125 1.529 5.858L.057 23.944l6.255-1.639A11.955 11.955 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
+        Scopri quanto risparmi su luce &amp; gas
+      </a>
+      <div class="lg-note">Porta la tua bolletta attuale &mdash; Andrea la analizza gratis, senza impegno</div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div style="max-width:1100px;margin:0 auto">
+    <span class="section-tag reveal">Domande frequenti</span>
+    <h2 class="section-title reveal">Le risposte che cerchi<br>prima di decidere</h2>
+    <p class="section-sub reveal">Le domande che ci fanno piu&apos; spesso &mdash; con risposte oneste, non da call center.</p>
+  </div>
+  <div class="faq-wrap reveal">
+    <div class="faq-item">
+      <button class="faq-q open" onclick="toggleFaq(this)">Se cambio operatore resto senza linea?<span class="faq-icon">+</span></button>
+      <div class="faq-a open">No. La portabilita&apos; avviene in automatico e in poche ore hai Wind Tre attivo con il tuo numero vecchio. Non resti mai senza copertura. Lo gestiamo noi dall&apos;inizio alla fine.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Ci sono costi nascosti o vincoli?<span class="faq-icon">+</span></button>
+      <div class="faq-a">Prima di firmare qualsiasi cosa, Andrea ti spiega ogni voce del contratto: costo mensile, costi a regime dopo il periodo promozionale, eventuali penali. Nessuna sorpresa in bolletta perche&apos; nessuna informazione viene tenuta nascosta.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Devo prenotare o posso venire direttamente?<span class="faq-icon">+</span></button>
+      <div class="faq-a">Puoi venire senza appuntamento in Corso Mazzini 196, Vasto, dal lunedi&apos; al sabato 9:30-13:00 e 16:30-20:00. Se preferisci prenotare su WhatsApp, eviti eventuali attese e Andrea si dedica completamente a te.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Wind Tre prende bene nella mia zona?<span class="faq-icon">+</span></button>
+      <div class="faq-a">La copertura Wind Tre a Vasto e nel Vastese e&apos; eccellente, sia in 4G che in 5G nelle zone principali. Se hai dubbi, Andrea verifica insieme a te la mappa di copertura prima di attivare qualsiasi cosa.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="toggleFaq(this)">Quanto ci vuole per attivare la SIM?<span class="faq-icon">+</span></button>
+      <div class="faq-a">Se vieni in negozio con un documento d&apos;identita&apos; valido, in 10 minuti hai la SIM attiva e funzionante. La portabilita&apos; da un altro operatore richiede qualche ora in piu&apos; (di solito entro la giornata), ma esci dal negozio gia&apos; con la SIM in mano.</div>
+    </div>
+  </div>
+  <div class="section-cta-wrap reveal">
+    <a href="#quiz" class="btn-primary">&#9889; Trova la risposta giusta per te</a>
+  </div>
+</section>
+
+<!-- CTA FINALE -->
+<section id="contattaci">
+  <div class="cta-bg-img"></div>
+  <div class="cta-inner">
+    <span class="section-tag reveal" style="color:var(--orange)">Pronti quando sei pronto</span>
+    <h2 class="section-title reveal">Parliamoci.<br>E&apos; gratuito.</h2>
+    <p class="cta-sub reveal">Nessun impegno, nessuna pressione. Solo una chiacchierata per capire se possiamo aiutarti a risparmiare. Il peggio che puo&apos; succedere? Scopri che stai gia&apos; facendo bene.</p>
+
+    <!-- Andrea cameo -->
+    <div class="reveal" style="display:flex;align-items:center;gap:16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:18px 24px;max-width:460px;margin:0 auto 44px">
+      <img src="https://i.imgur.com/e81fwRr.jpeg" alt="Andrea" style="width:60px;height:60px;border-radius:50%;object-fit:cover;object-position:top;flex-shrink:0;border:2px solid var(--orange)">
+      <div style="text-align:left">
+        <div style="font-weight:700;font-size:.95rem;color:white;margin-bottom:4px">Andrea risponde personalmente &#128075;</div>
+        <div style="font-size:.8rem;color:rgba(255,255,255,.5);line-height:1.45">Nessun bot, nessun filtro. Rispondo io, conosco le offerte, conosco Vasto.</div>
+      </div>
+    </div>
+    <div class="cta-buttons reveal">
+      <a href="https://wa.me/393931230333?text=Ciao%20Andrea%2C%20ho%20visto%20il%20sito%20e%20vorrei%20info%20sull%27offerta%20giusta%20per%20me!" class="btn-wa" target="_blank">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.557 4.125 1.529 5.858L.057 23.944l6.255-1.639A11.955 11.955 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
+        WhatsApp Andrea
+      </a>
+      <a href="tel:+393931230333" class="btn-call">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+        Chiama ora
+      </a>
+    </div>
+    <div class="cta-reassure reveal">
+      <span class="reassure-item">Risposta entro poche ore</span>
+      <span class="reassure-item">Consulenza gratuita</span>
+      <span class="reassure-item">Nessuna pressione</span>
+      <span class="reassure-item">Negozio fisico a Vasto</span>
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL STRIP -->
+<div class="social-strip">
+  <div class="social-inner">
+    <div class="social-label">Seguici sui social</div>
+    <div class="social-links">
+      <a class="social-link" href="https://www.instagram.com/windtrevasto" target="_blank">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        @windtrevasto
+      </a>
+      <a class="social-link" href="https://www.instagram.com/vodafonevasto" target="_blank">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        @vodafonevasto
+      </a>
+      <a class="social-link" href="https://www.tiktok.com/@windtrevasto" target="_blank">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.14 8.14 0 004.77 1.52V6.77a4.85 4.85 0 01-1-.08z"/></svg>
+        @windtrevasto TikTok
+      </a>
+      <a class="social-link" href="https://www.facebook.com/share/18J3hUCcqn/" target="_blank">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        Facebook Wind Tre
+      </a>
+      <a class="social-link" href="https://www.facebook.com/share/1CAt9KfX55/" target="_blank">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        Facebook Vodafone
+      </a>
+      <a class="social-link" href="https://www.facebook.com/share/1HcPSpXfCZ/" target="_blank">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        Pagina Societa&apos;
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <img src="https://i.imgur.com/MZmtQMf.jpeg" alt="SempreInRete" style="height:52px;width:auto;object-fit:contain;margin-bottom:8px;display:block">
+      <p class="footer-payoff">Partner ufficiale Wind Tre a Vasto. SIM, fibra, luce &amp; gas. Andrea risponde personalmente a ogni richiesta.</p>
+    </div>
+    <div class="footer-info">
+      <h4>Informazioni</h4>
+      <ul>
+        <li><strong>&#128205;</strong> Corso Mazzini, 196 &mdash; 66054 Vasto (CH), Abruzzo</li>
+        <li><strong>&#128222;</strong> +39 393 1230333</li>
+        <li><strong>&#128172;</strong> WhatsApp: +39 393 1230333</li>
+        <li><strong>&#128336;</strong> Lun&ndash;Sab 9:30&ndash;13:00 / 16:30&ndash;20:00</li>
+        <li><strong>&#127760;</strong> www.sempreinrete.com</li>
+        <li><strong>&#127970;</strong> P.IVA: [inserire P.IVA]</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">&copy; 2025 Sempre in Rete di Andrea Di Domenico. Tutti i diritti riservati.</div>
+    <div class="footer-links">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Cookie Policy</a>
+      <a href="#">Note legali</a>
+    </div>
+  </div>
+</footer>
+
+<!-- FLOATING CTA -->
+<div class="floating-cta" id="floatingCta">
+  <a href="#quiz" class="floating-btn">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+    <span>&#9889; Gigalizzati!</span>
+  </a>
+</div>
+
+<script>
+// NAVBAR
+var navbar = document.getElementById('navbar');
+var lastScroll = 0;
+window.addEventListener('scroll', function() {
+  var curr = window.scrollY;
+  if (curr > lastScroll && curr > 100) { navbar.classList.add('hidden'); }
+  else { navbar.classList.remove('hidden'); }
+  if (curr > 20) { navbar.classList.add('scrolled'); } else { navbar.classList.remove('scrolled'); }
+  lastScroll = curr;
+  // Floating CTA
+  var pct = (curr / (document.body.scrollHeight - window.innerHeight)) * 100;
+  var fc = document.getElementById('floatingCta');
+  if (pct > 40) { fc.classList.add('visible'); } else { fc.classList.remove('visible'); }
+});
+
+// NAVBAR TOP OFFSET
+window.addEventListener('DOMContentLoaded', function() {
+  var barsH = document.getElementById('topBars').offsetHeight;
+  var navH = 68;
+  var totalFixed = barsH + navH;
+
+  // Navbar si posiziona subito sotto topBars
+  navbar.style.top = barsH + 'px';
+
+  // Il body inizia dopo tutte le barre fisse
+  document.body.style.paddingTop = (totalFixed) + 'px';
+
+  // Scroll margin per non essere coperti dalle barre quando si ancora
+  document.documentElement.style.setProperty('--bars-h', (totalFixed + 16) + 'px');
+  document.querySelectorAll('section[id], div[id="counters"]').forEach(function(el) {
+    el.style.scrollMarginTop = (totalFixed + 16) + 'px';
+  });
+});
+
+// REVEAL
+var reveals = document.querySelectorAll('.reveal');
+var revealObs = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) {
+    if (e.isIntersecting) { e.target.classList.add('visible'); revealObs.unobserve(e.target); }
+  });
+}, { threshold: 0.12 });
+reveals.forEach(function(el) { revealObs.observe(el); });
+
+// COUNTERS
+function animateCounter(el) {
+  var target = parseInt(el.getAttribute('data-target'));
+  var type = el.getAttribute('data-type');
+  var duration = 2000;
+  var start = performance.now();
+  function update(now) {
+    var elapsed = now - start;
+    var progress = Math.min(elapsed / duration, 1);
+    var eased = 1 - Math.pow(1 - progress, 3);
+    var current = Math.floor(eased * target);
+    if (type === 'rating') {
+      el.textContent = (eased * 4.8).toFixed(1) + '/5';
+    } else if (type === 'euro') {
+      el.textContent = '\u20AC' + current.toLocaleString('it-IT');
+    } else {
+      el.textContent = current.toLocaleString('it-IT');
+    }
+    if (progress < 1) { requestAnimationFrame(update); }
+  }
+  requestAnimationFrame(update);
+}
+var counterSection = document.getElementById('counters');
+var counterObs = new IntersectionObserver(function(entries) {
+  if (entries[0].isIntersecting) {
+    document.querySelectorAll('.counter-num').forEach(animateCounter);
+    counterObs.unobserve(counterSection);
+  }
+}, { threshold: 0.3 });
+counterObs.observe(counterSection);
+
+// FAQ
+function toggleFaq(btn) {
+  var allBtns = document.querySelectorAll('.faq-q');
+  var allAnswers = document.querySelectorAll('.faq-a');
+  allBtns.forEach(function(b, i) {
+    if (b !== btn) { b.classList.remove('open'); allAnswers[i].classList.remove('open'); }
+  });
+  var idx = Array.prototype.indexOf.call(allBtns, btn);
+  btn.classList.toggle('open');
+  allAnswers[idx].classList.toggle('open');
+}
+
+// ─── VIDEOASK ────────────────────────────────────────────────────────────────
+var VA_VIDEOS = {
+  V0:  'B6-VbHDOfes',
+  V0b: '0LuhXDY94Fk',
+  V1:  'UIPOXa86GWM',
+  V2a: 'lLVzaKO_zNU',
+  V2b: 'XFOdzHtsDgk',
+  V3:  'KXobN2Qwn9I',
+  V4:  'PtptUbiPwdc',
+  V5:  '9vXV5iEUrtw',
+  V5b: 'h04agHedBR4'
+};
+
+var VA_FLOW = {
+  V0:  { label:'Benvenuto', btns:[{text:'Inizia \u2192',next:'V0b',v:'',lbl:''}] },
+  V0b: { label:'Chi sei?', form:true },
+  V1:  { label:'1 di 4', btns:[
+    {text:'Pochi GB \u2014 solo WhatsApp e foto',next:'V2a',v:'low',lbl:'pochi GB (solo WhatsApp e foto)'},
+    {text:'Uso normale \u2014 social, musica, mappe',next:'V2a',v:'med',lbl:'uso normale (social, musica, mappe)'},
+    {text:'Tanto \u2014 video, streaming, lavoro',next:'V2b',v:'high',lbl:'tanto (video, streaming, lavoro)'},
+    {text:'Voglio illimitato \u2014 niente limiti',next:'V2b',v:'unlimited',lbl:'giga illimitati'}
+  ]},
+  V2a: { label:'2 di 4', btns:[
+    {text:'Solo SIM \u2014 il WiFi ce l\u2019ho',next:'V3',v:'no',lbl:'solo SIM mobile'},
+    {text:'Voglio anche la fibra a casa',next:'V3',v:'fibra',lbl:'voglio la fibra a casa'},
+    {text:'Internet casa senza cavo (FWA/5G)',next:'V3',v:'fwa',lbl:'internet a casa senza cavo (FWA/5G)'}
+  ]},
+  V2b: { label:'2 di 4', btns:[
+    {text:'Solo SIM \u2014 il WiFi ce l\u2019ho',next:'V3',v:'no',lbl:'solo SIM mobile'},
+    {text:'Voglio anche la fibra a casa',next:'V3',v:'fibra',lbl:'voglio la fibra a casa'},
+    {text:'Internet casa senza cavo (FWA/5G)',next:'V3',v:'fwa',lbl:'internet a casa senza cavo (FWA/5G)'}
+  ]},
+  V3:  { label:'3 di 4', btns:[
+    {text:'Solo per me',next:'V4',v:'1',lbl:'una SIM (solo per me)'},
+    {text:'Io + famiglia (2 o pi\u00f9 SIM)',next:'V4',v:'family',lbl:'2 o pi\u00f9 SIM (famiglia)'},
+    {text:'Ho una partita IVA / azienda',next:'V5b',v:'biz',lbl:'uso business / partita IVA'}
+  ]},
+  V4:  { label:'4 di 4', btns:[
+    {text:'\u26a1 S\u00ec, mi interessa anche luce e gas',next:'V5',v:'lg_yes',lbl:'interessato a luce e gas'},
+    {text:'Per ora solo il telefono',next:'V5',v:'lg_no',lbl:'per ora solo il telefono'}
+  ]},
+  V5:  { label:'Quasi finito!', result:true, biz:false },
+  V5b: { label:'Quasi finito!', result:true, biz:true }
+};
+
+var VA_OFFERS = {
+  low:      {name:'Easy GO',             desc:'Minuti illimitati + GB per uso leggero. Qualit\u00e0 Wind Tre senza spendere troppo.'},
+  med:      {name:'GO 100 Special',      desc:'100 GB in 4G/5G con minuti illimitati. Il giusto equilibrio per uso quotidiano.'},
+  high:     {name:'GO 150 Fire+',        desc:'150 GB in 5G, minuti illimitati, Amazon Prime 12 mesi incluso.'},
+  unlimited:{name:'GO Unlimited Star+',  desc:'Giga illimitati in 5G. Zero limiti, massima libert\u00e0.'},
+  fibra:    {name:'Super Fibra + SIM',   desc:'Fibra FTTH fino a 2.5 Gbps a casa + SIM mobile inclusa. Tutto Wind Tre.'},
+  fwa:      {name:'Super Internet Casa 5G',desc:'Internet veloce a casa senza cavo tramite antenna 5G.'},
+  idk:      {name:'Consiglio Personalizzato',desc:'Andrea valuta la tua situazione e ti consiglia l\u2019offerta migliore.'},
+  biz:      {name:'Business Wind Tre',   desc:'Offerte dedicate alle aziende. Andrea ti contatta per trovare la soluzione migliore.'}
+};
+
+// Stato sessione
+var vaS = { step:'V0', nome:'', phone:'', a:{}, lgInt:false, history:[] };
+
+// Stato pausa/progress
+var vaIsPaused    = false;
+var vaProgressInt = null;   // setInterval per la progress bar
+var vaKpTimers    = [];     // setTimeout per i punti chiave
+var VA_VIDEO_DURATION = {   // durate approssimative in secondi per ogni step
+  V0: 30, V0b: 15, V1: 20, V2a: 20, V2b: 20, V3: 18, V4: 15, V5: 20, V5b: 20
+};
+
+// Player YouTube (singleton)
+var vaPlayer = null;
+var vaPlayerReady = false;
+var vaPendingLoad = null;
+
+// ── Callback ufficiale YouTube IFrame API ──────────────────────────────────
+function onYouTubeIframeAPIReady() {
+  vaPlayer = new YT.Player('vaYTTarget', {
+    height: '100%',
+    width: '100%',
+    videoId: VA_VIDEOS['V0'],
+    playerVars: {
+      autoplay: 0,
+      mute: 0,
+      playsinline: 1,
+      rel: 0,
+      modestbranding: 1,
+      controls: 0,
+      disablekb: 1,
+      fs: 0,
+      iv_load_policy: 3,
+      showinfo: 0
+    },
+    events: {
+      onReady: function(e) {
+        vaPlayerReady = true;
+        // Nascondi spinner
+        var loader = document.getElementById('vaLoader');
+        if (loader) loader.style.display = 'none';
+        // Mostra play screen (NON avvia ancora il video)
+        var ps = document.getElementById('vaPlayScreen');
+        if (ps) ps.style.display = 'flex';
+        // Precarica video V0 in pausa
+        e.target.cueVideoById(VA_VIDEOS['V0']);
+        vaS._currentKey = 'V0';
+        vaS._currentStep = VA_FLOW['V0'];
+        document.getElementById('vaStepLabel').textContent = VA_FLOW['V0'].label;
+        document.getElementById('vaBackBtn').style.display = 'none';
+      },
+      onStateChange: function(e) {
+        if (e.data === 0) { vaOnEnded(); }          // ENDED
+        if (e.data === 1) {                          // PLAYING
+          var ov = document.getElementById('vaNextOverlay');
+          if (ov) ov.style.display = 'none';
+          // Sincronizza stato pausa
+          if (vaIsPaused) {
+            vaIsPaused = false;
+            var po = document.getElementById('vaPausedOverlay');
+            if (po) po.style.display = 'none';
+            var icon = document.getElementById('vaPauseIcon');
+            if (icon) icon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
+          }
+        }
+        if (e.data === 2) {                          // PAUSED dall'esterno
+          if (!vaIsPaused) {
+            vaIsPaused = true;
+            var po = document.getElementById('vaPausedOverlay');
+            if (po) po.style.display = 'flex';
+            var icon = document.getElementById('vaPauseIcon');
+            if (icon) icon.innerHTML = '<path d="M8 5v14l11-7z"/>';
+          }
+        }
+      },
+      onError: function() {
+        // Video non disponibile: mostra bottoni ugualmente
+        vaOnEnded();
+      }
+    }
+  });
+}
+
+// Sicurezza: se l'API era già pronta prima che definissimo la funzione
+if (typeof YT !== 'undefined' && YT.Player && !vaPlayer) {
+  window.addEventListener('DOMContentLoaded', onYouTubeIframeAPIReady);
+}
+
+// ── Start al click del play button ────────────────────────────────────────
+function vaStartPlayer() {
+  var ps = document.getElementById('vaPlayScreen');
+  if (ps) ps.style.display = 'none';
+  if (vaPlayer) {
+    vaPlayer.unMute();
+    vaPlayer.setVolume(100);
+    vaPlayer.playVideo();
+  }
+  vaIsPaused = false;
+  vaLoad('V0', true);
+  // Mostra pannello durante il video
+  vaShowWatchPanel('V0');
+  // Mostra tasto pausa
+  var pb = document.getElementById('vaPauseBtn');
+  if (pb) { pb.style.display = 'flex'; }
+}
+
+// ── Toggle pausa/riprendi ──────────────────────────────────────────────────
+function vaTogglePlay() {
+  if (!vaPlayer || !vaPlayerReady) return;
+  // Non fare nulla se siamo sulla play screen o nel result
+  var ps = document.getElementById('vaPlayScreen');
+  if (ps && ps.style.display !== 'none') return;
+
+  if (vaIsPaused) {
+    vaPlayer.playVideo();
+    vaIsPaused = false;
+    // Nascondi overlay pausa
+    var po = document.getElementById('vaPausedOverlay');
+    if (po) po.style.display = 'none';
+    // Cambia icona → pausa
+    var icon = document.getElementById('vaPauseIcon');
+    if (icon) icon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
+    // Riprendi progress
+    vaStartProgress(vaS._currentKey);
+  } else {
+    vaPlayer.pauseVideo();
+    vaIsPaused = true;
+    // Mostra overlay pausa
+    var po = document.getElementById('vaPausedOverlay');
+    if (po) po.style.display = 'flex';
+    // Cambia icona → play
+    var icon = document.getElementById('vaPauseIcon');
+    if (icon) icon.innerHTML = '<path d="M8 5v14l11-7z"/>';
+    // Stoppa progress
+    if (vaProgressInt) { clearInterval(vaProgressInt); vaProgressInt = null; }
+  }
+}
+
+// ── Pannello "durante il video" ────────────────────────────────────────────
+function vaShowWatchPanel(key) {
+  var panel = document.getElementById('vaWatchPanel');
+  if (!panel) return;
+  // Mostra solo per V0 (intro). Per gli altri step, nascondi.
+  if (key !== 'V0') {
+    panel.style.display = 'none';
+    return;
+  }
+  panel.style.display = 'flex';
+  // Reset punti chiave
+  var kps = document.querySelectorAll('.va-kp');
+  kps.forEach(function(el) {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(10px)';
+  });
+  // Reset progress
+  var bar = document.getElementById('vaProgressBar');
+  var pct = document.getElementById('vaProgressPct');
+  if (bar) bar.style.width = '0%';
+  if (pct) pct.textContent = '0%';
+  // Cancella timer precedenti
+  vaKpTimers.forEach(function(t) { clearTimeout(t); });
+  vaKpTimers = [];
+  // Fai apparire i punti chiave uno alla volta
+  var delays = [1500, 5000, 9000, 14000];
+  kps.forEach(function(el, i) {
+    var t = setTimeout(function() {
+      el.style.opacity = '1';
+      el.style.transform = 'translateY(0)';
+    }, delays[i] || (i * 4000));
+    vaKpTimers.push(t);
+  });
+  // Avvia progress bar
+  vaStartProgress(key);
+}
+
+function vaStartProgress(key) {
+  if (vaProgressInt) { clearInterval(vaProgressInt); vaProgressInt = null; }
+  var duration = (VA_VIDEO_DURATION[key] || 20) * 1000;
+  var startTime = Date.now();
+  var bar = document.getElementById('vaProgressBar');
+  var pct = document.getElementById('vaProgressPct');
+  if (!bar || !pct) return;
+  vaProgressInt = setInterval(function() {
+    if (vaIsPaused) return;
+    var elapsed = Date.now() - startTime;
+    var progress = Math.min(elapsed / duration * 100, 99);
+    bar.style.width = progress.toFixed(1) + '%';
+    pct.textContent = Math.floor(progress) + '%';
+    if (progress >= 99) { clearInterval(vaProgressInt); vaProgressInt = null; }
+  }, 200);
+}
+
+// ── Unmute legacy (non più usato, mantenuto per sicurezza) ─────────────────
+function vaUnmute() {
+  var mo = document.getElementById('vaMuteOverlay');
+  if (mo) mo.style.display = 'none';
+  if (vaPlayer && vaPlayer.unMute) {
+    vaPlayer.unMute();
+    vaPlayer.setVolume(100);
+  }
+}
+
+// ── Carica uno step ────────────────────────────────────────────────────────
+function vaLoad(key, skipVideoLoad) {
+  var step = VA_FLOW[key];
+  if (!step) return;
+  vaS.step = key;
+
+  document.getElementById('vaBtns').style.display = 'none';
+  document.getElementById('vaForm').style.display = 'none';
+  document.getElementById('vaResult').style.display = 'none';
+  document.getElementById('vaNextOverlay').style.display = 'none';
+  document.getElementById('vaStepLabel').textContent = step.label;
+  document.getElementById('vaBackBtn').style.display = vaS.history.length > 0 ? 'block' : 'none';
+
+  // Carica video nel player
+  var ytId = VA_VIDEOS[key];
+  if (!skipVideoLoad && ytId) {
+    if (vaPlayerReady && vaPlayer) {
+      vaPlayer.loadVideoById(ytId);
+      vaPlayer.unMute();
+      vaPlayer.setVolume(100);
+    } else {
+      vaPendingLoad = ytId;
+    }
+  }
+
+  vaS._currentKey = key;
+  vaS._currentStep = step;
+
+  // Aggiorna pannello laterale
+  vaShowWatchPanel(key);
+
+  // Tasto pausa: visibile solo quando il video è in play (non su play screen, non su result)
+  var pb = document.getElementById('vaPauseBtn');
+  if (pb) pb.style.display = step.result ? 'none' : 'flex';
+
+  // Reset stato pausa per ogni nuovo video
+  vaIsPaused = false;
+  var po = document.getElementById('vaPausedOverlay');
+  if (po) po.style.display = 'none';
+  var icon = document.getElementById('vaPauseIcon');
+  if (icon) icon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
+
+  // V0: i bottoni appaiono alla fine del video
+  if (key === 'V0') {
+    return;
+  }
+
+  // Step result: mostra subito, nascondi tasto pausa
+  if (step.result) {
+    if (pb) pb.style.display = 'none';
+    vaShowResult(step.biz);
+  }
+}
+
+// ── Mostra bottoni opzione ────────────────────────────────────────────────
+function vaShowBtns(step) {
+  document.getElementById('vaNextOverlay').style.display = 'flex';
+  var btns = document.getElementById('vaBtns');
+  btns.style.display = 'flex';
+  var label = '<div style="font-family:\'Barlow Condensed\',sans-serif;font-weight:900;font-size:1.3rem;text-transform:uppercase;color:white;margin-bottom:4px;letter-spacing:.02em">Scegli la tua risposta</div>'
+    + '<div style="font-size:.82rem;color:rgba(255,255,255,.4);margin-bottom:16px">Tap su una risposta per continuare &rarr;</div>';
+  btns.innerHTML = label + step.btns.map(function(b, i) {
+    return '<button onclick="vaPick(' + i + ')" style="background:rgba(255,255,255,.05);border:2px solid rgba(255,255,255,.1);border-radius:12px;padding:16px 20px;color:white;font-size:.98rem;font-weight:600;font-family:var(--font-body);cursor:pointer;text-align:left;transition:border-color .25s,background .25s,transform .15s;display:flex;align-items:center;gap:12px" '
+      + 'onmouseover="this.style.borderColor=\'var(--orange)\';this.style.background=\'rgba(232,84,30,.12)\';this.style.transform=\'translateX(4px)\'" '
+      + 'onmouseout="this.style.borderColor=\'rgba(255,255,255,.1)\';this.style.background=\'rgba(255,255,255,.05)\';this.style.transform=\'translateX(0)\'">'
+      + '<span style="width:28px;height:28px;border-radius:50%;background:rgba(232,84,30,.2);border:1.5px solid rgba(232,84,30,.4);display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:900;color:var(--orange);flex-shrink:0">' + (i+1) + '</span>'
+      + b.text + '</button>';
+  }).join('');
+}
+
+// ── Fine video ────────────────────────────────────────────────────────────
+function vaOnEnded() {
+  var step = vaS._currentStep;
+  if (!step) return;
+  // Completa progress bar
+  if (vaProgressInt) { clearInterval(vaProgressInt); vaProgressInt = null; }
+  var bar = document.getElementById('vaProgressBar');
+  var pct = document.getElementById('vaProgressPct');
+  if (bar) bar.style.width = '100%';
+  if (pct) pct.textContent = '100%';
+  // Nascondi pannello watch quando arrivano le domande
+  var panel = document.getElementById('vaWatchPanel');
+  if (panel) panel.style.display = 'none';
+  // Reset pausa
+  vaIsPaused = false;
+  if (step.result) {
+    vaShowResult(step.biz);
+  } else if (step.form) {
+    document.getElementById('vaForm').style.display = 'flex';
+  } else if (step.btns) {
+    vaShowBtns(step);
+  }
+}
+
+// ── Selezione risposta ───────────────────────────────────────────────────
+function vaPick(i) {
+  var step = VA_FLOW[vaS.step];
+  var btn = step.btns[i];
+  vaS.a[vaS.step] = btn.v;
+  if (btn.v === 'lg_yes') vaS.lgInt = true;
+  vaS.history.push(vaS.step);
+  vaLoad(btn.next);
+}
+
+// ── Indietro ─────────────────────────────────────────────────────────────
+function vaBack() {
+  if (vaS.history.length === 0) return;
+  var prev = vaS.history.pop();
+  delete vaS.a[vaS.step];
+  vaLoad(prev);
+}
+
+// ── Validazione form ─────────────────────────────────────────────────────
+function vaCheckForm() {
+  var n = document.getElementById('vaName').value.trim();
+  var p = document.getElementById('vaPhone').value.trim();
+  var btn = document.getElementById('vaFormBtn');
+  var ok = n.length > 1 && p.length > 6;
+  btn.disabled = !ok;
+  btn.style.background = ok ? 'var(--orange)' : 'rgba(232,84,30,.25)';
+  btn.style.color = ok ? 'white' : 'rgba(255,255,255,.35)';
+  btn.style.cursor = ok ? 'pointer' : 'not-allowed';
+}
+
+function vaSubmitForm() {
+  vaS.nome = document.getElementById('vaName').value.trim();
+  vaS.phone = document.getElementById('vaPhone').value.trim();
+  document.getElementById('vaForm').style.display = 'none';
+  vaS.history.push('V0b');
+  vaLoad('V1');
+}
+
+// ── Offerta consigliata ──────────────────────────────────────────────────
+function vaGetOffer() {
+  if (vaS.a.V3 === 'biz') return VA_OFFERS.biz;
+  if (vaS.a.V2a === 'fibra' || vaS.a.V2b === 'fibra') return VA_OFFERS.fibra;
+  if (vaS.a.V2a === 'fwa'   || vaS.a.V2b === 'fwa')   return VA_OFFERS.fwa;
+  if (vaS.a.V2a === 'idk'   || vaS.a.V2b === 'idk')   return VA_OFFERS.idk;
+  return VA_OFFERS[vaS.a.V1] || VA_OFFERS.med;
+}
+
+// ── Risultato finale ─────────────────────────────────────────────────────
+function vaShowResult(isBiz) {
+  // Evita doppio invio se chiamata più volte
+  if (vaS._resultShown) return;
+  vaS._resultShown = true;
+  document.getElementById('vaResult').style.display = 'block';
+  // Nascondi brand card nel result finale — non serve più spazio
+  var wp = document.getElementById('vaWelcomePanel');
+  if (wp) wp.style.display = 'none';
+  var offer = vaGetOffer();
+  document.getElementById('vaResultGreeting').innerHTML =
+    'Perfetto <strong style="color:white">' + vaS.nome + '</strong>! In base a quello che ci hai detto, l\'offerta che fa per te è';
+  document.getElementById('vaResultOffer').textContent = offer.name;
+  document.getElementById('vaResultDesc').textContent = offer.desc;
+
+  // WA link semplice senza messaggio precompilato lungo
+  var waBase = 'https://wa.me/393931230333';
+  document.getElementById('vaWaBtn').href = waBase;
+
+  document.getElementById('vaResult').scrollIntoView({behavior:'smooth', block:'center'});
+
+  // ── Invio silenzioso a Notion CRM ───────────────────────────────────────
+  vaSendToNotion(offer, isBiz);
+}
+
+// ── Invio dati a Google Sheets via Apps Script ───────────────────────────
+function vaSendToNotion(offer, isBiz) {
+  var crmIcon = document.getElementById('vaCrmIcon');
+  var crmText = document.getElementById('vaCrmText');
+
+  // ↓ Andrea incolla qui l'URL dello script dopo il deploy
+  var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzx6xcbjS7J_RcuCclL3hmsxGvPltHzu4WqULQLPkg9gsdTwQ4q18UQkL3jr8-gcmwa/exec';
+
+  // Raccogli le risposte leggibili
+  var v1lbl = '', v2lbl = '', v3lbl = '';
+  var v1btn = vaS.a.V1 ? VA_FLOW.V1.btns.find(function(b){ return b.v === vaS.a.V1; }) : null;
+  if (v1btn) v1lbl = v1btn.lbl;
+  var v2k = vaS.a.V2a ? 'V2a' : (vaS.a.V2b ? 'V2b' : null);
+  if (v2k) {
+    var v2btn = VA_FLOW[v2k].btns.find(function(b){ return b.v === vaS.a[v2k]; });
+    if (v2btn) v2lbl = v2btn.lbl;
+  }
+  if (vaS.a.V3) {
+    var v3btn = VA_FLOW.V3.btns.find(function(b){ return b.v === vaS.a.V3; });
+    if (v3btn) v3lbl = v3btn.lbl;
+  }
+
+  var payload = {
+    nome:        vaS.nome  || '—',
+    telefono:    vaS.phone || '—',
+    offerta:     offer.name,
+    utilizzo:    v1lbl  || '—',
+    connessione: v2lbl  || '—',
+    sim:         v3lbl  || '—',
+    lucegas:     vaS.lgInt ? 'Sì' : 'No',
+    tipo:        isBiz  ? 'Business' : 'Privato'
+  };
+
+  // GET con parametri URL — piu affidabile con no-cors
+  var params = Object.keys(payload).map(function(k) {
+    return encodeURIComponent(k) + '=' + encodeURIComponent(payload[k]);
+  }).join('&');
+  fetch(SCRIPT_URL + '?' + params, { method: 'GET', mode: 'no-cors' })
+  .then(function() {
+    if (crmIcon) crmIcon.textContent = '✅';
+    if (crmText) {
+      crmText.textContent = 'Dati salvati — Andrea li vede nel suo foglio.';
+      crmText.style.color = 'rgba(255,255,255,.6)';
+    }
+  })
+  .catch(function(err) {
+    console.warn('Sheet error:', err);
+    if (crmIcon) crmIcon.textContent = '⚠️';
+    if (crmText) crmText.textContent = 'Salvataggio non riuscito — scrivi comunque su WhatsApp.';
+  });
+}
+
+// ── Reset ─────────────────────────────────────────────────────────────────
+function vaReset() {
+  vaS = {step:'V0', nome:'', phone:'', a:{}, lgInt:false, history:[], _resultShown:false};
+  vaIsPaused = false;
+  if (vaProgressInt) { clearInterval(vaProgressInt); vaProgressInt = null; }
+  vaKpTimers.forEach(function(t) { clearTimeout(t); }); vaKpTimers = [];
+  var panel = document.getElementById('vaWatchPanel');
+  if (panel) panel.style.display = 'none';
+  var pb = document.getElementById('vaPauseBtn');
+  if (pb) pb.style.display = 'none';
+  var po = document.getElementById('vaPausedOverlay');
+  if (po) po.style.display = 'none';
+  // Nascondi bottoni, form e result
+  var wp = document.getElementById('vaWelcomePanel');
+  if (wp) wp.style.display = 'flex';
+  var btns = document.getElementById('vaBtns');
+  if (btns) { btns.style.display = 'none'; btns.innerHTML = ''; }
+  document.getElementById('vaResult').style.display = 'none';
+  document.getElementById('vaForm').style.display = 'none';
+  document.getElementById('vaName').value = '';
+  document.getElementById('vaPhone').value = '';
+  var fb = document.getElementById('vaFormBtn');
+  fb.disabled = true;
+  fb.style.background = 'rgba(232,84,30,.25)';
+  fb.style.color = 'rgba(255,255,255,.35)';
+  if (vaPlayerReady && vaPlayer) {
+    vaPlayer.stopVideo();
+    vaPlayer.cueVideoById(VA_VIDEOS['V0']);
+  }
+  // Mostra play screen di nuovo
+  var ps = document.getElementById('vaPlayScreen');
+  if (ps) ps.style.display = 'flex';
+  var mo = document.getElementById('vaMuteOverlay');
+  if (mo) mo.style.display = 'none';
+}
+
+</script>
+</body>
+</html>
