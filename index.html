@@ -39,33 +39,58 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--white);over
 .nav-cta:hover{background:var(--orange-dark);transform:translateY(-1px)}
 
 /* HERO */
-.hero{padding-top:68px;min-height:100vh;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;background:var(--dark)}
+.hero{padding-top:68px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;background:var(--dark)}
 .hero-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1?w=1600&q=80');background-size:cover;background-position:center;opacity:.15;filter:saturate(.3) blur(1px)}
 .hero-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(26,26,26,.97) 0%,rgba(26,26,26,.85) 50%,rgba(232,84,30,.12) 100%)}
-.hero-inner{position:relative;z-index:2;max-width:1200px;margin:0 auto;padding:80px 5% 60px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.hero-inner{position:relative;z-index:2;max-width:1200px;margin:0 auto;padding:60px 5% 30px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
 .hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(232,84,30,.15);border:1px solid var(--orange);color:var(--orange);font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;border-radius:4px;margin-bottom:24px}
 .hero-tag::before{content:'';width:7px;height:7px;background:var(--orange);border-radius:50%;animation:pulse-dot 1.5s ease-in-out infinite;flex-shrink:0}
 @keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
 .hero-h1{font-family:var(--font-display);font-weight:900;font-size:clamp(3rem,5vw,4.8rem);line-height:.95;color:var(--white);text-transform:uppercase;letter-spacing:-.01em;margin-bottom:24px}
 .hero-h1 em{font-style:normal;color:var(--orange)}
-.hero-sub{font-size:1.05rem;line-height:1.65;color:rgba(255,255,255,.72);margin-bottom:40px;max-width:480px}
+.hero-sub{font-size:1.05rem;line-height:1.65;color:rgba(255,255,255,.72);margin-bottom:30px;max-width:480px}
 .hero-sub strong{color:rgba(255,255,255,.95)}
-.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:50px}
-.btn-primary{display:inline-flex;align-items:center;gap:10px;background:var(--orange);color:white;text-decoration:none;font-weight:700;font-size:1rem;padding:16px 28px;border-radius:7px;transition:background .2s,transform .2s,box-shadow .2s;box-shadow:0 4px 20px rgba(232,84,30,.4)}
-.btn-primary:hover{background:var(--orange-dark);transform:translateY(-2px);box-shadow:0 8px 30px rgba(232,84,30,.5)}
-.btn-secondary{display:inline-flex;align-items:center;gap:8px;background:transparent;color:white;text-decoration:none;font-weight:600;font-size:1rem;padding:16px 22px;border-radius:7px;border:1.5px solid rgba(255,255,255,.25);transition:border-color .2s,background .2s}
-.btn-secondary:hover{border-color:rgba(255,255,255,.6);background:rgba(255,255,255,.06)}
-.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.1);border-radius:10px;overflow:hidden}
+
+/* HERO VIDEO BRIDGE — la headline che porta al video */
+.hero-bridge{
+  font-family:var(--font-display);
+  font-weight:800;
+  font-size:clamp(1.5rem,3vw,2.3rem);
+  text-transform:uppercase;
+  color:white;
+  line-height:1.05;
+  margin-top:28px;
+  letter-spacing:.01em;
+  text-align:center;
+}
+.hero-bridge .accent{color:var(--orange);display:block}
+.hero-bridge .lead{display:block;font-size:.78em;font-weight:700;color:rgba(255,255,255,.65);margin-bottom:6px;letter-spacing:.05em}
+
+/* Animated down-arrows pointing to video */
+.video-arrows{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:2px;
+  margin:24px 0 22px;
+}
+.video-arrows svg{
+  display:block;
+  animation:arrow-bounce 1.4s ease-in-out infinite;
+  filter:drop-shadow(0 0 12px rgba(232,84,30,.5));
+}
+.video-arrows svg:nth-child(1){opacity:.25}
+.video-arrows svg:nth-child(2){opacity:.55;animation-delay:.15s}
+.video-arrows svg:nth-child(3){opacity:1;animation-delay:.3s}
+@keyframes arrow-bounce{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(10px)}
+}
+
+.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.1);border-radius:10px;overflow:hidden;max-width:720px;margin:30px auto 0;position:relative;z-index:2}
 .stat-item{background:rgba(255,255,255,.04);padding:22px 18px;text-align:center}
 .stat-num{font-family:var(--font-display);font-weight:900;font-size:2.2rem;color:var(--orange);line-height:1;display:block;margin-bottom:6px}
 .stat-label{font-size:.78rem;color:rgba(255,255,255,.55);font-weight:500;line-height:1.3}
-.hero-right{position:relative}
-.hero-img-card{border-radius:14px;overflow:hidden;position:relative;aspect-ratio:4/5;box-shadow:0 30px 80px rgba(0,0,0,.5)}
-.hero-img-card img{width:100%;height:100%;object-fit:cover;filter:saturate(.9)}
-.hero-img-badge{position:absolute;bottom:24px;left:24px;right:24px;background:rgba(26,26,26,.92);backdrop-filter:blur(12px);border:1px solid rgba(232,84,30,.4);border-radius:10px;padding:16px 20px;display:flex;align-items:center;gap:14px}
-.hero-img-badge-icon{width:42px;height:42px;background:var(--orange);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
-.hero-img-badge-text{font-size:.85rem;color:rgba(255,255,255,.9);line-height:1.4}
-.hero-img-badge-text strong{color:white;display:block;font-size:1rem}
 
 /* COUNTER */
 .counter-section{background:var(--orange);padding:48px 5%}
@@ -129,56 +154,8 @@ section{padding:100px 5%}
 .value-card .btn-primary{width:100%;justify-content:center;margin-bottom:14px}
 .value-card .guarantee{font-size:.78rem;color:rgba(255,255,255,.4);text-align:center;line-height:1.5}
 
-/* QUIZ */
-#quiz{background:var(--dark);padding:100px 5%}
-.quiz-wrap{max-width:720px;margin:0 auto}
-#quiz .section-tag{color:var(--orange)}
-#quiz .section-title{color:white}
-#quiz .section-sub{color:rgba(255,255,255,.6)}
-.quiz-card{background:var(--dark-2);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:44px 48px;position:relative}
-.quiz-steps{display:none;animation:qfadein .3s ease}
-.quiz-steps.active{display:block}
-@keyframes qfadein{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-.quiz-topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;gap:16px}
-.quiz-progress{display:flex;gap:6px;flex:1}
-.quiz-progress-dot{height:4px;flex:1;background:rgba(255,255,255,.1);border-radius:2px;transition:background .4s}
-.quiz-progress-dot.done{background:var(--orange)}
-.quiz-back-btn{background:none;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.5);font-family:var(--font-body);font-size:.8rem;font-weight:600;padding:7px 14px;border-radius:6px;cursor:pointer;transition:border-color .2s,color .2s;white-space:nowrap;display:flex;align-items:center;gap:6px}
-.quiz-back-btn:hover{border-color:rgba(255,255,255,.4);color:rgba(255,255,255,.85)}
-.quiz-back-btn.hidden{visibility:hidden;pointer-events:none}
-.quiz-step-label{font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);margin-bottom:12px;display:block}
-.quiz-question{font-family:var(--font-display);font-weight:800;font-size:1.55rem;text-transform:uppercase;margin-bottom:28px;color:white;line-height:1.1}
-.quiz-options{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.quiz-option{background:rgba(255,255,255,.04);border:2px solid rgba(255,255,255,.1);border-radius:12px;padding:18px 20px;cursor:pointer;transition:border-color .2s,background .2s,transform .15s;text-align:left;font-family:var(--font-body);font-size:.93rem;font-weight:600;color:rgba(255,255,255,.85);display:flex;align-items:center;gap:14px}
-.quiz-option:hover{border-color:var(--orange);background:rgba(232,84,30,.08);transform:translateY(-2px);color:white}
-.quiz-option.selected{border-color:var(--orange);background:rgba(232,84,30,.12);color:white}
-.quiz-option-icon{font-size:1.5rem;flex-shrink:0;line-height:1}
-.quiz-option small{color:rgba(255,255,255,.45);font-weight:400;font-size:.8rem;display:block;margin-top:3px}
-/* name step */
-.quiz-name-wrap{display:flex;flex-direction:column;gap:14px}
-.quiz-name-input{background:rgba(255,255,255,.06);border:2px solid rgba(255,255,255,.12);border-radius:10px;padding:16px 20px;font-family:var(--font-body);font-size:1.05rem;font-weight:600;color:white;width:100%;outline:none;transition:border-color .2s}
-.quiz-name-input::placeholder{color:rgba(255,255,255,.3);font-weight:400}
-.quiz-name-input:focus{border-color:var(--orange)}
-.quiz-name-continue{background:var(--orange);color:white;border:none;padding:16px 32px;border-radius:8px;font-family:var(--font-body);font-weight:700;font-size:1rem;cursor:pointer;transition:background .2s,transform .2s;display:inline-flex;align-items:center;gap:10px;align-self:flex-start}
-.quiz-name-continue:hover{background:var(--orange-dark);transform:translateY(-2px)}
-/* result */
-.quiz-result{display:none;animation:qfadein .4s ease}
-.quiz-result.active{display:block}
-.quiz-result-header{text-align:center;margin-bottom:36px}
-.quiz-result-emoji{font-size:2.8rem;margin-bottom:16px;display:block}
-.quiz-result-greeting{font-size:1.1rem;color:rgba(255,255,255,.7);margin-bottom:12px;line-height:1.5}
-.quiz-result-greeting strong{color:white}
-.quiz-result-offer-name{font-family:var(--font-display);font-weight:900;font-size:2.4rem;text-transform:uppercase;color:var(--orange);line-height:1;margin-bottom:10px}
-.quiz-result-desc{font-size:.95rem;color:rgba(255,255,255,.6);line-height:1.65;max-width:520px;margin:0 auto}
-.quiz-message-box{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:28px 32px;margin:30px 0}
-.quiz-message-box-label{font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:16px;display:flex;align-items:center;gap:8px}
-.quiz-message-box-label::before{content:'';display:inline-block;width:6px;height:6px;background:var(--orange);border-radius:50%}
-.quiz-message-preview{background:rgba(255,255,255,.06);border-radius:10px;padding:20px 22px;font-size:.9rem;color:rgba(255,255,255,.8);line-height:1.7;font-family:var(--font-body);white-space:pre-wrap;word-break:break-word;border-left:3px solid var(--orange)}
-.quiz-wa-btn{display:flex;align-items:center;justify-content:center;gap:12px;background:#25D366;color:white;text-decoration:none;font-weight:700;font-size:1.08rem;padding:20px 36px;border-radius:10px;transition:background .2s,transform .2s,box-shadow .2s;box-shadow:0 6px 30px rgba(37,211,102,.3);width:100%;text-align:center;margin-bottom:14px}
-.quiz-wa-btn:hover{background:#1ea655;transform:translateY(-2px);box-shadow:0 10px 40px rgba(37,211,102,.45)}
-.quiz-wa-sub{font-size:.8rem;color:rgba(255,255,255,.35);text-align:center;line-height:1.5;margin-bottom:24px}
-.quiz-reset{background:none;border:none;color:rgba(255,255,255,.35);font-size:.82rem;cursor:pointer;text-decoration:underline;font-family:var(--font-body);display:block;margin:0 auto}
-.quiz-reset:hover{color:rgba(255,255,255,.65)}
+.btn-primary{display:inline-flex;align-items:center;gap:10px;background:var(--orange);color:white;text-decoration:none;font-weight:700;font-size:1rem;padding:16px 28px;border-radius:7px;transition:background .2s,transform .2s,box-shadow .2s;box-shadow:0 4px 20px rgba(232,84,30,.4)}
+.btn-primary:hover{background:var(--orange-dark);transform:translateY(-2px);box-shadow:0 8px 30px rgba(232,84,30,.5)}
 
 /* COME FUNZIONA */
 #come-funziona{background:var(--dark);padding:100px 5%}
@@ -256,11 +233,7 @@ footer{background:#111;padding:56px 5% 32px;border-top:2px solid rgba(255,255,25
 
 /* LUCE GAS */
 #lucegasSection{background:var(--dark);padding:100px 5%}
-.lucegasSection .section-title{color:white}
-.lucegasSection .section-sub{color:rgba(255,255,255,.6)}
-.lucegasSection .section-tag{color:#4ECDC4}
 .lg-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
-.lg-left{}
 .lg-saving-box{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:36px 32px;margin-bottom:28px}
 .lg-saving-num{font-family:var(--font-display);font-weight:900;font-size:3.5rem;color:#4ECDC4;line-height:1;margin-bottom:8px}
 .lg-saving-label{font-size:.95rem;color:rgba(255,255,255,.65);line-height:1.5}
@@ -269,7 +242,6 @@ footer{background:#111;padding:56px 5% 32px;border-top:2px solid rgba(255,255,25
 .lg-benefit-icon{width:40px;height:40px;border-radius:50%;background:rgba(78,205,196,.15);border:1px solid rgba(78,205,196,.3);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
 .lg-benefit-content h4{font-family:var(--font-display);font-weight:800;font-size:1rem;text-transform:uppercase;color:white;margin-bottom:4px}
 .lg-benefit-content p{font-size:.88rem;color:rgba(255,255,255,.55);line-height:1.55}
-.lg-right{}
 .lg-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:32px;margin-bottom:20px}
 .lg-card-title{font-family:var(--font-display);font-weight:900;font-size:1.2rem;text-transform:uppercase;color:#4ECDC4;margin-bottom:18px;display:flex;align-items:center;gap:10px}
 .lg-card-title span{font-size:1.3rem}
@@ -301,22 +273,18 @@ footer{background:#111;padding:56px 5% 32px;border-top:2px solid rgba(255,255,25
 
 /* RESPONSIVE */
 @media(max-width:900px){
-  .hero-inner{grid-template-columns:1fr}
-  .hero-right{display:none}
-  .counter-inner{grid-template-columns:1fr 1fr;gap:20px}
+  .hero-inner{grid-template-columns:1fr;padding-top:40px}
   .drama-box{grid-template-columns:1fr}
   .drama-col.bad{border-right:none;border-bottom:2px solid var(--orange)}
   .problem-cards,.testi-grid{grid-template-columns:1fr}
   .soluzione-inner{grid-template-columns:1fr}
   .steps-wrap{grid-template-columns:1fr}
   .footer-top{grid-template-columns:1fr;gap:40px}
-  .quiz-options{grid-template-columns:1fr}
-  .quiz-card{padding:32px 24px}
   .cta-buttons{flex-direction:column;align-items:center}
 }
 @media(max-width:480px){
   section{padding:70px 5%}
-  .hero-inner{padding:60px 5% 50px}
+  .hero-inner{padding:40px 5% 24px}
   .hero-stats{grid-template-columns:1fr}
   .counter-inner{grid-template-columns:1fr}
   .navbar{padding:0 4%}
@@ -344,7 +312,7 @@ footer{background:#111;padding:56px 5% 32px;border-top:2px solid rgba(255,255,25
   Negozio fisico a Vasto &mdash; <span>Lun-Sab 9:30-13:00 &middot; 16:30-20:00</span> &mdash; Corso Mazzini 196
 </div>
 <div id="navBtnsBar" style="background:#1A1A1A;padding:14px 5%;display:flex;justify-content:center;gap:16px;flex-wrap:wrap;position:relative;z-index:998;border-bottom:2px solid #333">
-  <a href="#quiz" style="display:inline-flex;align-items:center;gap:9px;background:var(--orange);color:white;text-decoration:none;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.1rem;padding:13px 28px;border-radius:8px;letter-spacing:.05em;text-transform:uppercase;box-shadow:0 4px 16px rgba(232,84,30,.4)">
+  <a href="#vaLayout" style="display:inline-flex;align-items:center;gap:9px;background:var(--orange);color:white;text-decoration:none;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.1rem;padding:13px 28px;border-radius:8px;letter-spacing:.05em;text-transform:uppercase;box-shadow:0 4px 16px rgba(232,84,30,.4)">
     &#128242; Telefonia &amp; Fibra
   </a>
   <a href="#lucegasSection" style="display:inline-flex;align-items:center;gap:9px;background:#0A9E96;color:white;text-decoration:none;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.1rem;padding:13px 28px;border-radius:8px;letter-spacing:.05em;text-transform:uppercase;box-shadow:0 4px 16px rgba(10,158,150,.4)">
@@ -373,43 +341,42 @@ footer{background:#111;padding:56px 5% 32px;border-top:2px solid rgba(255,255,25
     <div class="hero-left" style="max-width:100%">
       <div class="hero-tag" style="margin:0 auto 24px">Partner ufficiale Wind Tre &middot; Vasto (CH)</div>
       <h1 class="hero-h1" style="font-size:clamp(2.4rem,4.5vw,4rem)">Stanchi di pagare troppo <em>il telefono?</em></h1>
-      <p class="hero-sub" style="max-width:620px;margin:0 auto 30px">
+      <p class="hero-sub" style="max-width:620px;margin:0 auto 24px">
         Ogni giorno a Vasto, persone cambiano operatore con il call center e finiscono <strong>con problemi, costi nascosti e nessuno che risponde.</strong><br><br>
         Da noi e&apos; diverso: vieni in negozio, parli con Andrea in persona, esci con l&apos;offerta giusta in 10 minuti.
       </p>
+
       <!-- GIGALIZZATI — super prominente -->
-      <div style="margin-bottom:36px;text-align:center">
+      <div style="margin-bottom:8px;text-align:center">
         <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(5rem,11vw,9.5rem);line-height:.88;text-transform:uppercase;letter-spacing:-.02em;color:var(--orange);text-shadow:0 0 80px rgba(232,84,30,.55),0 5px 0 rgba(150,35,0,.7);display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap">
           <svg viewBox="0 0 24 24" fill="currentColor" style="width:clamp(50px,8vw,88px);height:clamp(50px,8vw,88px);flex-shrink:0;filter:drop-shadow(0 0 18px rgba(232,84,30,.9))"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
           <span>GIGALIZZATI!</span>
         </div>
-        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:clamp(.9rem,2vw,1.25rem);letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-top:10px">&#9889; Andrea ti porta al massimo della connessione</div>
-      </div>
-      <!-- Stats -->
-      <div class="hero-stats" style="max-width:560px;margin:0 auto 40px">
-        <div class="stat-item">
-          <span class="stat-num">+320</span>
-          <span class="stat-label">Clienti soddisfatti<br>nella zona di Vasto</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-num">10&apos;</span>
-          <span class="stat-label">Attivazione diretta<br>in negozio</span>
-        </div>
-        <div class="stat-item">
-          <span class="stat-num">8+</span>
-          <span class="stat-label">Anni come agente<br>Wind Tre</span>
+
+        <!-- BRIDGE: nuova headline che porta al video -->
+        <div class="hero-bridge">
+          <span class="lead">&#9889; Parla con Andrea</span>
+          <span class="accent">Troviamo l&rsquo;offerta giusta per te</span>
         </div>
       </div>
+
+      <!-- ARROWS animate verso il video -->
+      <div class="video-arrows" aria-hidden="true">
+        <svg width="36" height="14" viewBox="0 0 36 14"><path d="M2 2 L18 12 L34 2" fill="none" stroke="var(--orange)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg width="36" height="14" viewBox="0 0 36 14"><path d="M2 2 L18 12 L34 2" fill="none" stroke="var(--orange)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg width="36" height="14" viewBox="0 0 36 14"><path d="M2 2 L18 12 L34 2" fill="none" stroke="var(--orange)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+
     </div>
   </div>
 
-  <!-- VIDEO ASK — video centrato, domande overlay in basso -->
-  <div style="position:relative;z-index:2;max-width:560px;margin:0 auto;padding:0 5% 80px">
+  <!-- VIDEO ASK — ora subito sotto la nuova headline -->
+  <div style="position:relative;z-index:2;max-width:560px;margin:0 auto;padding:0 5% 30px">
 
     <!-- HEADER -->
-    <div style="text-align:center;margin-bottom:24px">
-      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(1.6rem,3vw,2.2rem);text-transform:uppercase;color:white;line-height:1.05;margin-bottom:8px">Trova l&rsquo;offerta giusta<br><span style="color:var(--orange)">in meno di 3 minuti</span></div>
-      <p style="font-size:.9rem;color:rgba(255,255,255,.55);line-height:1.6;margin-bottom:14px">Guarda il video e rispondi con un tap. Andrea ti contatta lui direttamente.</p>
+    <div style="text-align:center;margin-bottom:18px">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(1.4rem,2.6vw,1.9rem);text-transform:uppercase;color:white;line-height:1.05;margin-bottom:8px">Trova l&rsquo;offerta giusta<br><span style="color:var(--orange)">in meno di 3 minuti</span></div>
+      <p style="font-size:.88rem;color:rgba(255,255,255,.55);line-height:1.55;margin-bottom:12px">Guarda il video e rispondi con un tap. Andrea ti contatta lui direttamente.</p>
       <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
         <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:5px 11px;font-size:.73rem;font-weight:600;color:rgba(255,255,255,.7)"><svg width="10" height="10" viewBox="0 0 24 24" fill="var(--orange)"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Rispondi con un tap</span>
         <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:5px 11px;font-size:.73rem;font-weight:600;color:rgba(255,255,255,.7)"><svg width="10" height="10" viewBox="0 0 24 24" fill="var(--orange)"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Offerta personalizzata</span>
@@ -418,12 +385,11 @@ footer{background:#111;padding:56px 5% 32px;border-top:2px solid rgba(255,255,25
     </div>
 
     <!-- VIDEO con overlay domande -->
-    <div id="vaLayout" style="border:3px solid var(--orange);border-radius:20px;overflow:hidden;box-shadow:0 0 60px rgba(232,84,30,.35)">
+    <div id="vaLayout" style="border:3px solid var(--orange);border-radius:20px;overflow:hidden;box-shadow:0 0 70px rgba(232,84,30,.5),0 20px 60px rgba(0,0,0,.6)">
       <div id="vaPlayerArea" style="position:relative;background:#000;aspect-ratio:9/16;width:100%;overflow:hidden">
 
         <!-- YOUTUBE TARGET -->
         <div id="vaYTTarget" style="width:100%;height:100%;position:absolute;inset:0"></div>
-        <!-- Click blocker solo sull'area video, non sull'overlay domande -->
         <div id="vaClickBlocker" style="position:absolute;top:0;left:0;right:0;bottom:45%;z-index:6;background:transparent;pointer-events:auto;cursor:pointer" onclick="vaTogglePlay()" title="Pausa / Riprendi"></div>
 
         <!-- PAUSE BTN -->
@@ -450,7 +416,7 @@ footer{background:#111;padding:56px 5% 32px;border-top:2px solid rgba(255,255,25
 
         <!-- NEXT OVERLAY hint -->
         <div id="vaNextOverlay" style="display:none;position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.8));z-index:5;align-items:flex-end;justify-content:center;padding:20px;pointer-events:none">
-          <div style="color:rgba(255,255,255,.8);font-size:.82rem;font-weight:600;font-family:var(--font-body);text-align:center;width:100%">Scegli una risposta &rarr;</div>
+          <div style="color:rgba(255,255,255,.8);font-size:.82rem;font-weight:600;font-family:var(--font-body);text-align:center;width:100%">Scegli una risposta &uarr;</div>
         </div>
 
         <!-- LOADER -->
@@ -472,10 +438,10 @@ footer{background:#111;padding:56px 5% 32px;border-top:2px solid rgba(255,255,25
           <div style="font-size:.75rem;color:rgba(255,255,255,.35);letter-spacing:.05em">Tocca per iniziare &bull; Audio attivo</div>
         </div>
 
-        <!-- ══ OVERLAY UI — domande/form/result in basso SUL video ══ -->
+        <!-- OVERLAY UI in basso -->
         <div id="vaUICol" style="position:absolute;bottom:0;left:0;right:0;z-index:12;background:linear-gradient(transparent,rgba(0,0,0,.93) 30%);padding:20px 16px 18px">
 
-      <!-- PANNELLO "DURANTE IL VIDEO" -->
+      <!-- PANNELLO durante il video -->
       <div id="vaWatchPanel" style="display:none;flex-direction:column;gap:0">
         <div style="margin-bottom:16px">
           <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.2rem;text-transform:uppercase;color:white;line-height:1.1;margin-bottom:4px">Cosa impari in questo video</div>
@@ -521,15 +487,15 @@ footer{background:#111;padding:56px 5% 32px;border-top:2px solid rgba(255,255,25
         </div>
       </div>
 
-      <!-- WELCOME PANEL (contenuto spostato nell'header) -->
+      <!-- WELCOME PANEL — freccia ora verso L'ALTO -->
       <div id="vaWelcomePanel" style="display:flex;flex-direction:column;gap:12px;">
-        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.05rem;text-transform:uppercase;color:var(--orange);letter-spacing:.08em">Scegli la tua risposta &darr;</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.05rem;text-transform:uppercase;color:var(--orange);letter-spacing:.08em">&uarr; Scegli la tua risposta qui sopra</div>
       </div>
 
       <!-- BOTTONI RISPOSTA -->
       <div id="vaBtns" style="display:none;flex-direction:column;gap:12px;"></div>
 
-      <!-- FORM -->
+      <!-- FORM (Nome + Telefono + ZONA) -->
       <div id="vaForm" style="display:none;flex-direction:column;gap:14px;">
         <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.3rem;text-transform:uppercase;color:white;margin-bottom:4px">Prima di continuare&hellip;</div>
         <div style="font-size:.88rem;color:rgba(255,255,255,.5);margin-bottom:8px">Cos&igrave; Andrea sa gi&agrave; chi &egrave; quando ti risponde.</div>
@@ -539,6 +505,19 @@ footer{background:#111;padding:56px 5% 32px;border-top:2px solid rgba(255,255,25
         <input id="vaPhone" type="tel" placeholder="Il tuo numero di telefono..." maxlength="15" autocomplete="tel" oninput="vaCheckForm()"
           style="background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.14);border-radius:9px;padding:14px 16px;color:white;font-size:.97rem;font-family:var(--font-body);outline:none;transition:border-color .2s"
           onfocus="this.style.borderColor='var(--orange)'" onblur="this.style.borderColor='rgba(255,255,255,.14)'">
+        <select id="vaZona" onchange="vaOnZonaChange()"
+          style="background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.14);border-radius:9px;padding:14px 16px;color:white;font-size:.97rem;font-family:var(--font-body);outline:none;transition:border-color .2s;appearance:none;-webkit-appearance:none;background-image:url('data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;12&quot; height=&quot;8&quot; viewBox=&quot;0 0 12 8&quot;><path d=&quot;M1 1l5 5 5-5&quot; fill=&quot;none&quot; stroke=&quot;rgba(255,255,255,0.5)&quot; stroke-width=&quot;2&quot;/></svg>');background-repeat:no-repeat;background-position:right 16px center;padding-right:40px"
+          onfocus="this.style.borderColor='var(--orange)'" onblur="this.style.borderColor='rgba(255,255,255,.14)'">
+          <option value="" style="background:#1a1a1a">Da che zona sei?</option>
+          <option value="Vasto" style="background:#1a1a1a">Vasto</option>
+          <option value="San Salvo" style="background:#1a1a1a">San Salvo</option>
+          <option value="Casalbordino" style="background:#1a1a1a">Casalbordino</option>
+          <option value="Cupello" style="background:#1a1a1a">Cupello</option>
+          <option value="Termoli" style="background:#1a1a1a">Termoli</option>
+          <option value="Vasto Marina" style="background:#1a1a1a">Vasto Marina</option>
+          <option value="__altro" style="background:#1a1a1a">Altro&hellip;</option>
+        </select>
+        <input id="vaZonaAltro" type="text" placeholder="Indica la tua zona..." maxlength="40" oninput="vaCheckForm()" style="display:none;background:rgba(255,255,255,.07);border:1.5px solid rgba(232,84,30,.4);border-radius:9px;padding:14px 16px;color:white;font-size:.97rem;font-family:var(--font-body);outline:none;transition:border-color .2s" onfocus="this.style.borderColor='var(--orange)'" onblur="this.style.borderColor='rgba(232,84,30,.4)'">
         <button id="vaFormBtn" onclick="vaSubmitForm()" disabled
           style="background:rgba(232,84,30,.25);color:rgba(255,255,255,.35);border:none;padding:16px;border-radius:9px;font-size:1rem;font-weight:700;font-family:var(--font-body);cursor:not-allowed;transition:all .2s">
           Avanti &rarr;
@@ -586,9 +565,24 @@ footer{background:#111;padding:56px 5% 32px;border-top:2px solid rgba(255,255,25
       </div><!-- /vaPlayerArea -->
     </div><!-- /vaLayout video border -->
   </div><!-- /videoask wrapper -->
-</section>
 
-<!-- (quiz section moved into hero) -->
+  <!-- STATS — ora SOTTO il video -->
+  <div class="hero-stats" style="margin-bottom:80px">
+    <div class="stat-item">
+      <span class="stat-num">+320</span>
+      <span class="stat-label">Clienti soddisfatti<br>nella zona di Vasto</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">10&apos;</span>
+      <span class="stat-label">Attivazione diretta<br>in negozio</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">8+</span>
+      <span class="stat-label">Anni come agente<br>Wind Tre</span>
+    </div>
+  </div>
+
+</section>
 
 <!-- COUNTER -->
 <div class="counter-section" id="counters">
@@ -670,10 +664,9 @@ footer{background:#111;padding:56px 5% 32px;border-top:2px solid rgba(255,255,25
     </div>
   </div>
   <div class="section-cta-wrap reveal">
-    <a href="#quiz" class="btn-primary">&#9889; Trova la tua offerta giusta</a>
+    <a href="#vaLayout" class="btn-primary">&#9889; Trova la tua offerta giusta</a>
   </div>
 </section>
-
 
 <!-- SOLUZIONE -->
 <section id="soluzione">
@@ -729,7 +722,7 @@ footer{background:#111;padding:56px 5% 32px;border-top:2px solid rgba(255,255,25
           <li>Supporto post-attivazione via WhatsApp o in negozio</li>
           <li>Consulenza fibra, FWA, Luce &amp; Gas su richiesta</li>
         </ul>
-        <a href="#quiz" class="btn-primary">&#9889; Inizia il tuo percorso &mdash; gratis</a>
+        <a href="#vaLayout" class="btn-primary">&#9889; Inizia il tuo percorso &mdash; gratis</a>
         <div class="guarantee">Nessun impegno. Nessun costo. Solo una chiacchierata.</div>
       </div>
     </div>
@@ -765,7 +758,7 @@ footer{background:#111;padding:56px 5% 32px;border-top:2px solid rgba(255,255,25
     </div>
   </div>
   <div class="section-cta-wrap reveal">
-    <a href="#quiz" class="btn-primary">&#9889; Gigalizzati in 3 passi</a>
+    <a href="#vaLayout" class="btn-primary">&#9889; Gigalizzati in 3 passi</a>
   </div>
 </section>
 
@@ -812,7 +805,7 @@ footer{background:#111;padding:56px 5% 32px;border-top:2px solid rgba(255,255,25
     </div>
   </div>
   <div class="section-cta-wrap reveal">
-    <a href="#quiz" class="btn-primary">&#9889; Voglio un&apos;offerta come la loro</a>
+    <a href="#vaLayout" class="btn-primary">&#9889; Voglio un&apos;offerta come la loro</a>
   </div>
 </section>
 
@@ -916,7 +909,7 @@ footer{background:#111;padding:56px 5% 32px;border-top:2px solid rgba(255,255,25
     </div>
   </div>
   <div class="section-cta-wrap reveal">
-    <a href="#quiz" class="btn-primary">&#9889; Trova la risposta giusta per te</a>
+    <a href="#vaLayout" class="btn-primary">&#9889; Trova la risposta giusta per te</a>
   </div>
 </section>
 
@@ -927,8 +920,6 @@ footer{background:#111;padding:56px 5% 32px;border-top:2px solid rgba(255,255,25
     <span class="section-tag reveal" style="color:var(--orange)">Pronti quando sei pronto</span>
     <h2 class="section-title reveal">Parliamoci.<br>E&apos; gratuito.</h2>
     <p class="cta-sub reveal">Nessun impegno, nessuna pressione. Solo una chiacchierata per capire se possiamo aiutarti a risparmiare. Il peggio che puo&apos; succedere? Scopri che stai gia&apos; facendo bene.</p>
-
-    <!-- Andrea cameo -->
     <div class="reveal" style="display:flex;align-items:center;gap:16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:18px 24px;max-width:460px;margin:0 auto 44px">
       <img src="https://i.imgur.com/e81fwRr.jpeg" alt="Andrea" style="width:60px;height:60px;border-radius:50%;object-fit:cover;object-position:top;flex-shrink:0;border:2px solid var(--orange)">
       <div style="text-align:left">
@@ -1019,7 +1010,7 @@ footer{background:#111;padding:56px 5% 32px;border-top:2px solid rgba(255,255,25
 
 <!-- FLOATING CTA -->
 <div class="floating-cta" id="floatingCta">
-  <a href="#quiz" class="floating-btn">
+  <a href="#vaLayout" class="floating-btn">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
     <span>&#9889; Gigalizzati!</span>
   </a>
@@ -1035,7 +1026,6 @@ window.addEventListener('scroll', function() {
   else { navbar.classList.remove('hidden'); }
   if (curr > 20) { navbar.classList.add('scrolled'); } else { navbar.classList.remove('scrolled'); }
   lastScroll = curr;
-  // Floating CTA
   var pct = (curr / (document.body.scrollHeight - window.innerHeight)) * 100;
   var fc = document.getElementById('floatingCta');
   if (pct > 40) { fc.classList.add('visible'); } else { fc.classList.remove('visible'); }
@@ -1046,16 +1036,10 @@ window.addEventListener('DOMContentLoaded', function() {
   var barsH = document.getElementById('topBars').offsetHeight;
   var navH = 68;
   var totalFixed = barsH + navH;
-
-  // Navbar si posiziona subito sotto topBars
   navbar.style.top = barsH + 'px';
-
-  // Il body inizia dopo tutte le barre fisse
   document.body.style.paddingTop = (totalFixed) + 'px';
-
-  // Scroll margin per non essere coperti dalle barre quando si ancora
   document.documentElement.style.setProperty('--bars-h', (totalFixed + 16) + 'px');
-  document.querySelectorAll('section[id], div[id="counters"]').forEach(function(el) {
+  document.querySelectorAll('section[id], div[id="counters"], #vaLayout').forEach(function(el) {
     el.style.scrollMarginTop = (totalFixed + 16) + 'px';
   });
 });
@@ -1112,7 +1096,25 @@ function toggleFaq(btn) {
   allAnswers[idx].classList.toggle('open');
 }
 
-// ─── VIDEOASK ────────────────────────────────────────────────────────────────
+// ═══════════════════════════════════════════════════════════════════════════
+// ███  CONFIG CRM uwplace  ██████████████████████████████████████████████████
+// ═══════════════════════════════════════════════════════════════════════════
+// Quando avrai i dati dall'API di uwplace, compila qui sotto:
+//   - endpoint : URL completo (es. https://uwplace.com/api/v1/contacts)
+//   - apiKey   : la chiave API che ti dà uwplace (header Authorization)
+//   - extraHeaders : eventuali header aggiuntivi che chiede uwplace
+//
+// Finché endpoint è vuoto, i lead vengono solo loggati in console (F12 →
+// Console). Niente si rompe.
+//
+var UWPLACE_CONFIG = {
+  endpoint:     '',                        // <-- INCOLLA QUI L'URL API DI UWPLACE
+  apiKey:       '',                        // <-- INCOLLA QUI L'API KEY DI UWPLACE
+  authHeader:   'Bearer',                  // 'Bearer' | 'Token' | '' (chiedi a uwplace)
+  extraHeaders: {}                         // es. { 'X-Workspace-Id': '...' }
+};
+
+// VIDEOASK FLOW
 var VA_VIDEOS = {
   V0:  'B6-VbHDOfes',
   V0b: '0LuhXDY94Fk',
@@ -1123,33 +1125,56 @@ var VA_VIDEOS = {
   V4:  'PtptUbiPwdc',
   V5:  '9vXV5iEUrtw',
   V5b: 'h04agHedBR4'
+  // V0c e V0d non hanno video: vanno direttamente ai bottoni
 };
 
 var VA_FLOW = {
   V0:  { label:'Benvenuto', btns:[{text:'Inizia \u2192',next:'V0b',v:'',lbl:''}] },
   V0b: { label:'Chi sei?', form:true },
-  V1:  { label:'1 di 4', btns:[
+
+  // NUOVO STEP: operatore di provenienza
+  V0c: { label:'1 di 6', noVideo:true, question:'Da quale operatore vieni?', btns:[
+    {text:'TIM',          next:'V0d', v:'TIM',         lbl:'TIM'},
+    {text:'Vodafone',     next:'V0d', v:'Vodafone',    lbl:'Vodafone'},
+    {text:'Iliad',        next:'V0d', v:'Iliad',       lbl:'Iliad'},
+    {text:'Fastweb',      next:'V0d', v:'Fastweb',     lbl:'Fastweb'},
+    {text:'PosteMobile',  next:'V0d', v:'PosteMobile', lbl:'PosteMobile'},
+    {text:'ho. Mobile',   next:'V0d', v:'ho.',         lbl:'ho. Mobile'},
+    {text:'Altro / non ricordo', next:'V0d', v:'Altro', lbl:'Altro / non ricordo'}
+  ]},
+
+  // NUOVO STEP: costo attuale
+  V0d: { label:'2 di 6', noVideo:true, question:'Quanto paghi adesso al mese?', btns:[
+    {text:'Meno di 10€',        next:'V1', v:'<10',     lbl:'meno di 10€/mese'},
+    {text:'Tra 10€ e 15€',      next:'V1', v:'10-15',   lbl:'10-15€/mese'},
+    {text:'Tra 15€ e 25€',      next:'V1', v:'15-25',   lbl:'15-25€/mese'},
+    {text:'Tra 25€ e 40€',      next:'V1', v:'25-40',   lbl:'25-40€/mese'},
+    {text:'Più di 40€',         next:'V1', v:'>40',     lbl:'oltre 40€/mese'},
+    {text:'Non lo so / non ricordo', next:'V1', v:'?',  lbl:'non sa quanto paga'}
+  ]},
+
+  V1:  { label:'3 di 6', btns:[
     {text:'Pochi GB \u2014 solo WhatsApp e foto',next:'V2a',v:'low',lbl:'pochi GB (solo WhatsApp e foto)'},
     {text:'Uso normale \u2014 social, musica, mappe',next:'V2a',v:'med',lbl:'uso normale (social, musica, mappe)'},
     {text:'Tanto \u2014 video, streaming, lavoro',next:'V2b',v:'high',lbl:'tanto (video, streaming, lavoro)'},
     {text:'Voglio illimitato \u2014 niente limiti',next:'V2b',v:'unlimited',lbl:'giga illimitati'}
   ]},
-  V2a: { label:'2 di 4', btns:[
+  V2a: { label:'4 di 6', btns:[
     {text:'Solo SIM \u2014 il WiFi ce l\u2019ho',next:'V3',v:'no',lbl:'solo SIM mobile'},
     {text:'Voglio anche la fibra a casa',next:'V3',v:'fibra',lbl:'voglio la fibra a casa'},
     {text:'Internet casa senza cavo (FWA/5G)',next:'V3',v:'fwa',lbl:'internet a casa senza cavo (FWA/5G)'}
   ]},
-  V2b: { label:'2 di 4', btns:[
+  V2b: { label:'4 di 6', btns:[
     {text:'Solo SIM \u2014 il WiFi ce l\u2019ho',next:'V3',v:'no',lbl:'solo SIM mobile'},
     {text:'Voglio anche la fibra a casa',next:'V3',v:'fibra',lbl:'voglio la fibra a casa'},
     {text:'Internet casa senza cavo (FWA/5G)',next:'V3',v:'fwa',lbl:'internet a casa senza cavo (FWA/5G)'}
   ]},
-  V3:  { label:'3 di 4', btns:[
+  V3:  { label:'5 di 6', btns:[
     {text:'Solo per me',next:'V4',v:'1',lbl:'una SIM (solo per me)'},
     {text:'Io + famiglia (2 o pi\u00f9 SIM)',next:'V4',v:'family',lbl:'2 o pi\u00f9 SIM (famiglia)'},
     {text:'Ho una partita IVA / azienda',next:'V5b',v:'biz',lbl:'uso business / partita IVA'}
   ]},
-  V4:  { label:'4 di 4', btns:[
+  V4:  { label:'6 di 6', btns:[
     {text:'\u26a1 S\u00ec, mi interessa anche luce e gas',next:'V5',v:'lg_yes',lbl:'interessato a luce e gas'},
     {text:'Per ora solo il telefono',next:'V5',v:'lg_no',lbl:'per ora solo il telefono'}
   ]},
@@ -1169,49 +1194,33 @@ var VA_OFFERS = {
 };
 
 // Stato sessione
-var vaS = { step:'V0', nome:'', phone:'', a:{}, lgInt:false, history:[] };
+var vaS = { step:'V0', nome:'', phone:'', zona:'', operatore:'', costo:'', a:{}, lgInt:false, history:[] };
 
 // Stato pausa/progress
 var vaIsPaused    = false;
-var vaProgressInt = null;   // setInterval per la progress bar
-var vaKpTimers    = [];     // setTimeout per i punti chiave
-var VA_VIDEO_DURATION = {   // durate approssimative in secondi per ogni step
+var vaProgressInt = null;
+var vaKpTimers    = [];
+var VA_VIDEO_DURATION = {
   V0: 30, V0b: 15, V1: 20, V2a: 20, V2b: 20, V3: 18, V4: 15, V5: 20, V5b: 20
 };
 
-// Player YouTube (singleton)
+// Player YouTube
 var vaPlayer = null;
 var vaPlayerReady = false;
 var vaPendingLoad = null;
 
-// ── Callback ufficiale YouTube IFrame API ──────────────────────────────────
 function onYouTubeIframeAPIReady() {
   vaPlayer = new YT.Player('vaYTTarget', {
-    height: '100%',
-    width: '100%',
+    height: '100%', width: '100%',
     videoId: VA_VIDEOS['V0'],
-    playerVars: {
-      autoplay: 0,
-      mute: 0,
-      playsinline: 1,
-      rel: 0,
-      modestbranding: 1,
-      controls: 0,
-      disablekb: 1,
-      fs: 0,
-      iv_load_policy: 3,
-      showinfo: 0
-    },
+    playerVars: { autoplay:0, mute:0, playsinline:1, rel:0, modestbranding:1, controls:0, disablekb:1, fs:0, iv_load_policy:3, showinfo:0 },
     events: {
       onReady: function(e) {
         vaPlayerReady = true;
-        // Nascondi spinner
         var loader = document.getElementById('vaLoader');
         if (loader) loader.style.display = 'none';
-        // Mostra play screen (NON avvia ancora il video)
         var ps = document.getElementById('vaPlayScreen');
         if (ps) ps.style.display = 'flex';
-        // Precarica video V0 in pausa
         e.target.cueVideoById(VA_VIDEOS['V0']);
         vaS._currentKey = 'V0';
         vaS._currentStep = VA_FLOW['V0'];
@@ -1219,11 +1228,10 @@ function onYouTubeIframeAPIReady() {
         document.getElementById('vaBackBtn').style.display = 'none';
       },
       onStateChange: function(e) {
-        if (e.data === 0) { vaOnEnded(); }          // ENDED
-        if (e.data === 1) {                          // PLAYING
+        if (e.data === 0) { vaOnEnded(); }
+        if (e.data === 1) {
           var ov = document.getElementById('vaNextOverlay');
           if (ov) ov.style.display = 'none';
-          // Sincronizza stato pausa
           if (vaIsPaused) {
             vaIsPaused = false;
             var po = document.getElementById('vaPausedOverlay');
@@ -1232,7 +1240,7 @@ function onYouTubeIframeAPIReady() {
             if (icon) icon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
           }
         }
-        if (e.data === 2) {                          // PAUSED dall'esterno
+        if (e.data === 2) {
           if (!vaIsPaused) {
             vaIsPaused = true;
             var po = document.getElementById('vaPausedOverlay');
@@ -1242,103 +1250,67 @@ function onYouTubeIframeAPIReady() {
           }
         }
       },
-      onError: function() {
-        // Video non disponibile: mostra bottoni ugualmente
-        vaOnEnded();
-      }
+      onError: function() { vaOnEnded(); }
     }
   });
 }
-
-// Sicurezza: se l'API era già pronta prima che definissimo la funzione
 if (typeof YT !== 'undefined' && YT.Player && !vaPlayer) {
   window.addEventListener('DOMContentLoaded', onYouTubeIframeAPIReady);
 }
 
-// ── Start al click del play button ────────────────────────────────────────
 function vaStartPlayer() {
   var ps = document.getElementById('vaPlayScreen');
   if (ps) ps.style.display = 'none';
-  if (vaPlayer) {
-    vaPlayer.unMute();
-    vaPlayer.setVolume(100);
-    vaPlayer.playVideo();
-  }
+  if (vaPlayer) { vaPlayer.unMute(); vaPlayer.setVolume(100); vaPlayer.playVideo(); }
   vaIsPaused = false;
   vaLoad('V0', true);
-  // Mostra pannello durante il video
   vaShowWatchPanel('V0');
-  // Mostra tasto pausa
   var pb = document.getElementById('vaPauseBtn');
-  if (pb) { pb.style.display = 'flex'; }
+  if (pb) pb.style.display = 'flex';
 }
 
-// ── Toggle pausa/riprendi ──────────────────────────────────────────────────
 function vaTogglePlay() {
   if (!vaPlayer || !vaPlayerReady) return;
-  // Non fare nulla se siamo sulla play screen o nel result
   var ps = document.getElementById('vaPlayScreen');
   if (ps && ps.style.display !== 'none') return;
+  // Niente toggle sui step senza video
+  if (vaS._currentStep && vaS._currentStep.noVideo) return;
 
   if (vaIsPaused) {
     vaPlayer.playVideo();
     vaIsPaused = false;
-    // Nascondi overlay pausa
     var po = document.getElementById('vaPausedOverlay');
     if (po) po.style.display = 'none';
-    // Cambia icona → pausa
     var icon = document.getElementById('vaPauseIcon');
     if (icon) icon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
-    // Riprendi progress
     vaStartProgress(vaS._currentKey);
   } else {
     vaPlayer.pauseVideo();
     vaIsPaused = true;
-    // Mostra overlay pausa
     var po = document.getElementById('vaPausedOverlay');
     if (po) po.style.display = 'flex';
-    // Cambia icona → play
     var icon = document.getElementById('vaPauseIcon');
     if (icon) icon.innerHTML = '<path d="M8 5v14l11-7z"/>';
-    // Stoppa progress
     if (vaProgressInt) { clearInterval(vaProgressInt); vaProgressInt = null; }
   }
 }
 
-// ── Pannello "durante il video" ────────────────────────────────────────────
 function vaShowWatchPanel(key) {
   var panel = document.getElementById('vaWatchPanel');
   if (!panel) return;
-  // Mostra solo per V0 (intro). Per gli altri step, nascondi.
-  if (key !== 'V0') {
-    panel.style.display = 'none';
-    return;
-  }
+  if (key !== 'V0') { panel.style.display = 'none'; return; }
   panel.style.display = 'flex';
-  // Reset punti chiave
   var kps = document.querySelectorAll('.va-kp');
-  kps.forEach(function(el) {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(10px)';
-  });
-  // Reset progress
-  var bar = document.getElementById('vaProgressBar');
-  var pct = document.getElementById('vaProgressPct');
-  if (bar) bar.style.width = '0%';
-  if (pct) pct.textContent = '0%';
-  // Cancella timer precedenti
+  kps.forEach(function(el) { el.style.opacity = '0'; el.style.transform = 'translateY(10px)'; });
   vaKpTimers.forEach(function(t) { clearTimeout(t); });
   vaKpTimers = [];
-  // Fai apparire i punti chiave uno alla volta
   var delays = [1500, 5000, 9000, 14000];
   kps.forEach(function(el, i) {
     var t = setTimeout(function() {
-      el.style.opacity = '1';
-      el.style.transform = 'translateY(0)';
+      el.style.opacity = '1'; el.style.transform = 'translateY(0)';
     }, delays[i] || (i * 4000));
     vaKpTimers.push(t);
   });
-  // Avvia progress bar
   vaStartProgress(key);
 }
 
@@ -1346,30 +1318,21 @@ function vaStartProgress(key) {
   if (vaProgressInt) { clearInterval(vaProgressInt); vaProgressInt = null; }
   var duration = (VA_VIDEO_DURATION[key] || 20) * 1000;
   var startTime = Date.now();
-  var bar = document.getElementById('vaProgressBar');
-  var pct = document.getElementById('vaProgressPct');
-  if (!bar || !pct) return;
   vaProgressInt = setInterval(function() {
     if (vaIsPaused) return;
     var elapsed = Date.now() - startTime;
     var progress = Math.min(elapsed / duration * 100, 99);
-    bar.style.width = progress.toFixed(1) + '%';
-    pct.textContent = Math.floor(progress) + '%';
     if (progress >= 99) { clearInterval(vaProgressInt); vaProgressInt = null; }
   }, 200);
 }
 
-// ── Unmute legacy (non più usato, mantenuto per sicurezza) ─────────────────
 function vaUnmute() {
   var mo = document.getElementById('vaMuteOverlay');
   if (mo) mo.style.display = 'none';
-  if (vaPlayer && vaPlayer.unMute) {
-    vaPlayer.unMute();
-    vaPlayer.setVolume(100);
-  }
+  if (vaPlayer && vaPlayer.unMute) { vaPlayer.unMute(); vaPlayer.setVolume(100); }
 }
 
-// ── Carica uno step ────────────────────────────────────────────────────────
+// CARICA STEP
 function vaLoad(key, skipVideoLoad) {
   var step = VA_FLOW[key];
   if (!step) return;
@@ -1382,9 +1345,9 @@ function vaLoad(key, skipVideoLoad) {
   document.getElementById('vaStepLabel').textContent = step.label;
   document.getElementById('vaBackBtn').style.display = vaS.history.length > 0 ? 'block' : 'none';
 
-  // Carica video nel player
+  // Carica video solo se lo step ne ha uno
   var ytId = VA_VIDEOS[key];
-  if (!skipVideoLoad && ytId) {
+  if (!skipVideoLoad && ytId && !step.noVideo) {
     if (vaPlayerReady && vaPlayer) {
       vaPlayer.loadVideoById(ytId);
       vaPlayer.unMute();
@@ -1397,38 +1360,43 @@ function vaLoad(key, skipVideoLoad) {
   vaS._currentKey = key;
   vaS._currentStep = step;
 
-  // Aggiorna pannello laterale
   vaShowWatchPanel(key);
 
-  // Tasto pausa: visibile solo quando il video è in play (non su play screen, non su result)
   var pb = document.getElementById('vaPauseBtn');
-  if (pb) pb.style.display = step.result ? 'none' : 'flex';
+  if (pb) pb.style.display = (step.result || step.noVideo) ? 'none' : 'flex';
 
-  // Reset stato pausa per ogni nuovo video
   vaIsPaused = false;
   var po = document.getElementById('vaPausedOverlay');
   if (po) po.style.display = 'none';
   var icon = document.getElementById('vaPauseIcon');
   if (icon) icon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
 
-  // V0: i bottoni appaiono alla fine del video
-  if (key === 'V0') {
-    return;
-  }
+  if (key === 'V0') { return; }
 
-  // Step result: mostra subito, nascondi tasto pausa
   if (step.result) {
     if (pb) pb.style.display = 'none';
     vaShowResult(step.biz);
+    return;
+  }
+
+  // Step senza video: mostra subito i bottoni (o il form)
+  if (step.noVideo) {
+    if (vaPlayer && vaPlayer.pauseVideo) { try { vaPlayer.pauseVideo(); } catch(e) {} }
+    if (step.form) {
+      document.getElementById('vaForm').style.display = 'flex';
+    } else if (step.btns) {
+      vaShowBtns(step);
+    }
   }
 }
 
-// ── Mostra bottoni opzione ────────────────────────────────────────────────
+// BOTTONI
 function vaShowBtns(step) {
   document.getElementById('vaNextOverlay').style.display = 'flex';
   var btns = document.getElementById('vaBtns');
   btns.style.display = 'flex';
-  var label = '<div style="font-family:\'Barlow Condensed\',sans-serif;font-weight:900;font-size:1.3rem;text-transform:uppercase;color:white;margin-bottom:4px;letter-spacing:.02em">Scegli la tua risposta</div>'
+  var titleTxt = step.question || 'Scegli la tua risposta';
+  var label = '<div style="font-family:\'Barlow Condensed\',sans-serif;font-weight:900;font-size:1.3rem;text-transform:uppercase;color:white;margin-bottom:4px;letter-spacing:.02em">' + titleTxt + '</div>'
     + '<div style="font-size:.82rem;color:rgba(255,255,255,.4);margin-bottom:16px">Tap su una risposta per continuare &rarr;</div>';
   btns.innerHTML = label + step.btns.map(function(b, i) {
     return '<button onclick="vaPick(' + i + ')" style="background:rgba(255,255,255,.05);border:2px solid rgba(255,255,255,.1);border-radius:12px;padding:16px 20px;color:white;font-size:.98rem;font-weight:600;font-family:var(--font-body);cursor:pointer;text-align:left;transition:border-color .25s,background .25s,transform .15s;display:flex;align-items:center;gap:12px" '
@@ -1439,20 +1407,12 @@ function vaShowBtns(step) {
   }).join('');
 }
 
-// ── Fine video ────────────────────────────────────────────────────────────
 function vaOnEnded() {
   var step = vaS._currentStep;
   if (!step) return;
-  // Completa progress bar
   if (vaProgressInt) { clearInterval(vaProgressInt); vaProgressInt = null; }
-  var bar = document.getElementById('vaProgressBar');
-  var pct = document.getElementById('vaProgressPct');
-  if (bar) bar.style.width = '100%';
-  if (pct) pct.textContent = '100%';
-  // Nascondi pannello watch quando arrivano le domande
   var panel = document.getElementById('vaWatchPanel');
   if (panel) panel.style.display = 'none';
-  // Reset pausa
   vaIsPaused = false;
   if (step.result) {
     vaShowResult(step.biz);
@@ -1463,17 +1423,20 @@ function vaOnEnded() {
   }
 }
 
-// ── Selezione risposta ───────────────────────────────────────────────────
 function vaPick(i) {
   var step = VA_FLOW[vaS.step];
   var btn = step.btns[i];
+
+  // Salva risposta specifica per step
   vaS.a[vaS.step] = btn.v;
+  if (vaS.step === 'V0c') vaS.operatore = btn.v;
+  if (vaS.step === 'V0d') vaS.costo     = btn.v;
+
   if (btn.v === 'lg_yes') vaS.lgInt = true;
   vaS.history.push(vaS.step);
   vaLoad(btn.next);
 }
 
-// ── Indietro ─────────────────────────────────────────────────────────────
 function vaBack() {
   if (vaS.history.length === 0) return;
   var prev = vaS.history.pop();
@@ -1481,12 +1444,28 @@ function vaBack() {
   vaLoad(prev);
 }
 
-// ── Validazione form ─────────────────────────────────────────────────────
+// Zona — mostra/nasconde il campo testo "altro"
+function vaOnZonaChange() {
+  var sel = document.getElementById('vaZona');
+  var altro = document.getElementById('vaZonaAltro');
+  if (sel.value === '__altro') {
+    altro.style.display = 'block';
+    altro.focus();
+  } else {
+    altro.style.display = 'none';
+    altro.value = '';
+  }
+  vaCheckForm();
+}
+
 function vaCheckForm() {
   var n = document.getElementById('vaName').value.trim();
   var p = document.getElementById('vaPhone').value.trim();
+  var z = document.getElementById('vaZona').value;
+  var zAltro = document.getElementById('vaZonaAltro').value.trim();
+  var zOk = z && (z !== '__altro' || zAltro.length > 1);
   var btn = document.getElementById('vaFormBtn');
-  var ok = n.length > 1 && p.length > 6;
+  var ok = n.length > 1 && p.length > 6 && zOk;
   btn.disabled = !ok;
   btn.style.background = ok ? 'var(--orange)' : 'rgba(232,84,30,.25)';
   btn.style.color = ok ? 'white' : 'rgba(255,255,255,.35)';
@@ -1494,14 +1473,16 @@ function vaCheckForm() {
 }
 
 function vaSubmitForm() {
-  vaS.nome = document.getElementById('vaName').value.trim();
+  vaS.nome  = document.getElementById('vaName').value.trim();
   vaS.phone = document.getElementById('vaPhone').value.trim();
+  var z     = document.getElementById('vaZona').value;
+  var zAltro= document.getElementById('vaZonaAltro').value.trim();
+  vaS.zona  = (z === '__altro') ? zAltro : z;
   document.getElementById('vaForm').style.display = 'none';
   vaS.history.push('V0b');
-  vaLoad('V1');
+  vaLoad('V0c');
 }
 
-// ── Offerta consigliata ──────────────────────────────────────────────────
 function vaGetOffer() {
   if (vaS.a.V3 === 'biz') return VA_OFFERS.biz;
   if (vaS.a.V2a === 'fibra' || vaS.a.V2b === 'fibra') return VA_OFFERS.fibra;
@@ -1510,13 +1491,10 @@ function vaGetOffer() {
   return VA_OFFERS[vaS.a.V1] || VA_OFFERS.med;
 }
 
-// ── Risultato finale ─────────────────────────────────────────────────────
 function vaShowResult(isBiz) {
-  // Evita doppio invio se chiamata più volte
   if (vaS._resultShown) return;
   vaS._resultShown = true;
   document.getElementById('vaResult').style.display = 'block';
-  // Nascondi brand card nel result finale — non serve più spazio
   var wp = document.getElementById('vaWelcomePanel');
   if (wp) wp.style.display = 'none';
   var offer = vaGetOffer();
@@ -1525,71 +1503,87 @@ function vaShowResult(isBiz) {
   document.getElementById('vaResultOffer').textContent = offer.name;
   document.getElementById('vaResultDesc').textContent = offer.desc;
 
-  // WA link semplice senza messaggio precompilato lungo
-  var waBase = 'https://wa.me/393931230333';
-  document.getElementById('vaWaBtn').href = waBase;
-
+  document.getElementById('vaWaBtn').href = 'https://wa.me/393931230333';
   document.getElementById('vaResult').scrollIntoView({behavior:'smooth', block:'center'});
 
-  // ── Invio silenzioso a Notion CRM ───────────────────────────────────────
-  vaSendToNotion(offer, isBiz);
+  vaSendToCRM(offer, isBiz);
 }
 
-// ── Invio dati a Google Sheets via Apps Script ───────────────────────────
-function vaSendToNotion(offer, isBiz) {
+// ═══════════════════════════════════════════════════════════════════════════
+// INVIO LEAD AL CRM (uwplace)
+// ═══════════════════════════════════════════════════════════════════════════
+function vaSendToCRM(offer, isBiz) {
   var crmIcon = document.getElementById('vaCrmIcon');
   var crmText = document.getElementById('vaCrmText');
 
-  // ↓ Andrea incolla qui l'URL dello script dopo il deploy
-  var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzx6xcbjS7J_RcuCclL3hmsxGvPltHzu4WqULQLPkg9gsdTwQ4q18UQkL3jr8-gcmwa/exec';
+  // Etichette leggibili
+  var v0cBtn = vaS.a.V0c ? VA_FLOW.V0c.btns.find(function(b){ return b.v === vaS.a.V0c; }) : null;
+  var v0dBtn = vaS.a.V0d ? VA_FLOW.V0d.btns.find(function(b){ return b.v === vaS.a.V0d; }) : null;
+  var v1btn  = vaS.a.V1  ? VA_FLOW.V1.btns.find(function(b){ return b.v === vaS.a.V1; })  : null;
+  var v2k    = vaS.a.V2a ? 'V2a' : (vaS.a.V2b ? 'V2b' : null);
+  var v2btn  = v2k ? VA_FLOW[v2k].btns.find(function(b){ return b.v === vaS.a[v2k]; }) : null;
+  var v3btn  = vaS.a.V3  ? VA_FLOW.V3.btns.find(function(b){ return b.v === vaS.a.V3; })  : null;
 
-  // Raccogli le risposte leggibili
-  var v1lbl = '', v2lbl = '', v3lbl = '';
-  var v1btn = vaS.a.V1 ? VA_FLOW.V1.btns.find(function(b){ return b.v === vaS.a.V1; }) : null;
-  if (v1btn) v1lbl = v1btn.lbl;
-  var v2k = vaS.a.V2a ? 'V2a' : (vaS.a.V2b ? 'V2b' : null);
-  if (v2k) {
-    var v2btn = VA_FLOW[v2k].btns.find(function(b){ return b.v === vaS.a[v2k]; });
-    if (v2btn) v2lbl = v2btn.lbl;
-  }
-  if (vaS.a.V3) {
-    var v3btn = VA_FLOW.V3.btns.find(function(b){ return b.v === vaS.a.V3; });
-    if (v3btn) v3lbl = v3btn.lbl;
-  }
-
+  // Payload — struttura "neutra", facile da rimappare per qualunque API
   var payload = {
-    nome:        vaS.nome  || '—',
-    telefono:    vaS.phone || '—',
-    offerta:     offer.name,
-    utilizzo:    v1lbl  || '—',
-    connessione: v2lbl  || '—',
-    sim:         v3lbl  || '—',
+    nome:        vaS.nome  || '',
+    telefono:    vaS.phone || '',
+    zona:        vaS.zona  || '',
+    operatore:   v0cBtn ? v0cBtn.lbl : '',
+    costoAttuale:v0dBtn ? v0dBtn.lbl : '',
+    utilizzo:    v1btn  ? v1btn.lbl  : '',
+    connessione: v2btn  ? v2btn.lbl  : '',
+    sim:         v3btn  ? v3btn.lbl  : '',
     lucegas:     vaS.lgInt ? 'Sì' : 'No',
-    tipo:        isBiz  ? 'Business' : 'Privato'
+    tipo:        isBiz  ? 'Business' : 'Privato',
+    offertaConsigliata: offer.name,
+    fonte:       'Landing Sempre in Rete',
+    timestamp:   new Date().toISOString()
   };
 
-  // GET con parametri URL — piu affidabile con no-cors
-  var params = Object.keys(payload).map(function(k) {
-    return encodeURIComponent(k) + '=' + encodeURIComponent(payload[k]);
-  }).join('&');
-  fetch(SCRIPT_URL + '?' + params, { method: 'GET', mode: 'no-cors' })
-  .then(function() {
+  // Se endpoint non configurato → log in console e basta
+  if (!UWPLACE_CONFIG.endpoint) {
+    console.log('[CRM uwplace] endpoint non configurato. Payload pronto:', payload);
+    if (crmIcon) crmIcon.textContent = '📋';
+    if (crmText) {
+      crmText.textContent = 'Lead ricevuto — Andrea ti contatterà su WhatsApp.';
+      crmText.style.color = 'rgba(255,255,255,.6)';
+    }
+    return;
+  }
+
+  // Costruzione headers
+  var headers = { 'Content-Type': 'application/json' };
+  if (UWPLACE_CONFIG.apiKey) {
+    headers['Authorization'] = (UWPLACE_CONFIG.authHeader ? UWPLACE_CONFIG.authHeader + ' ' : '') + UWPLACE_CONFIG.apiKey;
+  }
+  Object.keys(UWPLACE_CONFIG.extraHeaders || {}).forEach(function(k) {
+    headers[k] = UWPLACE_CONFIG.extraHeaders[k];
+  });
+
+  fetch(UWPLACE_CONFIG.endpoint, {
+    method: 'POST',
+    headers: headers,
+    body: JSON.stringify(payload)
+  })
+  .then(function(res) {
+    if (!res.ok) throw new Error('HTTP ' + res.status);
     if (crmIcon) crmIcon.textContent = '✅';
     if (crmText) {
-      crmText.textContent = 'Dati salvati — Andrea li vede nel suo foglio.';
+      crmText.textContent = 'Dati salvati nel CRM di Andrea.';
       crmText.style.color = 'rgba(255,255,255,.6)';
     }
   })
   .catch(function(err) {
-    console.warn('Sheet error:', err);
+    console.warn('[CRM uwplace] errore invio:', err, payload);
     if (crmIcon) crmIcon.textContent = '⚠️';
-    if (crmText) crmText.textContent = 'Salvataggio non riuscito — scrivi comunque su WhatsApp.';
+    if (crmText) crmText.textContent = 'Salvataggio non riuscito — scrivi su WhatsApp ad Andrea.';
   });
 }
 
-// ── Reset ─────────────────────────────────────────────────────────────────
+// RESET
 function vaReset() {
-  vaS = {step:'V0', nome:'', phone:'', a:{}, lgInt:false, history:[], _resultShown:false};
+  vaS = {step:'V0', nome:'', phone:'', zona:'', operatore:'', costo:'', a:{}, lgInt:false, history:[], _resultShown:false};
   vaIsPaused = false;
   if (vaProgressInt) { clearInterval(vaProgressInt); vaProgressInt = null; }
   vaKpTimers.forEach(function(t) { clearTimeout(t); }); vaKpTimers = [];
@@ -1599,7 +1593,6 @@ function vaReset() {
   if (pb) pb.style.display = 'none';
   var po = document.getElementById('vaPausedOverlay');
   if (po) po.style.display = 'none';
-  // Nascondi bottoni, form e result
   var wp = document.getElementById('vaWelcomePanel');
   if (wp) wp.style.display = 'flex';
   var btns = document.getElementById('vaBtns');
@@ -1608,6 +1601,9 @@ function vaReset() {
   document.getElementById('vaForm').style.display = 'none';
   document.getElementById('vaName').value = '';
   document.getElementById('vaPhone').value = '';
+  document.getElementById('vaZona').value = '';
+  document.getElementById('vaZonaAltro').value = '';
+  document.getElementById('vaZonaAltro').style.display = 'none';
   var fb = document.getElementById('vaFormBtn');
   fb.disabled = true;
   fb.style.background = 'rgba(232,84,30,.25)';
@@ -1616,13 +1612,11 @@ function vaReset() {
     vaPlayer.stopVideo();
     vaPlayer.cueVideoById(VA_VIDEOS['V0']);
   }
-  // Mostra play screen di nuovo
   var ps = document.getElementById('vaPlayScreen');
   if (ps) ps.style.display = 'flex';
   var mo = document.getElementById('vaMuteOverlay');
   if (mo) mo.style.display = 'none';
 }
-
 </script>
 </body>
 </html>
