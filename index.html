@@ -73,20 +73,17 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--white);over
   50%{transform:translateY(8px)}
 }
 
-/* MASTER WRAP: frecce | video | frecce */
+/* MASTER WRAP: frecce/keypoints | video | frecce/keypoints */
 .va-master-wrap{
   position:relative;z-index:2;
-  max-width:1100px;
+  max-width:1400px;
   margin:0 auto 30px;
   padding:0 5%;
   display:grid;
-  /* La colonna centrale del video è il MINORE tra 580px e l'altezza
-     viewport disponibile × 9/16. Così il video resta grande quando
-     c'è spazio, e si riduce quel tanto che basta per stare nello
-     schermo senza essere tagliato in basso.
-     220px = spazio riservato per topBars fisso + headline sopra + margini. */
-  grid-template-columns:1fr min(580px, calc((100vh - 220px) * 9 / 16)) 1fr;
-  gap:18px;
+  /* La colonna centrale del video è il MINORE tra 680px e l'altezza
+     viewport disponibile × 9/16. */
+  grid-template-columns:1fr min(680px, calc((100vh - 220px) * 9 / 16)) 1fr;
+  gap:22px;
   align-items:center;
 }
 
@@ -97,6 +94,61 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--white);over
   align-items:center;
   justify-content:center;
   gap:18px;
+  pointer-events:none;
+}
+
+/* SIDE KEY POINTS — pannelli laterali con i punti chiave (solo durante V0) */
+.va-side-keypoints{
+  display:none;
+  flex-direction:column;
+  gap:14px;
+  align-self:center;
+  justify-self:stretch;
+  padding:0 4px;
+  pointer-events:none;
+  max-width:300px;
+}
+.va-side-keypoints-left{justify-self:end}
+.va-side-keypoints-right{justify-self:start}
+/* Quando i keypoints sono attivi, mostriamo i side panels e nascondiamo le frecce */
+.va-master-wrap.kp-active .va-side-keypoints{display:flex}
+.va-master-wrap.kp-active .va-side-arrows{display:none}
+
+.va-side-keypoints .va-kp-card{
+  display:flex;align-items:flex-start;gap:12px;
+  background:rgba(20,20,20,.88);
+  border:1px solid rgba(232,84,30,.35);
+  border-radius:12px;
+  padding:14px 16px;
+  opacity:0;transform:translateY(10px);
+  transition:opacity .6s ease,transform .6s ease;
+  box-shadow:0 6px 22px rgba(0,0,0,.45),0 0 24px rgba(232,84,30,.15);
+  backdrop-filter:blur(4px);
+  -webkit-backdrop-filter:blur(4px);
+}
+.va-side-keypoints .va-kp-card.show{opacity:1;transform:translateY(0)}
+.va-side-keypoints .va-kp-icon{
+  width:30px;height:30px;border-radius:50%;
+  background:rgba(232,84,30,.18);
+  border:1.5px solid rgba(232,84,30,.55);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  margin-top:1px;
+}
+.va-side-keypoints .va-kp-title{
+  font-weight:700;font-size:.92rem;color:white;
+  margin-bottom:4px;font-family:var(--font-body);line-height:1.2;
+}
+.va-side-keypoints .va-kp-desc{
+  font-size:.78rem;color:rgba(255,255,255,.55);line-height:1.45;
+}
+
+/* YOUTUBE HEADER MASK — copre la striscia con titolo/canale dello short */
+.va-yt-header-mask{
+  position:absolute;
+  top:0;left:0;right:0;
+  height:74px;
+  background:#000;
+  z-index:7;
   pointer-events:none;
 }
 .va-side-arrows-left{align-items:flex-end}
@@ -512,6 +564,28 @@ footer{background:#111;padding:56px 5% 32px;border-top:2px solid rgba(255,255,25
 .reveal-delay-3{transition-delay:.3s}
 
 /* RESPONSIVE */
+/* Su desktop ≥1100px i keypoints stanno nei pannelli laterali → nascondo il pannello interno per non duplicare */
+@media(min-width:1101px){
+  #vaWatchPanel{display:none !important}
+  /* Inoltre tolgo il gradient nero dell'overlay UI quando siamo in V0 (intro): non c'è più nulla che lo riempie e diventerebbe una banda nera vuota */
+  .va-master-wrap.kp-active #vaUICol{background:none}
+}
+
+/* Su schermi tra 1100 e 1400 stringo un po' lo spazio laterale ma tengo i keypoints */
+@media(max-width:1300px){
+  .va-master-wrap{max-width:100%;gap:14px}
+  .va-side-keypoints{max-width:260px}
+  .va-side-keypoints .va-kp-title{font-size:.85rem}
+  .va-side-keypoints .va-kp-desc{font-size:.72rem}
+}
+/* Sotto 1100px torniamo al layout vecchio: niente keypoints laterali */
+@media(max-width:1100px){
+  .va-master-wrap{grid-template-columns:55px min(620px, calc((100vh - 220px) * 9 / 16)) 55px;gap:8px}
+  .va-side-arrows .va-arrow{transform:scale(.75)}
+  .va-side-keypoints{display:none !important}
+  .va-master-wrap.kp-active .va-side-arrows{display:flex}
+  /* Su questi schermi il vaWatchPanel originale rimane visibile dentro il video */
+}
 @media(max-width:1024px){
   .va-master-wrap{grid-template-columns:50px min(580px, calc((100vh - 220px) * 9 / 16)) 50px;gap:8px}
   .va-side-arrows .va-arrow{transform:scale(.7)}
@@ -626,12 +700,32 @@ footer{background:#111;padding:56px 5% 32px;border-top:2px solid rgba(255,255,25
   <!-- MASTER WRAP: frecce laterali + cornice doppia + video -->
   <div class="va-master-wrap">
 
-    <!-- FRECCE SINISTRA → puntano al video -->
-    <div class="va-side-arrows va-side-arrows-left" aria-hidden="true">
-      <svg class="va-arrow" width="56" height="34" viewBox="0 0 56 34"><path d="M4 17 L40 17 M30 6 L42 17 L30 28" fill="none" stroke="var(--orange)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      <svg class="va-arrow" width="56" height="34" viewBox="0 0 56 34"><path d="M4 17 L40 17 M30 6 L42 17 L30 28" fill="none" stroke="var(--orange)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      <svg class="va-arrow" width="56" height="34" viewBox="0 0 56 34"><path d="M4 17 L40 17 M30 6 L42 17 L30 28" fill="none" stroke="var(--orange)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      <svg class="va-arrow" width="56" height="34" viewBox="0 0 56 34"><path d="M4 17 L40 17 M30 6 L42 17 L30 28" fill="none" stroke="var(--orange)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <!-- COLONNA SINISTRA: frecce O keypoints (1+2) -->
+    <div class="va-side-col-left" style="display:flex;flex-direction:column;align-items:stretch;justify-content:center">
+      <!-- FRECCE SINISTRA → puntano al video (visibili tranne durante V0) -->
+      <div class="va-side-arrows va-side-arrows-left" aria-hidden="true">
+        <svg class="va-arrow" width="56" height="34" viewBox="0 0 56 34"><path d="M4 17 L40 17 M30 6 L42 17 L30 28" fill="none" stroke="var(--orange)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg class="va-arrow" width="56" height="34" viewBox="0 0 56 34"><path d="M4 17 L40 17 M30 6 L42 17 L30 28" fill="none" stroke="var(--orange)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg class="va-arrow" width="56" height="34" viewBox="0 0 56 34"><path d="M4 17 L40 17 M30 6 L42 17 L30 28" fill="none" stroke="var(--orange)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg class="va-arrow" width="56" height="34" viewBox="0 0 56 34"><path d="M4 17 L40 17 M30 6 L42 17 L30 28" fill="none" stroke="var(--orange)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <!-- KEY POINTS SINISTRA (visibili solo durante V0 su desktop ≥1100) -->
+      <div class="va-side-keypoints va-side-keypoints-left" aria-hidden="true">
+        <div class="va-kp-card" data-kp="0">
+          <div class="va-kp-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="var(--orange)"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+          <div>
+            <div class="va-kp-title">Perché stai pagando troppo</div>
+            <div class="va-kp-desc">I rincari nascosti che nessun operatore comunica.</div>
+          </div>
+        </div>
+        <div class="va-kp-card" data-kp="1">
+          <div class="va-kp-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="var(--orange)"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+          <div>
+            <div class="va-kp-title">La portabilità non fa paura</div>
+            <div class="va-kp-desc">Come cambi senza restare senza linea.</div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- CORNICE DOPPIA arancione lampeggiante + VIDEO -->
@@ -641,6 +735,10 @@ footer{background:#111;padding:56px 5% 32px;border-top:2px solid rgba(255,255,25
 
           <!-- YOUTUBE TARGET -->
           <div id="vaYTTarget" style="width:100%;height:100%;position:absolute;inset:0"></div>
+
+          <!-- MASK per nascondere intestazione YouTube (titolo short + avatar canale) -->
+          <div class="va-yt-header-mask" aria-hidden="true"></div>
+
           <div id="vaClickBlocker" style="position:absolute;top:0;left:0;right:0;bottom:45%;z-index:6;background:transparent;pointer-events:auto;cursor:pointer" onclick="vaTogglePlay()" title="Pausa / Riprendi"></div>
 
           <!-- PAUSE BTN -->
@@ -817,12 +915,32 @@ footer{background:#111;padding:56px 5% 32px;border-top:2px solid rgba(255,255,25
       </div><!-- /va-inner-frame (vaLayout) -->
     </div><!-- /va-outer-frame -->
 
-    <!-- FRECCE DESTRA → puntano al video -->
-    <div class="va-side-arrows va-side-arrows-right" aria-hidden="true">
-      <svg class="va-arrow" width="56" height="34" viewBox="0 0 56 34"><path d="M52 17 L16 17 M26 6 L14 17 L26 28" fill="none" stroke="var(--orange)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      <svg class="va-arrow" width="56" height="34" viewBox="0 0 56 34"><path d="M52 17 L16 17 M26 6 L14 17 L26 28" fill="none" stroke="var(--orange)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      <svg class="va-arrow" width="56" height="34" viewBox="0 0 56 34"><path d="M52 17 L16 17 M26 6 L14 17 L26 28" fill="none" stroke="var(--orange)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      <svg class="va-arrow" width="56" height="34" viewBox="0 0 56 34"><path d="M52 17 L16 17 M26 6 L14 17 L26 28" fill="none" stroke="var(--orange)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <!-- COLONNA DESTRA: frecce O keypoints (3+4) -->
+    <div class="va-side-col-right" style="display:flex;flex-direction:column;align-items:stretch;justify-content:center">
+      <!-- FRECCE DESTRA → puntano al video -->
+      <div class="va-side-arrows va-side-arrows-right" aria-hidden="true">
+        <svg class="va-arrow" width="56" height="34" viewBox="0 0 56 34"><path d="M52 17 L16 17 M26 6 L14 17 L26 28" fill="none" stroke="var(--orange)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg class="va-arrow" width="56" height="34" viewBox="0 0 56 34"><path d="M52 17 L16 17 M26 6 L14 17 L26 28" fill="none" stroke="var(--orange)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg class="va-arrow" width="56" height="34" viewBox="0 0 56 34"><path d="M52 17 L16 17 M26 6 L14 17 L26 28" fill="none" stroke="var(--orange)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg class="va-arrow" width="56" height="34" viewBox="0 0 56 34"><path d="M52 17 L16 17 M26 6 L14 17 L26 28" fill="none" stroke="var(--orange)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <!-- KEY POINTS DESTRA (visibili solo durante V0 su desktop ≥1100) -->
+      <div class="va-side-keypoints va-side-keypoints-right" aria-hidden="true">
+        <div class="va-kp-card" data-kp="2">
+          <div class="va-kp-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="var(--orange)"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+          <div>
+            <div class="va-kp-title">Tutto chiaro prima di firmare</div>
+            <div class="va-kp-desc">Zero sorprese in bolletta.</div>
+          </div>
+        </div>
+        <div class="va-kp-card" data-kp="3">
+          <div class="va-kp-icon"><svg width="13" height="13" viewBox="0 0 24 24" fill="var(--orange)"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></div>
+          <div>
+            <div class="va-kp-title">Attivazione in 10 minuti</div>
+            <div class="va-kp-desc">SIM già attiva. Andrea gestisce tutto.</div>
+          </div>
+        </div>
+      </div>
     </div>
 
   </div><!-- /va-master-wrap -->
@@ -1561,11 +1679,23 @@ function vaTogglePlay() {
 
 function vaShowWatchPanel(key) {
   var panel = document.getElementById('vaWatchPanel');
-  if (!panel) return;
-  if (key !== 'V0') { panel.style.display = 'none'; return; }
-  panel.style.display = 'flex';
+  var wrap = document.querySelector('.va-master-wrap');
+  if (key !== 'V0') {
+    if (panel) panel.style.display = 'none';
+    if (wrap) wrap.classList.remove('kp-active');
+    // resetto le side cards
+    document.querySelectorAll('.va-side-keypoints .va-kp-card').forEach(function(el){
+      el.classList.remove('show');
+    });
+    return;
+  }
+  if (panel) panel.style.display = 'flex';
+  if (wrap) wrap.classList.add('kp-active');
+  // Reset stato animazione (sia interno che laterale)
   var kps = document.querySelectorAll('.va-kp');
   kps.forEach(function(el) { el.style.opacity = '0'; el.style.transform = 'translateY(10px)'; });
+  var sideCards = document.querySelectorAll('.va-side-keypoints .va-kp-card');
+  sideCards.forEach(function(el){ el.classList.remove('show'); });
   vaKpTimers.forEach(function(t) { clearTimeout(t); });
   vaKpTimers = [];
   var delays = [1500, 5000, 9000, 14000];
@@ -1573,6 +1703,12 @@ function vaShowWatchPanel(key) {
     var t = setTimeout(function() {
       el.style.opacity = '1'; el.style.transform = 'translateY(0)';
     }, delays[i] || (i * 4000));
+    vaKpTimers.push(t);
+  });
+  // Stessa animazione progressiva sui pannelli laterali (data-kp 0..3)
+  sideCards.forEach(function(el){
+    var idx = parseInt(el.getAttribute('data-kp'), 10) || 0;
+    var t = setTimeout(function(){ el.classList.add('show'); }, delays[idx] || (idx * 4000));
     vaKpTimers.push(t);
   });
   vaStartProgress(key);
@@ -1673,6 +1809,11 @@ function vaOnEnded() {
   if (vaProgressInt) { clearInterval(vaProgressInt); vaProgressInt = null; }
   var panel = document.getElementById('vaWatchPanel');
   if (panel) panel.style.display = 'none';
+  var wrap = document.querySelector('.va-master-wrap');
+  if (wrap) wrap.classList.remove('kp-active');
+  document.querySelectorAll('.va-side-keypoints .va-kp-card').forEach(function(el){
+    el.classList.remove('show');
+  });
   vaIsPaused = false;
   if (step.result) {
     vaShowResult(step.biz);
@@ -1833,6 +1974,11 @@ function vaReset() {
   vaKpTimers.forEach(function(t) { clearTimeout(t); }); vaKpTimers = [];
   var panel = document.getElementById('vaWatchPanel');
   if (panel) panel.style.display = 'none';
+  var wrap = document.querySelector('.va-master-wrap');
+  if (wrap) wrap.classList.remove('kp-active');
+  document.querySelectorAll('.va-side-keypoints .va-kp-card').forEach(function(el){
+    el.classList.remove('show');
+  });
   var pb = document.getElementById('vaPauseBtn');
   if (pb) pb.style.display = 'none';
   var po = document.getElementById('vaPausedOverlay');
