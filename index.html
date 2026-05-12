@@ -11,6 +11,7 @@
 :root {
   --orange: #E8541E;
   --orange-dark: #C43D0A;
+  --orange-glow: #FFB088;
   --dark: #1A1A1A;
   --dark-2: #2D2D2D;
   --mid: #5A5A5A;
@@ -28,10 +29,8 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--white);over
 .urgency-banner{background:var(--dark);color:var(--white);text-align:center;padding:10px 20px;font-family:var(--font-body);font-weight:600;font-size:.88rem;letter-spacing:.02em;position:relative;z-index:100}
 .urgency-banner span{color:var(--orange);font-weight:800}
 
-/* NAVBAR */
-.navbar{position:fixed;top:0;left:0;right:0;z-index:999;background:var(--white);border-bottom:2px solid var(--border);padding:0 5%;display:flex;align-items:center;justify-content:space-between;height:68px;transition:transform .35s ease,box-shadow .35s ease}
-.navbar.hidden{transform:translateY(-100%)}
-.navbar.scrolled{box-shadow:0 4px 20px rgba(0,0,0,.08)}
+/* NAVBAR — statica, scorre via con la pagina (non più position:fixed) */
+.navbar{position:relative;z-index:5;background:var(--white);border-bottom:2px solid var(--border);padding:0 5%;display:flex;align-items:center;justify-content:space-between;height:68px}
 .nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none}
 .nav-logo img{height:42px;width:auto}
 .nav-logo-badge{background:var(--orange);color:white;font-size:.58rem;font-weight:800;padding:3px 8px;border-radius:3px;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
@@ -39,55 +38,295 @@ body{font-family:var(--font-body);color:var(--dark);background:var(--white);over
 .nav-cta:hover{background:var(--orange-dark);transform:translateY(-1px)}
 
 /* HERO */
-.hero{padding-top:68px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;background:var(--dark)}
+.hero{display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;background:var(--dark)}
 .hero-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1?w=1600&q=80');background-size:cover;background-position:center;opacity:.15;filter:saturate(.3) blur(1px)}
 .hero-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(26,26,26,.97) 0%,rgba(26,26,26,.85) 50%,rgba(232,84,30,.12) 100%)}
-.hero-inner{position:relative;z-index:2;max-width:1200px;margin:0 auto;padding:60px 5% 30px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
-.hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(232,84,30,.15);border:1px solid var(--orange);color:var(--orange);font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;border-radius:4px;margin-bottom:24px}
+.hero-inner{position:relative;z-index:2;max-width:1200px;margin:0 auto;padding:30px 5% 20px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(232,84,30,.15);border:1px solid var(--orange);color:var(--orange);font-size:.78rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;border-radius:4px;margin-bottom:18px}
 .hero-tag::before{content:'';width:7px;height:7px;background:var(--orange);border-radius:50%;animation:pulse-dot 1.5s ease-in-out infinite;flex-shrink:0}
 @keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
-.hero-h1{font-family:var(--font-display);font-weight:900;font-size:clamp(3rem,5vw,4.8rem);line-height:.95;color:var(--white);text-transform:uppercase;letter-spacing:-.01em;margin-bottom:24px}
+.hero-h1{font-family:var(--font-display);font-weight:900;font-size:clamp(2.2rem,4.2vw,3.6rem);line-height:.95;color:var(--white);text-transform:uppercase;letter-spacing:-.01em;margin-bottom:16px}
 .hero-h1 em{font-style:normal;color:var(--orange)}
-.hero-sub{font-size:1.05rem;line-height:1.65;color:rgba(255,255,255,.72);margin-bottom:30px;max-width:480px}
+.hero-sub{font-size:.98rem;line-height:1.55;color:rgba(255,255,255,.78);margin-bottom:20px;max-width:560px}
 .hero-sub strong{color:rgba(255,255,255,.95)}
 
-/* HERO VIDEO BRIDGE — la headline che porta al video */
-.hero-bridge{
-  font-family:var(--font-display);
-  font-weight:800;
-  font-size:clamp(1.5rem,3vw,2.3rem);
-  text-transform:uppercase;
-  color:white;
-  line-height:1.05;
-  margin-top:28px;
-  letter-spacing:.01em;
+/* MASSIVE ATTENTION BANNER — sopra al video */
+.va-attention-banner{
+  display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;
+  font-family:var(--font-display);font-weight:900;
+  font-size:clamp(1.2rem,2.4vw,2rem);
+  text-transform:uppercase;letter-spacing:.02em;line-height:1.1;
+  color:var(--white);
+  margin:18px auto 14px;
+  padding:14px 24px;
   text-align:center;
+  animation:va-cta-pulse 1.1s ease-in-out infinite;
 }
-.hero-bridge .accent{color:var(--orange);display:block}
-.hero-bridge .lead{display:block;font-size:.78em;font-weight:700;color:rgba(255,255,255,.65);margin-bottom:6px;letter-spacing:.05em}
+.va-attention-banner .accent{color:var(--orange);text-shadow:0 0 28px rgba(232,84,30,.85)}
+.va-attention-banner .point{font-size:1.4em;display:inline-block;animation:va-point-bounce 1s ease-in-out infinite}
+@keyframes va-cta-pulse{
+  0%,100%{transform:scale(1);filter:brightness(1)}
+  50%{transform:scale(1.03);filter:brightness(1.2)}
+}
+@keyframes va-point-bounce{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(8px)}
+}
 
-/* Animated down-arrows pointing to video */
-.video-arrows{
+/* MASTER WRAP: frecce | video | frecce */
+.va-master-wrap{
+  position:relative;z-index:2;
+  max-width:1100px;
+  margin:0 auto 30px;
+  padding:0 5%;
+  display:grid;
+  /* La colonna centrale del video è il MINORE tra 580px e l'altezza
+     viewport disponibile × 9/16. Così il video resta grande quando
+     c'è spazio, e si riduce quel tanto che basta per stare nello
+     schermo senza essere tagliato in basso.
+     220px = spazio riservato per topBars fisso + headline sopra + margini. */
+  grid-template-columns:1fr min(580px, calc((100vh - 220px) * 9 / 16)) 1fr;
+  gap:18px;
+  align-items:center;
+}
+
+/* SIDE ARROWS — frecce arancioni lampeggianti AI LATI del video */
+.va-side-arrows{
   display:flex;
   flex-direction:column;
   align-items:center;
-  gap:2px;
-  margin:24px 0 22px;
+  justify-content:center;
+  gap:18px;
+  pointer-events:none;
 }
-.video-arrows svg{
+.va-side-arrows-left{align-items:flex-end}
+.va-side-arrows-right{align-items:flex-start}
+.va-side-arrows .va-arrow{
   display:block;
-  animation:arrow-bounce 1.4s ease-in-out infinite;
-  filter:drop-shadow(0 0 12px rgba(232,84,30,.5));
+  filter:drop-shadow(0 0 16px rgba(232,84,30,.9)) drop-shadow(0 0 32px rgba(232,84,30,.5));
 }
-.video-arrows svg:nth-child(1){opacity:.25}
-.video-arrows svg:nth-child(2){opacity:.55;animation-delay:.15s}
-.video-arrows svg:nth-child(3){opacity:1;animation-delay:.3s}
-@keyframes arrow-bounce{
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(10px)}
+.va-side-arrows-left .va-arrow{
+  animation:va-arrow-blink-left 1s ease-in-out infinite;
+}
+.va-side-arrows-right .va-arrow{
+  animation:va-arrow-blink-right 1s ease-in-out infinite;
+}
+.va-side-arrows .va-arrow:nth-child(1){animation-delay:0s}
+.va-side-arrows .va-arrow:nth-child(2){animation-delay:.15s}
+.va-side-arrows .va-arrow:nth-child(3){animation-delay:.3s}
+.va-side-arrows .va-arrow:nth-child(4){animation-delay:.45s}
+@keyframes va-arrow-blink-left{
+  0%,100%{opacity:.25;transform:translateX(0)}
+  50%{opacity:1;transform:translateX(14px)}
+}
+@keyframes va-arrow-blink-right{
+  0%,100%{opacity:.25;transform:translateX(0)}
+  50%{opacity:1;transform:translateX(-14px)}
 }
 
-.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.1);border-radius:10px;overflow:hidden;max-width:720px;margin:30px auto 0;position:relative;z-index:2}
+/* OUTER FRAME — doppia cornice arancione lampeggiante */
+.va-outer-frame{
+  position:relative;
+  padding:10px;
+  border-radius:24px;
+  background:linear-gradient(135deg,rgba(232,84,30,.35),rgba(232,84,30,.05),rgba(232,84,30,.35));
+}
+.va-outer-frame::before,
+.va-outer-frame::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  border-radius:24px;
+  pointer-events:none;
+  border:3px solid var(--orange);
+  animation:va-outer-pulse 1.4s ease-in-out infinite;
+}
+.va-outer-frame::after{
+  inset:-10px;
+  border-radius:30px;
+  border-width:2px;
+  border-color:rgba(232,84,30,.5);
+  animation-delay:.4s;
+}
+@keyframes va-outer-pulse{
+  0%,100%{opacity:.6;transform:scale(1)}
+  50%{opacity:1;transform:scale(1.012);box-shadow:0 0 60px rgba(232,84,30,.6)}
+}
+
+/* INNER FRAME — bordo del video */
+.va-inner-frame{
+  position:relative;
+  border:3px solid var(--orange);
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:0 0 80px rgba(232,84,30,.6),0 25px 70px rgba(0,0,0,.7);
+  animation:va-inner-glow 1.4s ease-in-out infinite;
+}
+@keyframes va-inner-glow{
+  0%,100%{box-shadow:0 0 80px rgba(232,84,30,.6),0 25px 70px rgba(0,0,0,.7)}
+  50%{box-shadow:0 0 120px rgba(232,84,30,1),0 25px 70px rgba(0,0,0,.7)}
+}
+
+/* Etichetta sopra video */
+.va-header-block{
+  position:relative;z-index:2;
+  max-width:560px;margin:0 auto;
+  padding:0 5%;text-align:center;
+}
+.va-header-block h2{
+  font-family:var(--font-display);font-weight:900;
+  font-size:clamp(1.4rem,2.6vw,1.9rem);
+  text-transform:uppercase;color:white;line-height:1.05;
+  margin-bottom:8px;
+}
+.va-header-block h2 .accent{color:var(--orange)}
+.va-header-block p{
+  font-size:.88rem;color:rgba(255,255,255,.6);line-height:1.55;margin-bottom:14px;
+}
+.va-mini-chips{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:6px}
+.va-mini-chips .chip{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:5px 11px;font-size:.73rem;font-weight:600;color:rgba(255,255,255,.7)}
+
+/* Bridge headline arancione lampeggiante sopra video */
+.va-bridge-mini{
+  font-family:var(--font-display);font-weight:900;
+  font-size:clamp(1.1rem,2vw,1.4rem);
+  text-transform:uppercase;letter-spacing:.04em;
+  color:var(--orange);
+  margin:8px auto 4px;text-align:center;
+  text-shadow:0 0 24px rgba(232,84,30,.8);
+  animation:va-bridge-pulse 1.2s ease-in-out infinite;
+}
+@keyframes va-bridge-pulse{
+  0%,100%{opacity:1;letter-spacing:.04em}
+  50%{opacity:.55;letter-spacing:.08em}
+}
+
+/* ═════ HERO: GIGALIZZATI mega + CTA freccia + Andrea box ═════ */
+.hero-gigalizzati{
+  margin:30px auto 14px;
+  text-align:center;
+  position:relative;
+}
+.hg-mega{
+  font-family:var(--font-display);
+  font-weight:900;
+  font-size:clamp(3.4rem,9.5vw,7.8rem);
+  line-height:.82;
+  letter-spacing:-.025em;
+  text-transform:uppercase;
+  background:linear-gradient(180deg,#FFD9C2 0%,var(--orange) 50%,var(--orange-dark) 100%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+  color:transparent;
+  filter:drop-shadow(0 4px 24px rgba(232,84,30,.55)) drop-shadow(0 0 50px rgba(232,84,30,.3));
+  animation:hg-mega-glow 2.2s ease-in-out infinite;
+  display:inline-block;
+}
+@keyframes hg-mega-glow{
+  0%,100%{filter:drop-shadow(0 4px 24px rgba(232,84,30,.55)) drop-shadow(0 0 50px rgba(232,84,30,.3))}
+  50%{filter:drop-shadow(0 4px 40px rgba(232,84,30,1)) drop-shadow(0 0 80px rgba(232,84,30,.7))}
+}
+.hg-sub{
+  font-family:var(--font-display);
+  font-weight:800;
+  font-size:clamp(1.4rem,3vw,2.3rem);
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  color:rgba(255,255,255,.9);
+  margin-top:6px;
+  line-height:1;
+}
+.hg-sub .accent{
+  color:var(--orange);
+  position:relative;
+}
+.hg-sub .accent::after{
+  content:'';
+  position:absolute;
+  left:0;right:0;bottom:-3px;
+  height:3px;
+  background:var(--orange);
+  border-radius:2px;
+}
+
+/* HERO CTA FRECCIA — porta al video */
+.hero-cta-arrow{
+  display:inline-flex;
+  align-items:center;
+  gap:14px;
+  background:linear-gradient(135deg,var(--orange) 0%,var(--orange-dark) 100%);
+  color:white;
+  text-decoration:none;
+  font-family:var(--font-display);
+  font-weight:900;
+  font-size:clamp(1rem,1.7vw,1.3rem);
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  padding:18px 30px;
+  border-radius:14px;
+  margin:18px auto 20px;
+  box-shadow:0 8px 30px rgba(232,84,30,.55);
+  transition:transform .2s,box-shadow .2s;
+  animation:hero-cta-pulse 1.6s ease-in-out infinite;
+  border:2px solid rgba(255,255,255,.15);
+}
+.hero-cta-arrow:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 14px 44px rgba(232,84,30,.85)}
+.hero-cta-arrow-icon{
+  display:inline-flex;
+  width:36px;height:36px;
+  background:white;color:var(--orange);
+  border-radius:50%;align-items:center;justify-content:center;
+  font-size:1.45rem;font-weight:900;
+  animation:hero-cta-arrow-bounce .9s ease-in-out infinite;
+  flex-shrink:0;
+}
+@keyframes hero-cta-pulse{
+  0%,100%{box-shadow:0 8px 30px rgba(232,84,30,.55)}
+  50%{box-shadow:0 8px 56px rgba(232,84,30,1),0 0 0 6px rgba(232,84,30,.18)}
+}
+@keyframes hero-cta-arrow-bounce{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(8px)}
+}
+
+/* HERO ANDREA BOX salito qui */
+.hero-andrea-box{
+  display:flex;align-items:center;gap:14px;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:14px;
+  padding:14px 20px;
+  max-width:470px;
+  margin:0 auto 6px;
+  text-align:left;
+  backdrop-filter:blur(6px);
+}
+.hero-andrea-box img{
+  width:58px;height:58px;border-radius:50%;
+  object-fit:cover;object-position:top;
+  border:2.5px solid var(--orange);
+  flex-shrink:0;
+  box-shadow:0 0 20px rgba(232,84,30,.5);
+}
+.hab-title{
+  font-weight:700;font-size:.96rem;color:white;
+  margin-bottom:3px;
+  display:flex;align-items:center;gap:6px;
+}
+.hab-sub{
+  font-size:.78rem;color:rgba(255,255,255,.6);line-height:1.45;
+}
+
+@media(max-width:480px){
+  .hero-andrea-box{padding:12px 14px;gap:12px}
+  .hero-andrea-box img{width:48px;height:48px}
+  .hab-title{font-size:.88rem}
+  .hab-sub{font-size:.74rem}
+}
+
+/* HERO STATS row */
+.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.1);border-radius:10px;overflow:hidden;max-width:720px;margin:30px auto 80px;position:relative;z-index:2}
 .stat-item{background:rgba(255,255,255,.04);padding:22px 18px;text-align:center}
 .stat-num{font-family:var(--font-display);font-weight:900;font-size:2.2rem;color:var(--orange);line-height:1;display:block;margin-bottom:6px}
 .stat-label{font-size:.78rem;color:rgba(255,255,255,.55);font-weight:500;line-height:1.3}
@@ -256,9 +495,10 @@ footer{background:#111;padding:56px 5% 32px;border-top:2px solid rgba(255,255,25
 /* FLOATING CTA */
 .floating-cta{position:fixed;bottom:28px;right:28px;z-index:9999;display:none}
 .floating-cta.visible{display:flex}
-.floating-btn{display:flex;align-items:center;gap:10px;background:var(--orange);color:white;text-decoration:none;font-weight:700;font-size:.92rem;padding:14px 20px;border-radius:50px;box-shadow:0 6px 30px rgba(232,84,30,.5);transition:transform .2s,box-shadow .2s;animation:float-in .4s ease}
+.floating-btn{display:flex;align-items:center;gap:10px;background:var(--orange);color:white;text-decoration:none;font-weight:700;font-size:.92rem;padding:14px 20px;border-radius:50px;box-shadow:0 6px 30px rgba(232,84,30,.5);transition:transform .2s,box-shadow .2s;animation:float-in .4s ease,va-floating-pulse 1.2s ease-in-out infinite}
 .floating-btn:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 12px 40px rgba(232,84,30,.6)}
 @keyframes float-in{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+@keyframes va-floating-pulse{0%,100%{box-shadow:0 6px 30px rgba(232,84,30,.5)}50%{box-shadow:0 6px 40px rgba(232,84,30,.95)}}
 
 @keyframes bounce-arrow{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
 @keyframes va-spin{to{transform:rotate(360deg)}}
@@ -272,8 +512,12 @@ footer{background:#111;padding:56px 5% 32px;border-top:2px solid rgba(255,255,25
 .reveal-delay-3{transition-delay:.3s}
 
 /* RESPONSIVE */
+@media(max-width:1024px){
+  .va-master-wrap{grid-template-columns:50px min(580px, calc((100vh - 220px) * 9 / 16)) 50px;gap:8px}
+  .va-side-arrows .va-arrow{transform:scale(.7)}
+}
 @media(max-width:900px){
-  .hero-inner{grid-template-columns:1fr;padding-top:40px}
+  .hero-inner{grid-template-columns:1fr;padding-top:30px}
   .drama-box{grid-template-columns:1fr}
   .drama-col.bad{border-right:none;border-bottom:2px solid var(--orange)}
   .problem-cards,.testi-grid{grid-template-columns:1fr}
@@ -281,10 +525,12 @@ footer{background:#111;padding:56px 5% 32px;border-top:2px solid rgba(255,255,25
   .steps-wrap{grid-template-columns:1fr}
   .footer-top{grid-template-columns:1fr;gap:40px}
   .cta-buttons{flex-direction:column;align-items:center}
+  .va-master-wrap{grid-template-columns:1fr;gap:14px;padding:0 5%}
+  .va-side-arrows{display:none}
 }
 @media(max-width:480px){
   section{padding:70px 5%}
-  .hero-inner{padding:40px 5% 24px}
+  .hero-inner{padding:24px 5% 16px}
   .hero-stats{grid-template-columns:1fr}
   .counter-inner{grid-template-columns:1fr}
   .navbar{padding:0 4%}
@@ -293,6 +539,7 @@ footer{background:#111;padding:56px 5% 32px;border-top:2px solid rgba(255,255,25
   .floating-btn span{display:none}
   .floating-btn{padding:16px;border-radius:50%}
   .footer-bottom{flex-direction:column;align-items:flex-start}
+  .va-attention-banner{font-size:1.1rem;padding:10px 14px}
 }
 </style>
   <!-- Google Analytics 4 -->
@@ -333,241 +580,264 @@ footer{background:#111;padding:56px 5% 32px;border-top:2px solid rgba(255,255,25
   </a>
 </nav>
 
-<!-- HERO -->
+<!-- HERO COMPATTO — VideoAsk protagonista assoluto -->
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-overlay"></div>
-  <div class="hero-inner" style="grid-template-columns:1fr;max-width:900px;text-align:center;margin:0 auto">
+  <div class="hero-inner" style="grid-template-columns:1fr;max-width:900px;text-align:center;margin:0 auto;padding-top:30px;padding-bottom:10px">
     <div class="hero-left" style="max-width:100%">
-      <div class="hero-tag" style="margin:0 auto 24px">Partner ufficiale Wind Tre &middot; Vasto (CH)</div>
-      <h1 class="hero-h1" style="font-size:clamp(2.4rem,4.5vw,4rem)">Stanchi di pagare troppo <em>il telefono?</em></h1>
-      <p class="hero-sub" style="max-width:620px;margin:0 auto 24px">
-        Ogni giorno a Vasto, persone cambiano operatore con il call center e finiscono <strong>con problemi, costi nascosti e nessuno che risponde.</strong><br><br>
-        Da noi e&apos; diverso: vieni in negozio, parli con Andrea in persona, esci con l&apos;offerta giusta in 10 minuti.
+      <div class="hero-tag" style="margin:0 auto 16px">Partner ufficiale Wind Tre &middot; Vasto (CH)</div>
+      <h1 class="hero-h1">Stanchi di pagare troppo <em>il telefono?</em></h1>
+      <p class="hero-sub" style="max-width:600px;margin:0 auto 6px">
+        Da noi parli con Andrea in persona ed esci con <strong>l&apos;offerta giusta in 10 minuti.</strong>
       </p>
 
-      <!-- GIGALIZZATI — super prominente -->
-      <div style="margin-bottom:8px;text-align:center">
-        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(5rem,11vw,9.5rem);line-height:.88;text-transform:uppercase;letter-spacing:-.02em;color:var(--orange);text-shadow:0 0 80px rgba(232,84,30,.55),0 5px 0 rgba(150,35,0,.7);display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap">
-          <svg viewBox="0 0 24 24" fill="currentColor" style="width:clamp(50px,8vw,88px);height:clamp(50px,8vw,88px);flex-shrink:0;filter:drop-shadow(0 0 18px rgba(232,84,30,.9))"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-          <span>GIGALIZZATI!</span>
-        </div>
-
-        <!-- BRIDGE: nuova headline che porta al video -->
-        <div class="hero-bridge">
-          <span class="lead">&#9889; Parla con Andrea</span>
-          <span class="accent">Troviamo l&rsquo;offerta giusta per te</span>
-        </div>
+      <!-- BIG GIGALIZZATI BLOCK -->
+      <div class="hero-gigalizzati">
+        <div class="hg-mega">GIGALIZZATI</div>
+        <div class="hg-sub">in <span class="accent">3 minuti</span></div>
       </div>
 
-      <!-- ARROWS animate verso il video -->
-      <div class="video-arrows" aria-hidden="true">
-        <svg width="36" height="14" viewBox="0 0 36 14"><path d="M2 2 L18 12 L34 2" fill="none" stroke="var(--orange)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <svg width="36" height="14" viewBox="0 0 36 14"><path d="M2 2 L18 12 L34 2" fill="none" stroke="var(--orange)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        <svg width="36" height="14" viewBox="0 0 36 14"><path d="M2 2 L18 12 L34 2" fill="none" stroke="var(--orange)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </div>
+      <!-- CTA FRECCIA che porta al video -->
+      <a href="#vaLayout" class="hero-cta-arrow">
+        <span>Scopri la tua offerta qui sotto</span>
+        <span class="hero-cta-arrow-icon">&darr;</span>
+      </a>
 
+      <!-- ANDREA BOX salito in hero -->
+      <div class="hero-andrea-box">
+        <img src="https://i.imgur.com/e81fwRr.jpeg" alt="Andrea">
+        <div>
+          <div class="hab-title">Andrea risponde personalmente &#128075;</div>
+          <div class="hab-sub">Nessun bot, nessun filtro. Rispondo io, conosco le offerte, conosco Vasto.</div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- VIDEO ASK — ora subito sotto la nuova headline -->
-  <div style="position:relative;z-index:2;max-width:560px;margin:0 auto;padding:0 5% 30px">
+  <!-- ATTENTION BANNER lampeggiante sopra video -->
+  <div class="va-attention-banner">
+    <span class="point">&#128071;</span>
+    <span>CLICCA QUI E TROVA</span>
+    <span class="accent">LA TUA OFFERTA</span>
+    <span class="point">&#128071;</span>
+  </div>
 
-    <!-- HEADER -->
-    <div style="text-align:center;margin-bottom:18px">
-      <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(1.4rem,2.6vw,1.9rem);text-transform:uppercase;color:white;line-height:1.05;margin-bottom:8px">Trova l&rsquo;offerta giusta<br><span style="color:var(--orange)">in meno di 3 minuti</span></div>
-      <p style="font-size:.88rem;color:rgba(255,255,255,.55);line-height:1.55;margin-bottom:12px">Guarda il video e rispondi con un tap. Andrea ti contatta lui direttamente.</p>
-      <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
-        <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:5px 11px;font-size:.73rem;font-weight:600;color:rgba(255,255,255,.7)"><svg width="10" height="10" viewBox="0 0 24 24" fill="var(--orange)"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Rispondi con un tap</span>
-        <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:5px 11px;font-size:.73rem;font-weight:600;color:rgba(255,255,255,.7)"><svg width="10" height="10" viewBox="0 0 24 24" fill="var(--orange)"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Offerta personalizzata</span>
-        <span style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:5px 11px;font-size:.73rem;font-weight:600;color:rgba(255,255,255,.7)"><svg width="10" height="10" viewBox="0 0 24 24" fill="var(--orange)"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Nessun bot</span>
-      </div>
+  <!-- MASTER WRAP: frecce laterali + cornice doppia + video -->
+  <div class="va-master-wrap">
+
+    <!-- FRECCE SINISTRA → puntano al video -->
+    <div class="va-side-arrows va-side-arrows-left" aria-hidden="true">
+      <svg class="va-arrow" width="56" height="34" viewBox="0 0 56 34"><path d="M4 17 L40 17 M30 6 L42 17 L30 28" fill="none" stroke="var(--orange)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <svg class="va-arrow" width="56" height="34" viewBox="0 0 56 34"><path d="M4 17 L40 17 M30 6 L42 17 L30 28" fill="none" stroke="var(--orange)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <svg class="va-arrow" width="56" height="34" viewBox="0 0 56 34"><path d="M4 17 L40 17 M30 6 L42 17 L30 28" fill="none" stroke="var(--orange)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <svg class="va-arrow" width="56" height="34" viewBox="0 0 56 34"><path d="M4 17 L40 17 M30 6 L42 17 L30 28" fill="none" stroke="var(--orange)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </div>
 
-    <!-- VIDEO con overlay domande -->
-    <div id="vaLayout" style="border:3px solid var(--orange);border-radius:20px;overflow:hidden;box-shadow:0 0 70px rgba(232,84,30,.5),0 20px 60px rgba(0,0,0,.6)">
-      <div id="vaPlayerArea" style="position:relative;background:#000;aspect-ratio:9/16;width:100%;overflow:hidden">
+    <!-- CORNICE DOPPIA arancione lampeggiante + VIDEO -->
+    <div class="va-outer-frame">
+      <div id="vaLayout" class="va-inner-frame">
+        <div id="vaPlayerArea" style="position:relative;background:#000;aspect-ratio:9/16;width:100%;overflow:hidden">
 
-        <!-- YOUTUBE TARGET -->
-        <div id="vaYTTarget" style="width:100%;height:100%;position:absolute;inset:0"></div>
-        <div id="vaClickBlocker" style="position:absolute;top:0;left:0;right:0;bottom:45%;z-index:6;background:transparent;pointer-events:auto;cursor:pointer" onclick="vaTogglePlay()" title="Pausa / Riprendi"></div>
+          <!-- YOUTUBE TARGET -->
+          <div id="vaYTTarget" style="width:100%;height:100%;position:absolute;inset:0"></div>
+          <div id="vaClickBlocker" style="position:absolute;top:0;left:0;right:0;bottom:45%;z-index:6;background:transparent;pointer-events:auto;cursor:pointer" onclick="vaTogglePlay()" title="Pausa / Riprendi"></div>
 
-        <!-- PAUSE BTN -->
-        <button id="vaPauseBtn" onclick="vaTogglePlay()" style="display:none;position:absolute;bottom:14px;left:14px;z-index:11;background:rgba(0,0,0,.75);border:1.5px solid rgba(255,255,255,.2);border-radius:50%;width:38px;height:38px;cursor:pointer;align-items:center;justify-content:center;transition:background .2s" onmouseover="this.style.background='rgba(232,84,30,.8)'" onmouseout="this.style.background='rgba(0,0,0,.75)'">
-          <svg id="vaPauseIcon" width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-        </button>
-
-        <!-- PAUSED OVERLAY -->
-        <div id="vaPausedOverlay" style="display:none;position:absolute;inset:0;z-index:9;background:rgba(0,0,0,.45);align-items:center;justify-content:center;pointer-events:none">
-          <div style="width:64px;height:64px;border-radius:50%;background:rgba(232,84,30,.9);display:flex;align-items:center;justify-content:center">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="white" style="margin-left:3px"><path d="M8 5v14l11-7z"/></svg>
-          </div>
-        </div>
-
-        <!-- MUTE OVERLAY -->
-        <button id="vaMuteOverlay" onclick="vaUnmute()" style="display:none;position:absolute;inset:0;width:100%;height:100%;background:rgba(0,0,0,.55);border:none;cursor:pointer;z-index:8;flex-direction:column;align-items:center;justify-content:center;gap:10px">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="white" style="opacity:.9"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
-          <span style="color:white;font-size:.85rem;font-weight:700;font-family:var(--font-body)">Tocca per attivare il suono</span>
-        </button>
-
-        <!-- STEP LABEL -->
-        <div id="vaStepLabel" style="position:absolute;top:12px;right:12px;background:rgba(0,0,0,.7);color:rgba(255,255,255,.8);font-size:.65rem;font-weight:700;padding:4px 10px;border-radius:5px;letter-spacing:.1em;text-transform:uppercase;z-index:10;pointer-events:none"></div>
-        <button id="vaBackBtn" onclick="vaBack()" style="display:none;position:absolute;top:12px;left:12px;background:rgba(0,0,0,.8);border:none;color:white;font-size:.78rem;font-weight:600;padding:6px 12px;border-radius:5px;cursor:pointer;font-family:var(--font-body);z-index:10">&#8592; Indietro</button>
-
-        <!-- NEXT OVERLAY hint -->
-        <div id="vaNextOverlay" style="display:none;position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.8));z-index:5;align-items:flex-end;justify-content:center;padding:20px;pointer-events:none">
-          <div style="color:rgba(255,255,255,.8);font-size:.82rem;font-weight:600;font-family:var(--font-body);text-align:center;width:100%">Scegli una risposta &uarr;</div>
-        </div>
-
-        <!-- LOADER -->
-        <div id="vaLoader" style="position:absolute;inset:0;background:#0D0D0D;display:flex;align-items:center;justify-content:center;z-index:20">
-          <div style="width:36px;height:36px;border:3px solid rgba(255,255,255,.15);border-top-color:var(--orange);border-radius:50%;animation:va-spin 0.8s linear infinite"></div>
-        </div>
-
-        <!-- PLAY SCREEN -->
-        <div id="vaPlayScreen" style="display:none;position:absolute;inset:0;background:#0d0d0d;z-index:18;flex-direction:column;align-items:center;justify-content:center;gap:0;padding:32px 24px;text-align:center">
-          <div style="width:88px;height:88px;border-radius:50%;overflow:hidden;border:3px solid var(--orange);box-shadow:0 0 24px rgba(232,84,30,.4);margin-bottom:20px;flex-shrink:0">
-            <img src="https://i.imgur.com/e81fwRr.jpeg" alt="Andrea" style="width:100%;height:100%;object-fit:cover;object-position:top">
-          </div>
-          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.05rem;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);margin-bottom:6px">Ciao! Sono Andrea</div>
-          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.5rem;text-transform:uppercase;color:white;line-height:1.1;margin-bottom:10px">Troviamo l&rsquo;offerta<br>giusta in 3 minuti</div>
-          <div style="font-size:.82rem;color:rgba(255,255,255,.5);line-height:1.5;margin-bottom:28px;max-width:220px">Guarda i miei video e rispondi con un tap.<br>Ti dico io cosa fa per te.</div>
-          <button id="vaPlayBtn" onclick="vaStartPlayer()" style="width:72px;height:72px;border-radius:50%;background:var(--orange);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 28px rgba(232,84,30,.55);transition:transform .2s,box-shadow .2s;margin-bottom:16px;flex-shrink:0" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="white" style="margin-left:4px"><path d="M8 5v14l11-7z"/></svg>
+          <!-- PAUSE BTN -->
+          <button id="vaPauseBtn" onclick="vaTogglePlay()" style="display:none;position:absolute;bottom:14px;left:14px;z-index:11;background:rgba(0,0,0,.75);border:1.5px solid rgba(255,255,255,.2);border-radius:50%;width:38px;height:38px;cursor:pointer;align-items:center;justify-content:center;transition:background .2s" onmouseover="this.style.background='rgba(232,84,30,.8)'" onmouseout="this.style.background='rgba(0,0,0,.75)'">
+            <svg id="vaPauseIcon" width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
           </button>
-          <div style="font-size:.75rem;color:rgba(255,255,255,.35);letter-spacing:.05em">Tocca per iniziare &bull; Audio attivo</div>
-        </div>
 
-        <!-- OVERLAY UI in basso -->
-        <div id="vaUICol" style="position:absolute;bottom:0;left:0;right:0;z-index:12;background:linear-gradient(transparent,rgba(0,0,0,.93) 30%);padding:20px 16px 18px">
-
-      <!-- PANNELLO durante il video -->
-      <div id="vaWatchPanel" style="display:none;flex-direction:column;gap:0">
-        <div style="margin-bottom:16px">
-          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.2rem;text-transform:uppercase;color:white;line-height:1.1;margin-bottom:4px">Cosa impari in questo video</div>
-          <div style="font-size:.82rem;color:rgba(255,255,255,.4);line-height:1.5">Andrea ti spiega cosa non ti dicono mai al telefono.</div>
-        </div>
-        <div id="vaKeyPoints" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:28px">
-          <div class="va-kp" style="display:flex;align-items:flex-start;gap:12px;opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:14px 16px">
-            <div style="width:28px;height:28px;border-radius:50%;background:rgba(232,84,30,.15);border:1.5px solid rgba(232,84,30,.35);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--orange)"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+          <!-- PAUSED OVERLAY -->
+          <div id="vaPausedOverlay" style="display:none;position:absolute;inset:0;z-index:9;background:rgba(0,0,0,.45);align-items:center;justify-content:center;pointer-events:none">
+            <div style="width:64px;height:64px;border-radius:50%;background:rgba(232,84,30,.9);display:flex;align-items:center;justify-content:center">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="white" style="margin-left:3px"><path d="M8 5v14l11-7z"/></svg>
             </div>
+          </div>
+
+          <!-- MUTE OVERLAY -->
+          <button id="vaMuteOverlay" onclick="vaUnmute()" style="display:none;position:absolute;inset:0;width:100%;height:100%;background:rgba(0,0,0,.55);border:none;cursor:pointer;z-index:8;flex-direction:column;align-items:center;justify-content:center;gap:10px">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="white" style="opacity:.9"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
+            <span style="color:white;font-size:.85rem;font-weight:700;font-family:var(--font-body)">Tocca per attivare il suono</span>
+          </button>
+
+          <!-- STEP LABEL -->
+          <div id="vaStepLabel" style="position:absolute;top:12px;right:12px;background:rgba(0,0,0,.7);color:rgba(255,255,255,.8);font-size:.65rem;font-weight:700;padding:4px 10px;border-radius:5px;letter-spacing:.1em;text-transform:uppercase;z-index:10;pointer-events:none"></div>
+          <button id="vaBackBtn" onclick="vaBack()" style="display:none;position:absolute;top:12px;left:12px;background:rgba(0,0,0,.8);border:none;color:white;font-size:.78rem;font-weight:600;padding:6px 12px;border-radius:5px;cursor:pointer;font-family:var(--font-body);z-index:10">&#8592; Indietro</button>
+
+          <!-- NEXT OVERLAY hint -->
+          <div id="vaNextOverlay" style="display:none;position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.8));z-index:5;align-items:flex-end;justify-content:center;padding:20px;pointer-events:none">
+            <div style="color:rgba(255,255,255,.8);font-size:.82rem;font-weight:600;font-family:var(--font-body);text-align:center;width:100%">Scegli una risposta &uarr;</div>
+          </div>
+
+          <!-- LOADER -->
+          <div id="vaLoader" style="position:absolute;inset:0;background:#0D0D0D;display:flex;align-items:center;justify-content:center;z-index:20">
+            <div style="width:36px;height:36px;border:3px solid rgba(255,255,255,.15);border-top-color:var(--orange);border-radius:50%;animation:va-spin 0.8s linear infinite"></div>
+          </div>
+
+          <!-- PLAY SCREEN -->
+          <div id="vaPlayScreen" style="display:none;position:absolute;inset:0;background:#0d0d0d;z-index:18;flex-direction:column;align-items:center;justify-content:center;gap:0;padding:32px 24px;text-align:center">
+            <div style="width:88px;height:88px;border-radius:50%;overflow:hidden;border:3px solid var(--orange);box-shadow:0 0 24px rgba(232,84,30,.4);margin-bottom:20px;flex-shrink:0">
+              <img src="https://i.imgur.com/e81fwRr.jpeg" alt="Andrea" style="width:100%;height:100%;object-fit:cover;object-position:top">
+            </div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.05rem;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);margin-bottom:6px">Ciao! Sono Andrea</div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.5rem;text-transform:uppercase;color:white;line-height:1.1;margin-bottom:10px">Troviamo l&rsquo;offerta<br>giusta in 3 minuti</div>
+            <div style="font-size:.82rem;color:rgba(255,255,255,.5);line-height:1.5;margin-bottom:28px;max-width:220px">Guarda i miei video e rispondi con un tap.<br>Ti dico io cosa fa per te.</div>
+            <button id="vaPlayBtn" onclick="vaStartPlayer()" style="width:72px;height:72px;border-radius:50%;background:var(--orange);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 28px rgba(232,84,30,.55);transition:transform .2s,box-shadow .2s;margin-bottom:16px;flex-shrink:0" onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="white" style="margin-left:4px"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+            <div style="font-size:.75rem;color:rgba(255,255,255,.35);letter-spacing:.05em">Tocca per iniziare &bull; Audio attivo</div>
+          </div>
+
+          <!-- OVERLAY UI in basso -->
+          <div id="vaUICol" style="position:absolute;bottom:0;left:0;right:0;z-index:12;background:linear-gradient(transparent,rgba(0,0,0,.93) 30%);padding:20px 16px 18px">
+
+        <!-- PANNELLO durante il video -->
+        <div id="vaWatchPanel" style="display:none;flex-direction:column;gap:0">
+          <div style="margin-bottom:16px">
+            <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.2rem;text-transform:uppercase;color:white;line-height:1.1;margin-bottom:4px">Cosa impari in questo video</div>
+            <div style="font-size:.82rem;color:rgba(255,255,255,.4);line-height:1.5">Andrea ti spiega cosa non ti dicono mai al telefono.</div>
+          </div>
+          <div id="vaKeyPoints" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:28px">
+            <div class="va-kp" style="display:flex;align-items:flex-start;gap:12px;opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:14px 16px">
+              <div style="width:28px;height:28px;border-radius:50%;background:rgba(232,84,30,.15);border:1.5px solid rgba(232,84,30,.35);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--orange)"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+              </div>
+              <div>
+                <div style="font-weight:700;font-size:.88rem;color:white;margin-bottom:3px">Perché stai pagando troppo</div>
+                <div style="font-size:.78rem;color:rgba(255,255,255,.4);line-height:1.4">I rincari nascosti che nessun operatore comunica.</div>
+              </div>
+            </div>
+            <div class="va-kp" style="display:flex;align-items:flex-start;gap:12px;opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:14px 16px">
+              <div style="width:28px;height:28px;border-radius:50%;background:rgba(232,84,30,.15);border:1.5px solid rgba(232,84,30,.35);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--orange)"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+              </div>
+              <div>
+                <div style="font-weight:700;font-size:.88rem;color:white;margin-bottom:3px">La portabilità non fa paura</div>
+                <div style="font-size:.78rem;color:rgba(255,255,255,.4);line-height:1.4">Come cambi senza restare senza linea.</div>
+              </div>
+            </div>
+            <div class="va-kp" style="display:flex;align-items:flex-start;gap:12px;opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:14px 16px">
+              <div style="width:28px;height:28px;border-radius:50%;background:rgba(232,84,30,.15);border:1.5px solid rgba(232,84,30,.35);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--orange)"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+              </div>
+              <div>
+                <div style="font-weight:700;font-size:.88rem;color:white;margin-bottom:3px">Tutto chiaro prima di firmare</div>
+                <div style="font-size:.78rem;color:rgba(255,255,255,.4);line-height:1.4">Zero sorprese in bolletta.</div>
+              </div>
+            </div>
+            <div class="va-kp" style="display:flex;align-items:flex-start;gap:12px;opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:14px 16px">
+              <div style="width:28px;height:28px;border-radius:50%;background:rgba(232,84,30,.15);border:1.5px solid rgba(232,84,30,.35);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--orange)"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+              </div>
+              <div>
+                <div style="font-weight:700;font-size:.88rem;color:white;margin-bottom:3px">Attivazione in 10 minuti</div>
+                <div style="font-size:.78rem;color:rgba(255,255,255,.4);line-height:1.4">SIM già attiva. Andrea gestisce tutto.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- WELCOME PANEL -->
+        <div id="vaWelcomePanel" style="display:flex;flex-direction:column;gap:12px;">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.05rem;text-transform:uppercase;color:var(--orange);letter-spacing:.08em">&uarr; Scegli la tua risposta qui sopra</div>
+        </div>
+
+        <!-- BOTTONI RISPOSTA -->
+        <div id="vaBtns" style="display:none;flex-direction:column;gap:12px;"></div>
+
+        <!-- FORM (Nome + Telefono + ZONA) -->
+        <div id="vaForm" style="display:none;flex-direction:column;gap:14px;">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.3rem;text-transform:uppercase;color:white;margin-bottom:4px">Prima di continuare&hellip;</div>
+          <div style="font-size:.88rem;color:rgba(255,255,255,.5);margin-bottom:8px">Cos&igrave; Andrea sa gi&agrave; chi &egrave; quando ti risponde.</div>
+          <input id="vaName" type="text" placeholder="Il tuo nome..." maxlength="40" autocomplete="given-name" oninput="vaCheckForm()"
+            style="background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.14);border-radius:9px;padding:14px 16px;color:white;font-size:.97rem;font-family:var(--font-body);outline:none;transition:border-color .2s"
+            onfocus="this.style.borderColor='var(--orange)'" onblur="this.style.borderColor='rgba(255,255,255,.14)'">
+          <input id="vaPhone" type="tel" placeholder="Il tuo numero di telefono..." maxlength="15" autocomplete="tel" oninput="vaCheckForm()"
+            style="background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.14);border-radius:9px;padding:14px 16px;color:white;font-size:.97rem;font-family:var(--font-body);outline:none;transition:border-color .2s"
+            onfocus="this.style.borderColor='var(--orange)'" onblur="this.style.borderColor='rgba(255,255,255,.14)'">
+          <select id="vaZona" onchange="vaOnZonaChange()"
+            style="background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.14);border-radius:9px;padding:14px 16px;color:white;font-size:.97rem;font-family:var(--font-body);outline:none;transition:border-color .2s;appearance:none;-webkit-appearance:none;background-image:url('data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;12&quot; height=&quot;8&quot; viewBox=&quot;0 0 12 8&quot;><path d=&quot;M1 1l5 5 5-5&quot; fill=&quot;none&quot; stroke=&quot;rgba(255,255,255,0.5)&quot; stroke-width=&quot;2&quot;/></svg>');background-repeat:no-repeat;background-position:right 16px center;padding-right:40px"
+            onfocus="this.style.borderColor='var(--orange)'" onblur="this.style.borderColor='rgba(255,255,255,.14)'">
+            <option value="" style="background:#1a1a1a">Da che zona sei?</option>
+            <option value="Vasto" style="background:#1a1a1a">Vasto</option>
+            <option value="San Salvo" style="background:#1a1a1a">San Salvo</option>
+            <option value="Casalbordino" style="background:#1a1a1a">Casalbordino</option>
+            <option value="Cupello" style="background:#1a1a1a">Cupello</option>
+            <option value="Termoli" style="background:#1a1a1a">Termoli</option>
+            <option value="Vasto Marina" style="background:#1a1a1a">Vasto Marina</option>
+            <option value="__altro" style="background:#1a1a1a">Altro&hellip;</option>
+          </select>
+          <input id="vaZonaAltro" type="text" placeholder="Indica la tua zona..." maxlength="40" oninput="vaCheckForm()" style="display:none;background:rgba(255,255,255,.07);border:1.5px solid rgba(232,84,30,.4);border-radius:9px;padding:14px 16px;color:white;font-size:.97rem;font-family:var(--font-body);outline:none;transition:border-color .2s" onfocus="this.style.borderColor='var(--orange)'" onblur="this.style.borderColor='rgba(232,84,30,.4)'">
+          <button id="vaFormBtn" onclick="vaSubmitForm()" disabled
+            style="background:rgba(232,84,30,.25);color:rgba(255,255,255,.35);border:none;padding:16px;border-radius:9px;font-size:1rem;font-weight:700;font-family:var(--font-body);cursor:not-allowed;transition:all .2s">
+            Avanti &rarr;
+          </button>
+        </div>
+
+        <!-- RESULT -->
+        <div id="vaResult" style="display:none;text-align:center;">
+          <div style="font-size:2.2rem;margin-bottom:14px;animation:va-pop .5s ease">&#9889;</div>
+          <div id="vaResultGreeting" style="font-size:.98rem;color:rgba(255,255,255,.75);margin-bottom:8px;line-height:1.55"></div>
+          <div id="vaResultOffer" style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2rem;text-transform:uppercase;color:var(--orange);line-height:1;margin-bottom:8px"></div>
+          <div id="vaResultDesc" style="font-size:.88rem;color:rgba(255,255,255,.5);line-height:1.6;margin-bottom:24px"></div>
+          <div id="vaCrmStatus" style="display:flex;align-items:center;gap:8px;padding:10px 14px;background:rgba(255,255,255,.04);border-radius:8px;border:1px solid rgba(255,255,255,.07);margin-bottom:22px;justify-content:center">
+            <span id="vaCrmIcon" style="font-size:.9rem">&#128203;</span>
+            <span id="vaCrmText" style="font-size:.75rem;color:rgba(255,255,255,.4);line-height:1.4">Salvataggio dati in corso&hellip;</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.04);border-radius:12px;padding:13px 16px;margin-bottom:22px;border:1px solid rgba(255,255,255,.08);text-align:left">
+            <img src="https://i.imgur.com/e81fwRr.jpeg" alt="Andrea" style="width:44px;height:44px;border-radius:50%;object-fit:cover;object-position:top;border:2px solid var(--orange);flex-shrink:0">
             <div>
-              <div style="font-weight:700;font-size:.88rem;color:white;margin-bottom:3px">Perché stai pagando troppo</div>
-              <div style="font-size:.78rem;color:rgba(255,255,255,.4);line-height:1.4">I rincari nascosti che nessun operatore comunica.</div>
+              <div style="font-weight:700;font-size:.88rem;color:white;margin-bottom:2px">Andrea ti contatter&agrave; presto &#128075;</div>
+              <div style="font-size:.76rem;color:rgba(255,255,255,.48)">Ha gi&agrave; le tue risposte &mdash; ti scrive su WhatsApp.</div>
             </div>
           </div>
-          <div class="va-kp" style="display:flex;align-items:flex-start;gap:12px;opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:14px 16px">
-            <div style="width:28px;height:28px;border-radius:50%;background:rgba(232,84,30,.15);border:1.5px solid rgba(232,84,30,.35);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--orange)"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-            </div>
-            <div>
-              <div style="font-weight:700;font-size:.88rem;color:white;margin-bottom:3px">La portabilità non fa paura</div>
-              <div style="font-size:.78rem;color:rgba(255,255,255,.4);line-height:1.4">Come cambi senza restare senza linea.</div>
-            </div>
-          </div>
-          <div class="va-kp" style="display:flex;align-items:flex-start;gap:12px;opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:14px 16px">
-            <div style="width:28px;height:28px;border-radius:50%;background:rgba(232,84,30,.15);border:1.5px solid rgba(232,84,30,.35);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--orange)"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-            </div>
-            <div>
-              <div style="font-weight:700;font-size:.88rem;color:white;margin-bottom:3px">Tutto chiaro prima di firmare</div>
-              <div style="font-size:.78rem;color:rgba(255,255,255,.4);line-height:1.4">Zero sorprese in bolletta.</div>
-            </div>
-          </div>
-          <div class="va-kp" style="display:flex;align-items:flex-start;gap:12px;opacity:0;transform:translateY(10px);transition:opacity .5s ease,transform .5s ease;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:14px 16px">
-            <div style="width:28px;height:28px;border-radius:50%;background:rgba(232,84,30,.15);border:1.5px solid rgba(232,84,30,.35);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--orange)"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-            </div>
-            <div>
-              <div style="font-weight:700;font-size:.88rem;color:white;margin-bottom:3px">Attivazione in 10 minuti</div>
-              <div style="font-size:.78rem;color:rgba(255,255,255,.4);line-height:1.4">SIM già attiva. Andrea gestisce tutto.</div>
-            </div>
-          </div>
+          <div style="font-size:1.3rem;color:var(--orange);animation:bounce-arrow 1.2s ease-in-out infinite;margin-bottom:12px">&#8595;</div>
+          <a id="vaWaBtn" href="#" target="_blank"
+            style="display:flex;align-items:center;justify-content:center;gap:10px;background:#25D366;color:white;text-decoration:none;font-weight:700;font-size:1rem;padding:17px;border-radius:10px;box-shadow:0 5px 20px rgba(37,211,102,.28);transition:background .2s,transform .2s;margin-bottom:8px"
+            onmouseover="this.style.background='#1ea655';this.style.transform='translateY(-2px)'"
+            onmouseout="this.style.background='#25D366';this.style.transform='translateY(0)'">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.557 4.125 1.529 5.858L.057 23.944l6.255-1.639A11.955 11.955 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
+            Scrivimi su WhatsApp
+          </a>
+          <a id="vaCallBtn" href="tel:+393931230333"
+            style="display:flex;align-items:center;justify-content:center;gap:10px;background:rgba(255,255,255,.07);color:white;text-decoration:none;font-weight:600;font-size:.9rem;padding:13px;border-radius:10px;border:1px solid rgba(255,255,255,.12);transition:background .2s;margin-bottom:16px"
+            onmouseover="this.style.background='rgba(255,255,255,.12)'"
+            onmouseout="this.style.background='rgba(255,255,255,.07)'">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+            Oppure chiama ora
+          </a>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.9rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(232,84,30,.5)">&#9889; Sei Gigalizzato.</div>
+          <button onclick="vaReset()" style="background:none;border:none;color:rgba(255,255,255,.2);font-size:.78rem;cursor:pointer;margin-top:12px;text-decoration:underline;font-family:var(--font-body)">&#8617; Ricomincia</button>
         </div>
-      </div>
 
-      <!-- WELCOME PANEL — freccia ora verso L'ALTO -->
-      <div id="vaWelcomePanel" style="display:flex;flex-direction:column;gap:12px;">
-        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.05rem;text-transform:uppercase;color:var(--orange);letter-spacing:.08em">&uarr; Scegli la tua risposta qui sopra</div>
-      </div>
+        </div><!-- /vaUICol overlay -->
 
-      <!-- BOTTONI RISPOSTA -->
-      <div id="vaBtns" style="display:none;flex-direction:column;gap:12px;"></div>
+        </div><!-- /vaPlayerArea -->
+      </div><!-- /va-inner-frame (vaLayout) -->
+    </div><!-- /va-outer-frame -->
 
-      <!-- FORM (Nome + Telefono + ZONA) -->
-      <div id="vaForm" style="display:none;flex-direction:column;gap:14px;">
-        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.3rem;text-transform:uppercase;color:white;margin-bottom:4px">Prima di continuare&hellip;</div>
-        <div style="font-size:.88rem;color:rgba(255,255,255,.5);margin-bottom:8px">Cos&igrave; Andrea sa gi&agrave; chi &egrave; quando ti risponde.</div>
-        <input id="vaName" type="text" placeholder="Il tuo nome..." maxlength="40" autocomplete="given-name" oninput="vaCheckForm()"
-          style="background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.14);border-radius:9px;padding:14px 16px;color:white;font-size:.97rem;font-family:var(--font-body);outline:none;transition:border-color .2s"
-          onfocus="this.style.borderColor='var(--orange)'" onblur="this.style.borderColor='rgba(255,255,255,.14)'">
-        <input id="vaPhone" type="tel" placeholder="Il tuo numero di telefono..." maxlength="15" autocomplete="tel" oninput="vaCheckForm()"
-          style="background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.14);border-radius:9px;padding:14px 16px;color:white;font-size:.97rem;font-family:var(--font-body);outline:none;transition:border-color .2s"
-          onfocus="this.style.borderColor='var(--orange)'" onblur="this.style.borderColor='rgba(255,255,255,.14)'">
-        <select id="vaZona" onchange="vaOnZonaChange()"
-          style="background:rgba(255,255,255,.07);border:1.5px solid rgba(255,255,255,.14);border-radius:9px;padding:14px 16px;color:white;font-size:.97rem;font-family:var(--font-body);outline:none;transition:border-color .2s;appearance:none;-webkit-appearance:none;background-image:url('data:image/svg+xml;utf8,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;12&quot; height=&quot;8&quot; viewBox=&quot;0 0 12 8&quot;><path d=&quot;M1 1l5 5 5-5&quot; fill=&quot;none&quot; stroke=&quot;rgba(255,255,255,0.5)&quot; stroke-width=&quot;2&quot;/></svg>');background-repeat:no-repeat;background-position:right 16px center;padding-right:40px"
-          onfocus="this.style.borderColor='var(--orange)'" onblur="this.style.borderColor='rgba(255,255,255,.14)'">
-          <option value="" style="background:#1a1a1a">Da che zona sei?</option>
-          <option value="Vasto" style="background:#1a1a1a">Vasto</option>
-          <option value="San Salvo" style="background:#1a1a1a">San Salvo</option>
-          <option value="Casalbordino" style="background:#1a1a1a">Casalbordino</option>
-          <option value="Cupello" style="background:#1a1a1a">Cupello</option>
-          <option value="Termoli" style="background:#1a1a1a">Termoli</option>
-          <option value="Vasto Marina" style="background:#1a1a1a">Vasto Marina</option>
-          <option value="__altro" style="background:#1a1a1a">Altro&hellip;</option>
-        </select>
-        <input id="vaZonaAltro" type="text" placeholder="Indica la tua zona..." maxlength="40" oninput="vaCheckForm()" style="display:none;background:rgba(255,255,255,.07);border:1.5px solid rgba(232,84,30,.4);border-radius:9px;padding:14px 16px;color:white;font-size:.97rem;font-family:var(--font-body);outline:none;transition:border-color .2s" onfocus="this.style.borderColor='var(--orange)'" onblur="this.style.borderColor='rgba(232,84,30,.4)'">
-        <button id="vaFormBtn" onclick="vaSubmitForm()" disabled
-          style="background:rgba(232,84,30,.25);color:rgba(255,255,255,.35);border:none;padding:16px;border-radius:9px;font-size:1rem;font-weight:700;font-family:var(--font-body);cursor:not-allowed;transition:all .2s">
-          Avanti &rarr;
-        </button>
-      </div>
+    <!-- FRECCE DESTRA → puntano al video -->
+    <div class="va-side-arrows va-side-arrows-right" aria-hidden="true">
+      <svg class="va-arrow" width="56" height="34" viewBox="0 0 56 34"><path d="M52 17 L16 17 M26 6 L14 17 L26 28" fill="none" stroke="var(--orange)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <svg class="va-arrow" width="56" height="34" viewBox="0 0 56 34"><path d="M52 17 L16 17 M26 6 L14 17 L26 28" fill="none" stroke="var(--orange)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <svg class="va-arrow" width="56" height="34" viewBox="0 0 56 34"><path d="M52 17 L16 17 M26 6 L14 17 L26 28" fill="none" stroke="var(--orange)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <svg class="va-arrow" width="56" height="34" viewBox="0 0 56 34"><path d="M52 17 L16 17 M26 6 L14 17 L26 28" fill="none" stroke="var(--orange)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
 
-      <!-- RESULT -->
-      <div id="vaResult" style="display:none;text-align:center;">
-        <div style="font-size:2.2rem;margin-bottom:14px;animation:va-pop .5s ease">&#9889;</div>
-        <div id="vaResultGreeting" style="font-size:.98rem;color:rgba(255,255,255,.75);margin-bottom:8px;line-height:1.55"></div>
-        <div id="vaResultOffer" style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2rem;text-transform:uppercase;color:var(--orange);line-height:1;margin-bottom:8px"></div>
-        <div id="vaResultDesc" style="font-size:.88rem;color:rgba(255,255,255,.5);line-height:1.6;margin-bottom:24px"></div>
-        <div id="vaCrmStatus" style="display:flex;align-items:center;gap:8px;padding:10px 14px;background:rgba(255,255,255,.04);border-radius:8px;border:1px solid rgba(255,255,255,.07);margin-bottom:22px;justify-content:center">
-          <span id="vaCrmIcon" style="font-size:.9rem">&#128203;</span>
-          <span id="vaCrmText" style="font-size:.75rem;color:rgba(255,255,255,.4);line-height:1.4">Salvataggio dati in corso&hellip;</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.04);border-radius:12px;padding:13px 16px;margin-bottom:22px;border:1px solid rgba(255,255,255,.08);text-align:left">
-          <img src="https://i.imgur.com/e81fwRr.jpeg" alt="Andrea" style="width:44px;height:44px;border-radius:50%;object-fit:cover;object-position:top;border:2px solid var(--orange);flex-shrink:0">
-          <div>
-            <div style="font-weight:700;font-size:.88rem;color:white;margin-bottom:2px">Andrea ti contatter&agrave; presto &#128075;</div>
-            <div style="font-size:.76rem;color:rgba(255,255,255,.48)">Ha gi&agrave; le tue risposte &mdash; ti scrive su WhatsApp.</div>
-          </div>
-        </div>
-        <div style="font-size:1.3rem;color:var(--orange);animation:bounce-arrow 1.2s ease-in-out infinite;margin-bottom:12px">&#8595;</div>
-        <a id="vaWaBtn" href="#" target="_blank"
-          style="display:flex;align-items:center;justify-content:center;gap:10px;background:#25D366;color:white;text-decoration:none;font-weight:700;font-size:1rem;padding:17px;border-radius:10px;box-shadow:0 5px 20px rgba(37,211,102,.28);transition:background .2s,transform .2s;margin-bottom:8px"
-          onmouseover="this.style.background='#1ea655';this.style.transform='translateY(-2px)'"
-          onmouseout="this.style.background='#25D366';this.style.transform='translateY(0)'">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.557 4.125 1.529 5.858L.057 23.944l6.255-1.639A11.955 11.955 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/></svg>
-          Scrivimi su WhatsApp
-        </a>
-        <a id="vaCallBtn" href="tel:+393931230333"
-          style="display:flex;align-items:center;justify-content:center;gap:10px;background:rgba(255,255,255,.07);color:white;text-decoration:none;font-weight:600;font-size:.9rem;padding:13px;border-radius:10px;border:1px solid rgba(255,255,255,.12);transition:background .2s;margin-bottom:16px"
-          onmouseover="this.style.background='rgba(255,255,255,.12)'"
-          onmouseout="this.style.background='rgba(255,255,255,.07)'">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-          Oppure chiama ora
-        </a>
-        <div style="font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:.9rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(232,84,30,.5)">&#9889; Sei Gigalizzato.</div>
-        <button onclick="vaReset()" style="background:none;border:none;color:rgba(255,255,255,.2);font-size:.78rem;cursor:pointer;margin-top:12px;text-decoration:underline;font-family:var(--font-body)">&#8617; Ricomincia</button>
-      </div>
+  </div><!-- /va-master-wrap -->
 
-    </div><!-- /vaUICol overlay -->
+  <!-- Mini chip riassicurazione SOTTO al video -->
+  <div style="position:relative;z-index:2;max-width:560px;margin:0 auto 28px;padding:0 5%;text-align:center">
+    <div class="va-mini-chips">
+      <span class="chip"><svg width="10" height="10" viewBox="0 0 24 24" fill="var(--orange)"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Rispondi con un tap</span>
+      <span class="chip"><svg width="10" height="10" viewBox="0 0 24 24" fill="var(--orange)"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Offerta personalizzata</span>
+      <span class="chip"><svg width="10" height="10" viewBox="0 0 24 24" fill="var(--orange)"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Andrea ti contatta lui</span>
+    </div>
+  </div>
 
-      </div><!-- /vaPlayerArea -->
-    </div><!-- /vaLayout video border -->
-  </div><!-- /videoask wrapper -->
-
-  <!-- STATS — ora SOTTO il video -->
-  <div class="hero-stats" style="margin-bottom:80px">
+  <!-- STATS sotto -->
+  <div class="hero-stats">
     <div class="stat-item">
       <span class="stat-num">+320</span>
       <span class="stat-label">Clienti soddisfatti<br>nella zona di Vasto</span>
@@ -664,7 +934,7 @@ footer{background:#111;padding:56px 5% 32px;border-top:2px solid rgba(255,255,25
     </div>
   </div>
   <div class="section-cta-wrap reveal">
-    <a href="#vaLayout" class="btn-primary">&#9889; Trova la tua offerta giusta</a>
+    <a href="#vaLayout" class="btn-primary">&#128071; Compila il quiz e trova la tua offerta &#128071;</a>
   </div>
 </section>
 
@@ -722,7 +992,7 @@ footer{background:#111;padding:56px 5% 32px;border-top:2px solid rgba(255,255,25
           <li>Supporto post-attivazione via WhatsApp o in negozio</li>
           <li>Consulenza fibra, FWA, Luce &amp; Gas su richiesta</li>
         </ul>
-        <a href="#vaLayout" class="btn-primary">&#9889; Inizia il tuo percorso &mdash; gratis</a>
+        <a href="#vaLayout" class="btn-primary">&#128071; Compila il quiz qui sopra &#128071;</a>
         <div class="guarantee">Nessun impegno. Nessun costo. Solo una chiacchierata.</div>
       </div>
     </div>
@@ -758,7 +1028,7 @@ footer{background:#111;padding:56px 5% 32px;border-top:2px solid rgba(255,255,25
     </div>
   </div>
   <div class="section-cta-wrap reveal">
-    <a href="#vaLayout" class="btn-primary">&#9889; Gigalizzati in 3 passi</a>
+    <a href="#vaLayout" class="btn-primary">&#128071; Inizia ora &mdash; ci vogliono 3 minuti &#128071;</a>
   </div>
 </section>
 
@@ -805,7 +1075,7 @@ footer{background:#111;padding:56px 5% 32px;border-top:2px solid rgba(255,255,25
     </div>
   </div>
   <div class="section-cta-wrap reveal">
-    <a href="#vaLayout" class="btn-primary">&#9889; Voglio un&apos;offerta come la loro</a>
+    <a href="#vaLayout" class="btn-primary">&#128071; Voglio un&apos;offerta come la loro &#128071;</a>
   </div>
 </section>
 
@@ -909,7 +1179,7 @@ footer{background:#111;padding:56px 5% 32px;border-top:2px solid rgba(255,255,25
     </div>
   </div>
   <div class="section-cta-wrap reveal">
-    <a href="#vaLayout" class="btn-primary">&#9889; Trova la risposta giusta per te</a>
+    <a href="#vaLayout" class="btn-primary">&#128071; Compila il quiz e trova la risposta &#128071;</a>
   </div>
 </section>
 
@@ -1012,36 +1282,43 @@ footer{background:#111;padding:56px 5% 32px;border-top:2px solid rgba(255,255,25
 <div class="floating-cta" id="floatingCta">
   <a href="#vaLayout" class="floating-btn">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-    <span>&#9889; Gigalizzati!</span>
+    <span>&#9889; Compila il quiz!</span>
   </a>
 </div>
 
 <script>
-// NAVBAR
-var navbar = document.getElementById('navbar');
-var lastScroll = 0;
+// SCROLL HANDLER (floating CTA: la navbar non è più fissa, quindi nessuna logica show/hide)
 window.addEventListener('scroll', function() {
   var curr = window.scrollY;
-  if (curr > lastScroll && curr > 100) { navbar.classList.add('hidden'); }
-  else { navbar.classList.remove('hidden'); }
-  if (curr > 20) { navbar.classList.add('scrolled'); } else { navbar.classList.remove('scrolled'); }
-  lastScroll = curr;
   var pct = (curr / (document.body.scrollHeight - window.innerHeight)) * 100;
   var fc = document.getElementById('floatingCta');
   if (pct > 40) { fc.classList.add('visible'); } else { fc.classList.remove('visible'); }
 });
 
-// NAVBAR TOP OFFSET
+// PADDING TOP DEL BODY in base ai topBars fissi
+// (la navbar ora è statica e scrolla via, non serve più compensarla)
 window.addEventListener('DOMContentLoaded', function() {
-  var barsH = document.getElementById('topBars').offsetHeight;
-  var navH = 68;
-  var totalFixed = barsH + navH;
-  navbar.style.top = barsH + 'px';
-  document.body.style.paddingTop = (totalFixed) + 'px';
-  document.documentElement.style.setProperty('--bars-h', (totalFixed + 16) + 'px');
-  document.querySelectorAll('section[id], div[id="counters"], #vaLayout').forEach(function(el) {
-    el.style.scrollMarginTop = (totalFixed + 16) + 'px';
-  });
+  function adjustPaddingTop() {
+    var barsH = document.getElementById('topBars').offsetHeight;
+    document.body.style.paddingTop = barsH + 'px';
+    document.documentElement.style.setProperty('--bars-h', (barsH + 16) + 'px');
+    document.querySelectorAll('section[id], div[id="counters"], #vaLayout').forEach(function(el) {
+      el.style.scrollMarginTop = (barsH + 16) + 'px';
+    });
+  }
+  adjustPaddingTop();
+  window.addEventListener('resize', adjustPaddingTop);
+
+  // FALLBACK: se YouTube API non risponde entro 3s (es. preview sandbox, blocco rete),
+  // nasconde il loader e mostra comunque la schermata di benvenuto cosi' il video si vede.
+  setTimeout(function() {
+    if (!vaPlayerReady) {
+      var loader = document.getElementById('vaLoader');
+      if (loader) loader.style.display = 'none';
+      var ps = document.getElementById('vaPlayScreen');
+      if (ps && ps.style.display === 'none') ps.style.display = 'flex';
+    }
+  }, 3000);
 });
 
 // REVEAL
@@ -1097,22 +1374,13 @@ function toggleFaq(btn) {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
-// ███  CONFIG CRM uwplace  ██████████████████████████████████████████████████
+// ███  CONFIG CRM - GOOGLE SHEET via Apps Script Web App  ███████████████████
 // ═══════════════════════════════════════════════════════════════════════════
-// Quando avrai i dati dall'API di uwplace, compila qui sotto:
-//   - endpoint : URL completo (es. https://uwplace.com/api/v1/contacts)
-//   - apiKey   : la chiave API che ti dà uwplace (header Authorization)
-//   - extraHeaders : eventuali header aggiuntivi che chiede uwplace
+// Incolla qui sotto l'URL del Web App di Apps Script (lo ottieni dopo aver
+// fatto il "Deploy → Web App" del foglio Google).
+// Esempio: https://script.google.com/macros/s/AKfycb.../exec
 //
-// Finché endpoint è vuoto, i lead vengono solo loggati in console (F12 →
-// Console). Niente si rompe.
-//
-var UWPLACE_CONFIG = {
-  endpoint:     '',                        // <-- INCOLLA QUI L'URL API DI UWPLACE
-  apiKey:       '',                        // <-- INCOLLA QUI L'API KEY DI UWPLACE
-  authHeader:   'Bearer',                  // 'Bearer' | 'Token' | '' (chiedi a uwplace)
-  extraHeaders: {}                         // es. { 'X-Workspace-Id': '...' }
-};
+var SHEET_WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbw5f3e3Vnk2IoUbrb9at4yh_wWlAGmj4VACIMqAzo5ijl_utBp7mMlgEItNNSPPeHOF4Q/exec';
 
 // VIDEOASK FLOW
 var VA_VIDEOS = {
@@ -1125,14 +1393,12 @@ var VA_VIDEOS = {
   V4:  'PtptUbiPwdc',
   V5:  '9vXV5iEUrtw',
   V5b: 'h04agHedBR4'
-  // V0c e V0d non hanno video: vanno direttamente ai bottoni
 };
 
 var VA_FLOW = {
   V0:  { label:'Benvenuto', btns:[{text:'Inizia \u2192',next:'V0b',v:'',lbl:''}] },
   V0b: { label:'Chi sei?', form:true },
 
-  // NUOVO STEP: operatore di provenienza
   V0c: { label:'1 di 6', noVideo:true, question:'Da quale operatore vieni?', btns:[
     {text:'TIM',          next:'V0d', v:'TIM',         lbl:'TIM'},
     {text:'Vodafone',     next:'V0d', v:'Vodafone',    lbl:'Vodafone'},
@@ -1143,7 +1409,6 @@ var VA_FLOW = {
     {text:'Altro / non ricordo', next:'V0d', v:'Altro', lbl:'Altro / non ricordo'}
   ]},
 
-  // NUOVO STEP: costo attuale
   V0d: { label:'2 di 6', noVideo:true, question:'Quanto paghi adesso al mese?', btns:[
     {text:'Meno di 10€',        next:'V1', v:'<10',     lbl:'meno di 10€/mese'},
     {text:'Tra 10€ e 15€',      next:'V1', v:'10-15',   lbl:'10-15€/mese'},
@@ -1273,7 +1538,6 @@ function vaTogglePlay() {
   if (!vaPlayer || !vaPlayerReady) return;
   var ps = document.getElementById('vaPlayScreen');
   if (ps && ps.style.display !== 'none') return;
-  // Niente toggle sui step senza video
   if (vaS._currentStep && vaS._currentStep.noVideo) return;
 
   if (vaIsPaused) {
@@ -1332,7 +1596,6 @@ function vaUnmute() {
   if (vaPlayer && vaPlayer.unMute) { vaPlayer.unMute(); vaPlayer.setVolume(100); }
 }
 
-// CARICA STEP
 function vaLoad(key, skipVideoLoad) {
   var step = VA_FLOW[key];
   if (!step) return;
@@ -1345,7 +1608,6 @@ function vaLoad(key, skipVideoLoad) {
   document.getElementById('vaStepLabel').textContent = step.label;
   document.getElementById('vaBackBtn').style.display = vaS.history.length > 0 ? 'block' : 'none';
 
-  // Carica video solo se lo step ne ha uno
   var ytId = VA_VIDEOS[key];
   if (!skipVideoLoad && ytId && !step.noVideo) {
     if (vaPlayerReady && vaPlayer) {
@@ -1379,7 +1641,6 @@ function vaLoad(key, skipVideoLoad) {
     return;
   }
 
-  // Step senza video: mostra subito i bottoni (o il form)
   if (step.noVideo) {
     if (vaPlayer && vaPlayer.pauseVideo) { try { vaPlayer.pauseVideo(); } catch(e) {} }
     if (step.form) {
@@ -1390,7 +1651,6 @@ function vaLoad(key, skipVideoLoad) {
   }
 }
 
-// BOTTONI
 function vaShowBtns(step) {
   document.getElementById('vaNextOverlay').style.display = 'flex';
   var btns = document.getElementById('vaBtns');
@@ -1426,12 +1686,9 @@ function vaOnEnded() {
 function vaPick(i) {
   var step = VA_FLOW[vaS.step];
   var btn = step.btns[i];
-
-  // Salva risposta specifica per step
   vaS.a[vaS.step] = btn.v;
   if (vaS.step === 'V0c') vaS.operatore = btn.v;
   if (vaS.step === 'V0d') vaS.costo     = btn.v;
-
   if (btn.v === 'lg_yes') vaS.lgInt = true;
   vaS.history.push(vaS.step);
   vaLoad(btn.next);
@@ -1444,7 +1701,6 @@ function vaBack() {
   vaLoad(prev);
 }
 
-// Zona — mostra/nasconde il campo testo "altro"
 function vaOnZonaChange() {
   var sel = document.getElementById('vaZona');
   var altro = document.getElementById('vaZonaAltro');
@@ -1510,13 +1766,12 @@ function vaShowResult(isBiz) {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
-// INVIO LEAD AL CRM (uwplace)
+// INVIO LEAD AL FOGLIO GOOGLE (via Apps Script Web App)
 // ═══════════════════════════════════════════════════════════════════════════
 function vaSendToCRM(offer, isBiz) {
   var crmIcon = document.getElementById('vaCrmIcon');
   var crmText = document.getElementById('vaCrmText');
 
-  // Etichette leggibili
   var v0cBtn = vaS.a.V0c ? VA_FLOW.V0c.btns.find(function(b){ return b.v === vaS.a.V0c; }) : null;
   var v0dBtn = vaS.a.V0d ? VA_FLOW.V0d.btns.find(function(b){ return b.v === vaS.a.V0d; }) : null;
   var v1btn  = vaS.a.V1  ? VA_FLOW.V1.btns.find(function(b){ return b.v === vaS.a.V1; })  : null;
@@ -1524,7 +1779,6 @@ function vaSendToCRM(offer, isBiz) {
   var v2btn  = v2k ? VA_FLOW[v2k].btns.find(function(b){ return b.v === vaS.a[v2k]; }) : null;
   var v3btn  = vaS.a.V3  ? VA_FLOW.V3.btns.find(function(b){ return b.v === vaS.a.V3; })  : null;
 
-  // Payload — struttura "neutra", facile da rimappare per qualunque API
   var payload = {
     nome:        vaS.nome  || '',
     telefono:    vaS.phone || '',
@@ -1541,9 +1795,8 @@ function vaSendToCRM(offer, isBiz) {
     timestamp:   new Date().toISOString()
   };
 
-  // Se endpoint non configurato → log in console e basta
-  if (!UWPLACE_CONFIG.endpoint) {
-    console.log('[CRM uwplace] endpoint non configurato. Payload pronto:', payload);
+  if (!SHEET_WEBHOOK_URL || SHEET_WEBHOOK_URL.indexOf('http') < 0) {
+    console.log('[CRM] SHEET_WEBHOOK_URL non configurato. Payload pronto:', payload);
     if (crmIcon) crmIcon.textContent = '📋';
     if (crmText) {
       crmText.textContent = 'Lead ricevuto — Andrea ti contatterà su WhatsApp.';
@@ -1552,36 +1805,27 @@ function vaSendToCRM(offer, isBiz) {
     return;
   }
 
-  // Costruzione headers
-  var headers = { 'Content-Type': 'application/json' };
-  if (UWPLACE_CONFIG.apiKey) {
-    headers['Authorization'] = (UWPLACE_CONFIG.authHeader ? UWPLACE_CONFIG.authHeader + ' ' : '') + UWPLACE_CONFIG.apiKey;
-  }
-  Object.keys(UWPLACE_CONFIG.extraHeaders || {}).forEach(function(k) {
-    headers[k] = UWPLACE_CONFIG.extraHeaders[k];
-  });
-
-  fetch(UWPLACE_CONFIG.endpoint, {
+  // Mando come text/plain per evitare CORS preflight con Apps Script Web App.
+  // Apps Script legge comunque il body via e.postData.contents.
+  fetch(SHEET_WEBHOOK_URL, {
     method: 'POST',
-    headers: headers,
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
     body: JSON.stringify(payload)
   })
   .then(function(res) {
-    if (!res.ok) throw new Error('HTTP ' + res.status);
     if (crmIcon) crmIcon.textContent = '✅';
     if (crmText) {
-      crmText.textContent = 'Dati salvati nel CRM di Andrea.';
+      crmText.textContent = 'Lead salvato — Andrea ti contatterà presto.';
       crmText.style.color = 'rgba(255,255,255,.6)';
     }
   })
   .catch(function(err) {
-    console.warn('[CRM uwplace] errore invio:', err, payload);
+    console.warn('[CRM] errore invio:', err, payload);
     if (crmIcon) crmIcon.textContent = '⚠️';
     if (crmText) crmText.textContent = 'Salvataggio non riuscito — scrivi su WhatsApp ad Andrea.';
   });
 }
 
-// RESET
 function vaReset() {
   vaS = {step:'V0', nome:'', phone:'', zona:'', operatore:'', costo:'', a:{}, lgInt:false, history:[], _resultShown:false};
   vaIsPaused = false;
