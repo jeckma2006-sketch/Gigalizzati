@@ -6,7 +6,6 @@
 <title>Sempre in Rete — Il tuo negozio Wind Tre a Vasto</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://www.youtube.com/iframe_api"></script>
 <style>
 :root {
   --orange: #E8541E;
@@ -601,6 +600,7 @@ footer{background:#111;padding:56px 5% 32px;border-top:2px solid rgba(255,255,25
   .cta-buttons{flex-direction:column;align-items:center}
   .va-master-wrap{grid-template-columns:1fr;gap:14px;padding:0 5%}
   .va-side-arrows{display:none}
+  .va-outer-frame{max-width:460px;margin:0 auto;width:100%}
 }
 @media(max-width:480px){
   section{padding:70px 5%}
@@ -624,6 +624,7 @@ footer{background:#111;padding:56px 5% 32px;border-top:2px solid rgba(255,255,25
     gtag('js', new Date());
     gtag('config', 'G-Z1BMC9R3SN');
   </script>
+<script>console.log('[GIGALIZZATI v4] File aggiornato correttamente caricato');</script>
 </head>
 <body>
 
@@ -731,10 +732,17 @@ footer{background:#111;padding:56px 5% 32px;border-top:2px solid rgba(255,255,25
     <!-- CORNICE DOPPIA arancione lampeggiante + VIDEO -->
     <div class="va-outer-frame">
       <div id="vaLayout" class="va-inner-frame">
-        <div id="vaPlayerArea" style="position:relative;background:#000;aspect-ratio:9/16;width:100%;overflow:hidden">
+        <div id="vaPlayerArea" style="position:relative;background:#000;width:100%;overflow:hidden;padding-bottom:177.78%;height:0">
 
           <!-- YOUTUBE TARGET -->
-          <div id="vaYTTarget" style="width:100%;height:100%;position:absolute;inset:0"></div>
+          <div id="vaYTTarget" style="position:absolute;top:0;left:0;right:0;bottom:0;width:100%;height:100%">
+  <iframe id="vaIframeEl"
+    src="https://www.youtube.com/embed/B6-VbHDOfes?autoplay=1&mute=1&playsinline=1&controls=0&rel=0&modestbranding=1&iv_load_policy=3&showinfo=0&enablejsapi=1"
+    allow="autoplay; encrypted-media; picture-in-picture"
+    allowfullscreen
+    style="position:absolute;top:0;left:0;width:100%;height:100%;border:0">
+  </iframe>
+</div>
 
           <!-- MASK per nascondere intestazione YouTube (titolo short + avatar canale) -->
           <div class="va-yt-header-mask" aria-hidden="true"></div>
@@ -747,14 +755,14 @@ footer{background:#111;padding:56px 5% 32px;border-top:2px solid rgba(255,255,25
           </button>
 
           <!-- PAUSED OVERLAY -->
-          <div id="vaPausedOverlay" style="display:none;position:absolute;inset:0;z-index:9;background:rgba(0,0,0,.45);align-items:center;justify-content:center;pointer-events:none">
+          <div id="vaPausedOverlay" style="display:none;position:absolute;top:0;left:0;right:0;bottom:0;z-index:9;background:rgba(0,0,0,.45);align-items:center;justify-content:center;pointer-events:none">
             <div style="width:64px;height:64px;border-radius:50%;background:rgba(232,84,30,.9);display:flex;align-items:center;justify-content:center">
               <svg width="26" height="26" viewBox="0 0 24 24" fill="white" style="margin-left:3px"><path d="M8 5v14l11-7z"/></svg>
             </div>
           </div>
 
           <!-- MUTE OVERLAY -->
-          <button id="vaMuteOverlay" onclick="vaUnmute()" style="display:none;position:absolute;inset:0;width:100%;height:100%;background:rgba(0,0,0,.55);border:none;cursor:pointer;z-index:8;flex-direction:column;align-items:center;justify-content:center;gap:10px">
+          <button id="vaMuteOverlay" onclick="vaUnmute()" style="display:none;position:absolute;top:0;left:0;right:0;bottom:0;width:100%;height:100%;background:rgba(0,0,0,.55);border:none;cursor:pointer;z-index:8;flex-direction:column;align-items:center;justify-content:center;gap:10px">
             <svg width="48" height="48" viewBox="0 0 24 24" fill="white" style="opacity:.9"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
             <span style="color:white;font-size:.85rem;font-weight:700;font-family:var(--font-body)">Tocca per attivare il suono</span>
           </button>
@@ -769,12 +777,12 @@ footer{background:#111;padding:56px 5% 32px;border-top:2px solid rgba(255,255,25
           </div>
 
           <!-- LOADER -->
-          <div id="vaLoader" style="position:absolute;inset:0;background:#0D0D0D;display:flex;align-items:center;justify-content:center;z-index:20">
+          <div id="vaLoader" style="position:absolute;top:0;left:0;right:0;bottom:0;background:#0D0D0D;display:none;align-items:center;justify-content:center;z-index:20">
             <div style="width:36px;height:36px;border:3px solid rgba(255,255,255,.15);border-top-color:var(--orange);border-radius:50%;animation:va-spin 0.8s linear infinite"></div>
           </div>
 
           <!-- PLAY SCREEN -->
-          <div id="vaPlayScreen" style="display:none;position:absolute;inset:0;background:#0d0d0d;z-index:18;flex-direction:column;align-items:center;justify-content:center;gap:0;padding:32px 24px;text-align:center">
+          <div id="vaPlayScreen" style="display:flex;position:absolute;top:0;left:0;right:0;bottom:0;background:#0d0d0d;z-index:18;flex-direction:column;align-items:center;justify-content:center;gap:0;padding:32px 24px;text-align:center">
             <div style="width:88px;height:88px;border-radius:50%;overflow:hidden;border:3px solid var(--orange);box-shadow:0 0 24px rgba(232,84,30,.4);margin-bottom:20px;flex-shrink:0">
               <img src="https://i.imgur.com/e81fwRr.jpeg" alt="Andrea" style="width:100%;height:100%;object-fit:cover;object-position:top">
             </div>
@@ -1588,64 +1596,51 @@ var VA_VIDEO_DURATION = {
 };
 
 // Player YouTube
-var vaPlayer = null;
-var vaPlayerReady = false;
+var vaPlayerReady = true; // sempre true con iframe diretto
 var vaPendingLoad = null;
 
-function onYouTubeIframeAPIReady() {
-  vaPlayer = new YT.Player('vaYTTarget', {
-    height: '100%', width: '100%',
-    videoId: VA_VIDEOS['V0'],
-    playerVars: { autoplay:0, mute:0, playsinline:1, rel:0, modestbranding:1, controls:0, disablekb:1, fs:0, iv_load_policy:3, showinfo:0 },
-    events: {
-      onReady: function(e) {
-        vaPlayerReady = true;
-        var loader = document.getElementById('vaLoader');
-        if (loader) loader.style.display = 'none';
-        var ps = document.getElementById('vaPlayScreen');
-        if (ps) ps.style.display = 'flex';
-        e.target.cueVideoById(VA_VIDEOS['V0']);
-        vaS._currentKey = 'V0';
-        vaS._currentStep = VA_FLOW['V0'];
-        document.getElementById('vaStepLabel').textContent = VA_FLOW['V0'].label;
-        document.getElementById('vaBackBtn').style.display = 'none';
-      },
-      onStateChange: function(e) {
-        if (e.data === 0) { vaOnEnded(); }
-        if (e.data === 1) {
-          var ov = document.getElementById('vaNextOverlay');
-          if (ov) ov.style.display = 'none';
-          if (vaIsPaused) {
-            vaIsPaused = false;
-            var po = document.getElementById('vaPausedOverlay');
-            if (po) po.style.display = 'none';
-            var icon = document.getElementById('vaPauseIcon');
-            if (icon) icon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
-          }
-        }
-        if (e.data === 2) {
-          if (!vaIsPaused) {
-            vaIsPaused = true;
-            var po = document.getElementById('vaPausedOverlay');
-            if (po) po.style.display = 'flex';
-            var icon = document.getElementById('vaPauseIcon');
-            if (icon) icon.innerHTML = '<path d="M8 5v14l11-7z"/>';
-          }
-        }
-      },
-      onError: function() { vaOnEnded(); }
-    }
-  });
+/* ═══════════════════════════════════════════════════════
+   MOTORE VIDEO — iframe diretto, nessuna IFrame API YT
+   Funziona su iOS Safari, Android Chrome, ovunque.
+   Controlli via postMessage (enablejsapi=1).
+   Fine video rilevata con timer (VA_VIDEO_DURATION).
+   ═══════════════════════════════════════════════════════ */
+var vaIframe = document.getElementById('vaIframeEl');
+vaPlayerReady = true;
+
+function vaCmd(func, args) {
+  var f = document.getElementById('vaIframeEl');
+  if (!f) return;
+  f.contentWindow.postMessage(
+    JSON.stringify({event:'command', func:func, args: args || []}), '*'
+  );
 }
-if (typeof YT !== 'undefined' && YT.Player && !vaPlayer) {
-  window.addEventListener('DOMContentLoaded', onYouTubeIframeAPIReady);
+
+function vaPlayerLoadVideo(videoId, autoplay) {
+  var target = document.getElementById('vaYTTarget');
+  if (!target) return;
+  var f = document.createElement('iframe');
+  f.id = 'vaIframeEl';
+  f.setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture');
+  f.setAttribute('allowfullscreen', '');
+  f.style.cssText = 'position:absolute;top:0;left:0;width:100%;height:100%;border:0';
+  f.src = 'https://www.youtube.com/embed/' + videoId
+    + '?autoplay=1&mute=0&playsinline=1&controls=0&rel=0'
+    + '&modestbranding=1&iv_load_policy=3&showinfo=0&enablejsapi=1';
+  target.innerHTML = '';
+  target.appendChild(f);
+  vaIframe = f;
 }
 
 function vaStartPlayer() {
+  // Nascondi play screen
   var ps = document.getElementById('vaPlayScreen');
   if (ps) ps.style.display = 'none';
-  if (vaPlayer) { vaPlayer.unMute(); vaPlayer.setVolume(100); vaPlayer.playVideo(); }
   vaIsPaused = false;
+  // Il video è già in play (muto) — invia play + mostra overlay unmute
+  vaCmd('playVideo');
+  var mo = document.getElementById('vaMuteOverlay');
+  if (mo) mo.style.display = 'flex';
   vaLoad('V0', true);
   vaShowWatchPanel('V0');
   var pb = document.getElementById('vaPauseBtn');
@@ -1653,13 +1648,12 @@ function vaStartPlayer() {
 }
 
 function vaTogglePlay() {
-  if (!vaPlayer || !vaPlayerReady) return;
   var ps = document.getElementById('vaPlayScreen');
   if (ps && ps.style.display !== 'none') return;
   if (vaS._currentStep && vaS._currentStep.noVideo) return;
 
   if (vaIsPaused) {
-    vaPlayer.playVideo();
+    vaCmd('playVideo');
     vaIsPaused = false;
     var po = document.getElementById('vaPausedOverlay');
     if (po) po.style.display = 'none';
@@ -1667,7 +1661,7 @@ function vaTogglePlay() {
     if (icon) icon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
     vaStartProgress(vaS._currentKey);
   } else {
-    vaPlayer.pauseVideo();
+    vaCmd('pauseVideo');
     vaIsPaused = true;
     var po = document.getElementById('vaPausedOverlay');
     if (po) po.style.display = 'flex';
@@ -1721,15 +1715,21 @@ function vaStartProgress(key) {
   vaProgressInt = setInterval(function() {
     if (vaIsPaused) return;
     var elapsed = Date.now() - startTime;
-    var progress = Math.min(elapsed / duration * 100, 99);
-    if (progress >= 99) { clearInterval(vaProgressInt); vaProgressInt = null; }
+    var progress = Math.min(elapsed / duration * 100, 100);
+    if (progress >= 100) {
+      clearInterval(vaProgressInt);
+      vaProgressInt = null;
+      vaOnEnded();
+    }
   }, 200);
 }
 
 function vaUnmute() {
   var mo = document.getElementById('vaMuteOverlay');
   if (mo) mo.style.display = 'none';
-  if (vaPlayer && vaPlayer.unMute) { vaPlayer.unMute(); vaPlayer.setVolume(100); }
+  vaCmd('unMute');
+  vaCmd('setVolume', [100]);
+  vaCmd('playVideo');
 }
 
 function vaLoad(key, skipVideoLoad) {
@@ -1746,13 +1746,7 @@ function vaLoad(key, skipVideoLoad) {
 
   var ytId = VA_VIDEOS[key];
   if (!skipVideoLoad && ytId && !step.noVideo) {
-    if (vaPlayerReady && vaPlayer) {
-      vaPlayer.loadVideoById(ytId);
-      vaPlayer.unMute();
-      vaPlayer.setVolume(100);
-    } else {
-      vaPendingLoad = ytId;
-    }
+    vaPlayerLoadVideo(ytId, true);
   }
 
   vaS._currentKey = key;
@@ -1778,7 +1772,7 @@ function vaLoad(key, skipVideoLoad) {
   }
 
   if (step.noVideo) {
-    if (vaPlayer && vaPlayer.pauseVideo) { try { vaPlayer.pauseVideo(); } catch(e) {} }
+    if (vaIframe) { vaCmd('pauseVideo'); }
     if (step.form) {
       document.getElementById('vaForm').style.display = 'flex';
     } else if (step.btns) {
@@ -1998,9 +1992,10 @@ function vaReset() {
   fb.disabled = true;
   fb.style.background = 'rgba(232,84,30,.25)';
   fb.style.color = 'rgba(255,255,255,.35)';
-  if (vaPlayerReady && vaPlayer) {
-    vaPlayer.stopVideo();
-    vaPlayer.cueVideoById(VA_VIDEOS['V0']);
+  // Reset iframe al video iniziale (muto, pronto per il prossimo play)
+  var rTarget = document.getElementById('vaYTTarget');
+  if (rTarget) {
+    rTarget.innerHTML = '<iframe id="vaIframeEl" src="https://www.youtube.com/embed/B6-VbHDOfes?autoplay=1&mute=1&playsinline=1&controls=0&rel=0&modestbranding=1&iv_load_policy=3&showinfo=0&enablejsapi=1" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;border:0"></iframe>';
   }
   var ps = document.getElementById('vaPlayScreen');
   if (ps) ps.style.display = 'flex';
